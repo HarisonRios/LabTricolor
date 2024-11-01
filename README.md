@@ -1,6 +1,6 @@
 # Projeto Individual SPTECH - Harison Rios 💻
 
-<img src=".github/background.png" alt="Imagem Principal">
+<img src="./.github/background.png" alt="Imagem Principal">
 
 > Imagem da Pagina Principal do Site - Harison Rios
 
