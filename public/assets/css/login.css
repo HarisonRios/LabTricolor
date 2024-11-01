@@ -1,0 +1,196 @@
+* {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    overflow-y: hidden;
+  }
+  a {
+    color: #666;
+    font-size: 14px;
+    display: block;
+  }
+  .login-title {
+    text-align: center;
+  }
+  .notice {
+    font-size: 13px;
+    text-align: center;
+    color: #666;
+  }
+
+
+  #login-page {
+    display: flex;
+  }
+  
+
+  .login {
+    width: 30%;
+    height: 100vh;
+    background: #FFF;
+    padding: 70px;
+    margin-top: 70px;
+    margin-left: 90px;
+  }
+  
+
+  .login a {
+    margin-top: 25px;
+    text-align: center;
+  }
+  .form-login {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+  }
+  .form-login label {
+    text-align: left;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    margin-left: 15px;
+    display: block;
+    color: #666;
+  }
+
+
+  .input-email,
+  .input-password {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #05060f0a;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 4px 0 10px 0;
+    border: 2px solid transparent;
+    transition: border-color 0.3s cubic-bezier(.25,.01,.25,1), background 0.2s cubic-bezier(.25,.01,.25,1);
+  }
+
+
+.input-email:hover,
+.input-password:hover,
+.input-email:focus-within,
+.input-password:focus-within {
+  border-color: #05060f;
+}
+
+  .icon {
+    padding: 4px;
+    color: #666;
+    min-width: 30px;
+    text-align: center;
+  }
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    border: 0;
+    background: none;
+    font-size: 16px;
+    padding: 4px 0;
+    outline: none;
+  }
+
+
+ button {
+    position: relative;
+    top: 35px;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1em 2.5em;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 6em;
+    transition: all 0.2s;
+    border: none;
+    font-family: inherit;
+    font-weight: 500;
+    color: black;
+    background-color: rgb(255, 0, 0);
+  }
+  
+
+   button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  button::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+  }
+  
+  button::after {
+    background-color: #fff;
+  }
+  
+  button:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+  }
+
+  .esqueciSenha{
+    position: relative;
+    top: 25px;
+    left: 15px;
+  }
+  
+
+  .background {
+    width: 60%;
+    padding: 40px;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.822), rgba(0, 0, 0, 0.767)), url('../img/background.png') no-repeat center;
+    background-size: cover;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-content: center;
+    flex-direction: row;
+  }
+
+
+  .background h1 {
+    max-width: 420px;
+    color: #FFF;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+  }
+  .background p {
+    max-width: 650px;
+    color: #1a1a1a;
+    font-size: 15px;
+    text-align: right;
+    padding: 0;
+    margin: 15px 0 0 0;
+  }
+  .checkbox label {
+    display: inline;
+    margin: 0;
+    position: relative;
+    bottom: 10px;
+
+    input{
+        position: relative;
+        top: 2.8px;
+    }
+  }

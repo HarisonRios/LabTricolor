@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AquaTech | Cadastro</title>
+
+  <link rel="stylesheet" href="./css/estilo.css" />
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/sessao.js"></script>
+</head>
+
+<body onload="listar()">
+  <div class="login">
+    <div class="container">
+      <div class="card card-cadastro">
+        <h2>Bem-vindo!</h2>
+        <div class="formulario">
+          <div class="campo">
+            <span>Código de ativação:</span>
+            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
+          </div>
+          <div class="campo">
+            <span>Nome:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
+          </div>
+          <div class="campo">
+            <span>E-mail:</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+          </div>
+          <div class="campo">
+            <span>CPF:</span>
+            <input id="cpf_input" type="text" placeholder="000-000-000-00" />
+          </div>
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="campo">
+            <span>Confirmação da Senha:</span>
+            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
+          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+        </div>
+
+        <div id="div_aguardar" style="display: none;">
+          <p>Aguarde...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let listaEmpresasCadastradas = [];
+
+    function sumirMensagem() {
+      const mensagem = document.getElementById('div_aguardar');
+      if (mensagem) {
+        mensagem.style.display = 'none'; // ou use alguma animação
+      }
+    }
+
+    function cadastrar() {
+      const codigoVar = codigo_input.value;
+      const nomeVar = nome_input.value;
+      const emailVar = email_input.value;
+      const cpfVar = cpf_input.value;
+      const senhaVar = senha_input.value;
+      const confirmacaoSenhaVar = confirmacao_senha_input.value;
+      let idEmpresaVincular;
+
+      // Validação dos campos
+      if (!nomeVar || !emailVar || !senhaVar || !confirmacaoSenhaVar || !codigoVar || !cpfVar) {
+        Swal.fire("Erro!", "Por favor, preencha todos os campos.", "error");
+        return false;
+      }
+      if (nomeVar.length <= 1) {
+        Swal.fire("Erro!", "Seu nome precisa ter mais de 1 dígito.", "error");
+        return false;
+      }
+      if (emailVar.indexOf('@') === -1) {
+        Swal.fire("Erro!", "Seu email precisa conter @.", "error");
+        return false;
+      }
+      if (senhaVar.length < 6) {
+        Swal.fire("Erro!", "Sua senha deve ter mais que 6 caracteres.", "error");
+        return false;
+      }
+      if (confirmacaoSenhaVar !== senhaVar) {
+        Swal.fire("Erro!", "As senhas digitadas não coincidem.", "error");
+        return false;
+      }
+      if (cpfVar.length !== 11) {
+        Swal.fire("Erro!", "Seu CPF precisa ter 11 dígitos.", "error");
+        return false;
+      }
+
+      for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+        if (listaEmpresasCadastradas[i].codigo_ativacao === codigoVar) {
+          idEmpresaVincular = listaEmpresasCadastradas[i].id;
+          console.log("Código de ativação válido.");
+          break;
+        }
+      }
+
+      if (!idEmpresaVincular) {
+        Swal.fire("Erro!", "Código de ativação inválido.", "error");
+        return false;
+      }
+
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          cpfServer: cpfVar,
+          idEmpresaVincularServer: idEmpresaVincular
+        }),
+      })
+        .then(function (resposta) {
+          if (resposta.ok) {
+            Swal.fire("Sucesso!", "Cadastro realizado com sucesso! Redirecionando para tela de Login...", "success").then(() => {
+              window.location = "login.html";
+            });
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+
+      sumirMensagem();
+      return false;
+    }
+
+    function listar() {
+      fetch("/empresas/listar", {
+        method: "GET",
+      })
+        .then(function (resposta) {
+          return resposta.json();
+        })
+        .then((empresas) => {
+          empresas.forEach((empresa) => {
+            listaEmpresasCadastradas.push(empresa);
+          });
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+    }
+  </script>
+</body>
+
+</html>

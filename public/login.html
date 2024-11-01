@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>São Paulo FC - Harison</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="icon" href="assets/img/spfc.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div id="login-page">
+        <div class="background">
+            <h1>
+                Salve o Tricolor Paulista Amado clube brasileiro Tu és forte, tu és grande Dentre os grandes, és o primeiro
+            </h1>
+        </div>
+        <div class="login">
+            <h2 class="login-title">Login</h2>
+            <p class="notice">Seja Bem-Vindo a Lab Tricolor</p>
+            <form class="form-login">
+                <label for="email">E-mail</label>
+                <div class="input-email">
+                    <i class="fas fa-envelope icon"></i>
+                    <input id="email_input" type="email" placeholder="Insira seu email">
+                </div>
+                <label for="password">Senha</label>
+                <div class="input-password">
+                    <i class="fas fa-lock icon"></i>
+                    <input id="senha_input" type="password" placeholder="******">
+                </div>
+                <div class="checkbox">
+                    <label for="remember">
+                        <input type="checkbox" name="remember"> lembrar-me?
+                    </label>
+                </div>
+                <button type="button" onclick="entrar()">Entrar</button>
+            </form>
+            <a class="esqueciSenha" href="">Esqueci minha senha</a>
+        </div>
+    </div>
+
+    <div id="div_aguardar" style="display: none;">
+        <p>Aguarde...</p>
+    </div>
+    
+    <script>
+        function aguardar() {
+            var divAguardar = document.getElementById("div_aguardar");
+            divAguardar.style.display = "flex"; 
+        }
+
+        function finalizarAguardar(texto) {
+            var divAguardar = document.getElementById("div_aguardar");
+            divAguardar.style.display = "none";
+            
+            if (texto) {
+                Swal.fire({
+                    title: "Erro",
+                    text: texto,
+                    icon: "error",
+                    width: 400,
+                    padding: "2em",
+                    color: "#FF0000",
+                    background: "#fff",
+                    backdrop: `rgba(0,0,0,0.4)`
+                });
+            }
+        }
+
+        function entrar() {
+            event.preventDefault();
+            if (typeof aguardar === "function") aguardar();
+
+            var emailVar = document.getElementById("email_input").value;
+            var senhaVar = document.getElementById("senha_input").value;
+
+            if (emailVar == "" || senhaVar == "") {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "Por favor, preencha todos os campos.",
+                    icon: "error",
+                    width: 400,
+                    padding: "2em",
+                    color: "#FF0000",
+                    background: "#fff",
+                    backdrop: `rgba(0,0,0,0.4)`
+                });
+                if (typeof finalizarAguardar === "function") finalizarAguardar();
+                return;
+            }
+
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    senhaServer: senhaVar
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.ID_USUARIO = json.id;
+                        sessionStorage.AQUARIOS = JSON.stringify(json.aquarios);
+
+                        Swal.fire({
+                            title: "Login realizado com sucesso!",
+                            text: "Redirecionando para o dashboard...",
+                            icon: "success",
+                            width: 400,
+                            padding: "2em",
+                            color: "#008552",
+                            background: "#fff",
+                            backdrop: `rgba(0,0,0,0.4)`
+                        });
+
+                        setTimeout(function () {
+                            window.location = "./dashboard/cards.html";
+                        }, 1000);
+                    });
+                } else {
+                    resposta.text().then(texto => {
+                        Swal.fire({
+                            title: "Erro ao realizar login",
+                            text: texto,
+                            icon: "error",
+                            width: 400,
+                            padding: "2em",
+                            color: "#FF0000",
+                            background: "#fff",
+                            backdrop: `rgba(0,0,0,0.4)`
+                        });
+                        if (typeof finalizarAguardar === "function") finalizarAguardar();
+                    });
+                }
+
+            }).catch(function (erro) {
+                Swal.fire({
+                    title: "Erro",
+                    text: "Não foi possível conectar ao servidor.",
+                    icon: "error",
+                    width: 400,
+                    padding: "2em",
+                    color: "#FF0000",
+                    background: "#fff",
+                    backdrop: `rgba(0,0,0,0.4)`
+                });
+                if (typeof finalizarAguardar === "function") finalizarAguardar();
+            });
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="./js/sessao.js"></script>
+</body>
+</html>
