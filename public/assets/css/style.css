@@ -800,10 +800,16 @@ hr {
     margin-top: 20px;
 }
 
-.footer .row a i {
-    font-size: 2em;
+.footer .row span i {
+    font-size: 2.5em;
     margin: 0% 5%;
 }
+
+.footer .row span i:hover{
+    color: red;
+}
+
+
 
 
 ::-webkit-scrollbar {
