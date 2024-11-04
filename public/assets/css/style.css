@@ -564,14 +564,13 @@ body {
 
 .conteudo-textos-case span {
     width: 180px;
+    color: white;
     font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 40px;
-    color: white;
     border-radius: 50px;
-    color: black;
     font-weight: bold;
     letter-spacing: 1.2px;
 }
