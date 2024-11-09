@@ -19,7 +19,7 @@ function buscarPorCodigo(codigo_ativacao) {
 }
 
 function cadastrar(nome, codigo_ativacao) {
-  var instrucaoSql = `INSERT INTO socioTorcedor (nome, codigo_ativacao) VALUES ('${nome}', '${codigo_ativacao}')`;
+  var instrucaoSql = `INSERT INTO sociotorcedor (nome, codigo_ativacao) VALUES ('${nome}', '${codigo_ativacao}')`;
 
   return database.executar(instrucaoSql);
 }
