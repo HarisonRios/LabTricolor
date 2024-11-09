@@ -3,123 +3,197 @@
 
 <head>
     <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Tempo Real</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaTech | Dashboards</title>
+
+  <link rel="stylesheet" href="../assets/css/dashboards.css" />
+  <link rel="stylesheet" href="../assets/css/card.css" />
+
+  <script src="../assets/js/sessao.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <link rel="stylesheet" href="../assets/css/dashboards.css">
+<body onload="validarSessao(), buscarPontuacao()">
+  <div class="janela">
+    <div class="header-left dash-header">
+      <h1>Projeto Fiel</h1>
 
-    <script src="../assets/js/sessao.js"></script>
-    <script src="../assetxs/js/alerta.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-</head>
+      <div class="hello">
+        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+      </div>
 
-<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
+      <div class="btn-nav-white">
+        <a href="./dashboard.html">
+          <h3>Quiz</h3>
+        </a>
+      </div>
 
-    <div class="janela">
+      <div class="btn-nav">
+        <h3>Visão Geral</h3>
+      </div>
 
-        <div class="header-left dash-header">
+      <div class="btn-nav-white">
+        <a href="./mural.html">
+          <h3>Mural de Histórias</h3>
+        </a>
+      </div>
 
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-            
-
-            <div class="btn-nav">
-                <h3>Aquários</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./quiz.html">
-                    <h3>Quiz</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
-        </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-            <div class="area-parametros-alerta">
-                <p class="titulo-legenda">
-                    Legenda - Parâmetros para Alertas
-                </p>
-                <div class="parametros-alerta">
-                    <div class="item-regua perigo-frio">
-                        <p>Perigo</p>
-                        <p>&lt;=5°C</p>
-                    </div>
-                    <div class="item-regua alerta-frio">
-                        <p>Alerta</p>
-                        <p>&lt;=10°C</p>
-                    </div>
-                    <div class="item-regua ideal">
-                        <p>Ideal</p>
-                        <p>20°C</p>
-                    </div>
-                    <div class="item-regua alerta-quente">
-                        <p>Alerta</p>
-                        <p>&gt;=22°C</p>
-                    </div>
-                    <div class="item-regua perigo-quente">
-                        <p>Perigo</p>
-                        <p>&gt;=23°C</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cards" id="cardAquarios">
-
-            </div>
-
-        </div>
-
+      <div class="btn-logout" onclick="limparSessao()">
+        <h3>Sair</h3>
+      </div>
     </div>
 
-</body>
+    <div class="dash">
+      <div class="tela-grafico">
+        <div class="kpi-grafico">
+          <div class="kpi1">
+            <span>Sua Ultima Pontuação:</span>
+            <span><span id="ultimaPontuacao">0</span> de 10 possíveis</span>
+          </div>
+          <div class="kpi2">
+            <span>Pontuação Média dos Jogadores:</span>
+            <span><span id="mediaPontuacaoJogador">0</span> de 10 pontos possíveis</span>
+          </div>
+        </div>
+        <div class="card-grafico">
+          <div class="titulo-grafico">
+            <p>Pontuação dos Jogadores no Quiz</p>
+          </div>
+        </div>
+        <div class="dados-grafico">
+          <div class="grafico2">
+            <div>
+              <canvas id="myChart2"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<script>
-    function exibirAquarios() {
-        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
-            document.getElementById("cardAquarios").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
-                        </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
-                        </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
-                    </div>
-                    </div>
-                    `
-        });
+  <script>
+    const pontuacao = sessionStorage.getItem('Pontos');
+    if (pontuacao == null) {
+      document.getElementById('ultimaPontuacao').innerHTML = '0';
+    } else {
+      document.getElementById('ultimaPontuacao').innerHTML = pontuacao;
     }
 
-</script>
+    // Obtém o ID do usuário da sessão
+    const idUsuario = sessionStorage.getItem('ID_USUARIO');
+    if (idUsuario) {
+      // Faz uma requisição para obter a pontuação mais recente do usuário
+      fetch(`/quiz/listarPontos`)
+        .then(response => response.json())
+        .then(data => {
+          const ultimaPontuacao = data[0]["avg(qtdPontos)"];
+          document.getElementById('mediaPontuacaoJogador').textContent = Math.floor(parseFloat(ultimaPontuacao));
+        })
+        .catch(error => {
+          console.error('Erro ao obter pontuação:', error);
+        });
+    } else {
+      console.error('ID do usuário não encontrado na sessão.');
+    }
+
+    // Exibe o nome do usuário
+    document.getElementById("b_usuario").innerHTML = sessionStorage.NOME_USUARIO;
+
+    function buscarPontuacao() {
+  fetch(`/grafico/buscarPontuacao`, { cache: 'no-store' })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .then(resposta => {
+      if (resposta && resposta.length > 0) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        plotarGrafico(resposta);
+      } else {
+        console.error('Nenhum dado válido encontrado para o gráfico.');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
+
+
+    function plotarGrafico(resposta) {
+      console.log('Iniciando plotagem do gráfico...');
+
+      // Criando estrutura para plotar gráfico - labels
+      let labels = ['Categorias'];
+
+      // Criando estrutura para plotar gráfico - dados
+      let dados = {
+        labels: labels,
+        datasets: [{
+          label: 'Até 10',
+          data: [],
+          backgroundColor: 'rgb(105,105,105)',
+          borderColor: 'rgb(105,105,105)',
+        },
+        {
+          label: 'Até 15',
+          data: [],
+          backgroundColor: 'rgb(218,165,32)',
+          borderColor: 'rgb(218,165,32)',
+        },
+        {
+          label: '16',
+          data: [],
+          backgroundColor: 'rgb(199, 52, 52)',
+          borderColor: 'rgb(199, 52, 52)',
+        }]
+      };
+
+      console.log('----------------------------------------------');
+      console.log('Estes dados foram recebidos pela função "buscarPontuacao" e passados para "plotarGrafico":');
+      console.log(resposta);
+
+      // Acessando o único objeto na primeira posição do array
+      const registro = resposta[0];
+      dados.datasets[0].data.push(registro.ate_10);
+      dados.datasets[1].data.push(registro.ate_15);
+      dados.datasets[2].data.push(registro.ate_16);
+
+      console.log('----------------------------------------------');
+      console.log('O gráfico será plotado com os respectivos valores:');
+      console.log('Labels:');
+      console.log(labels);
+      console.log('Dados:');
+      console.log(dados.datasets);
+      console.log('----------------------------------------------');
+
+      // Criando estrutura para plotar gráfico - config
+      const config = {
+        type: 'bar',
+        data: dados,
+        options: {
+          scales: {
+            x: {
+              beginAtZero: true
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      };
+
+      // Adicionando gráfico criado em div na tela
+      let myChart = new Chart(
+        document.getElementById('myChart2'),
+        config
+      );
+    }
+  </script>
+</body>
 
 </html>

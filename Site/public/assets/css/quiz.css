@@ -1,74 +1,143 @@
-/* Não usar pure white or pure black: https://uxplanet.org/basicdesign-never-use-pure-black-in-typography-36138a3327a6 */
-/* The 4-point grid system: https://medium.com/@sainzkike/controlling-spacing-in-design-systems-multiple-spacing-9bf1afec87f */
 
-:root {
-    --primary-brand-color: #ED145B;
-    --secondary-brand-color: #0762C8;
-    --success: #198754;
-    --success-dark: #095c36;
-    --success-light: #9dd3ba;
-    --warning: #ffc107;
-    --warning-dark: #705400;
-    --warning-light: #fdebb3;
-    --danger: #dc3545;
-    --danger-dark: #990c19;
-    --danger-light: #f0c1c6;
-    --new-gray: #CCCCCC;
-    --new-black: #212427;
-    --new-white: #E8E8E8;
-}
-
-body {
-    color: var(--new-black);
-    background-color: var(--new-white);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-button {
-    font-family: monospace;
-    font-weight: bold;
-}
-
-.flex-colunar {
+img {
+    -webkit-user-drag: none;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  .quiz {
+    width: 85%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0;
+    left: 15%;
+    overflow: auto;
+    flex-direction: column;
+  }
+  
+  .quiz::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/Background/torcida.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: -1;
+  }
+  
+  .container-quiz {
+    background-color: #2f2f2f;
+    width: 90%;
+    max-width: 800px;
+    color: whitesmoke;
+    position: relative;
+  
+    border: 2px solid #747272;
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 0 2px 2px;
+  
     display: flex;
     flex-direction: column;
-}
-
-.width-fit-content {
-    width: fit-content;
-}
-
-.border-primary {
-    border: 3px solid var(--primary-brand-color);
-}
-
-.border-secondary {
-    border: 3px solid var(--secondary-brand-color);
-}
-
-.padding-8 {
-    padding: 8px;
-}
-
-.text-bold {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container-perguntas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .pergunta {
+    font-size: 24px;
     font-weight: bold;
-}
-
-.text-success-with-bg {
-    color: var(--success-dark);
-    background-color: var(--success-light);
-}
-
-.text-warning-with-bg {
-    color: var(--warning-dark);
-    background-color: var(--warning-light);
-}
-
-.text-danger-with-bg {
-    color: var(--danger-dark);
-    background-color: var(--danger-light);
-}
-
-.text-new-gray {
-    color: var(--new-gray);
-}
+    text-align: center;
+  }
+  
+  .container-respostas {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  .proxima-pergunta {
+    margin-top: 32px;
+  }
+  
+  .button {
+    background-color: #606060;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 6px;
+    height: 48px;
+    padding: 0 32px;
+  
+    transition: filter 0.2s;
+  }
+  
+  .button:not(:disabled):hover {
+    filter: brightness(0.8);
+  }
+  
+  .hide {
+    display: none;
+  }
+  
+  .correct {
+    background-color: green;
+  }
+  
+  .incorrect {
+    background-color: red;
+  }
+  
+  .imagem {
+    display: flex;
+    align-items: end;
+    position: static;
+    margin-top: 20px;
+  }
+  
+  .imagem img {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .texto-confirmacao{
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .resposta:disabled {
+    cursor: not-allowed;
+  }
+  
+  .mensagem-final{
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .mensagem-final span{
+    display: block;
+    margin-top: 8px;
+  }
+  
+  
