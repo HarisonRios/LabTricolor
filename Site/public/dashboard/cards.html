@@ -2,49 +2,54 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/img/spfc.png" type="image/x-icon">
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AquaTech | Dashboards</title>
 
-  <link rel="stylesheet" href="../assets/css/dashboards.css" />
+  <title> LabTricolor - São Paulo FC</title>
+
   <link rel="stylesheet" href="../assets/css/card.css" />
 
-  <script src="../assets/js/sessao.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
 
 
 <body onload="validarSessao(), buscarPontuacao()">
   <div class="janela">
     <div class="header-left dash-header">
-      <h1>LabTricolor - São Paulo FC</h1>
+      <a href="./dashboard.html">
+        <img src="../assets/img/spfc.png" class="logo" alt="Lab Tricolor - Logo" />
+      </a>
 
-      <div class="hello">
-        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-      </div>
-
-      <div class="btn-nav-white">
         <a href="./dashboard.html">
           <h3>Quiz</h3>
         </a>
-      </div>
 
-      <div class="btn-nav">
         <h3>Visão Geral</h3>
-      </div>
-
-      <div class="btn-nav-white">
+ 
         <a href="./mural.html">
           <h3>Mural de Histórias</h3>
         </a>
-      </div>
+   
+    <div class="parte-usuario">
+        <img src="../assets/img/profile.jpg" class="foto-usuario" alt="">
+        <p>Olá, <span id="b_usuario">usuário</span>!</p>
+        <span>Socio Torcedor - Diamante</span>
 
-      <div class="btn-logout" onclick="limparSessao()">
-        <h3>Sair</h3>
-      </div>
     </div>
+      <div class="botoes">
+        <h3><i class="bi bi-gear"> Configurações</i></h3>
+        <h3 onclick="limparSessao()"><i class="bi bi-box-arrow-right"> Sair</i></h3>
+      </div>
 
+</div>
+
+
+
+
+
+
+    
     <div class="dash">
       <div class="tela-grafico">
         <div class="kpi-grafico">
@@ -194,6 +199,13 @@
       );
     }
   </script>
-</body>
 
+
+
+ <script src="../assets/js/sessao.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+  integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+</body>
 </html>
