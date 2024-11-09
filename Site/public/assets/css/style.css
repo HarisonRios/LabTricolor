@@ -747,6 +747,40 @@ hr {
     margin: 10px 0;
 }
 
+
+#cronometro {
+    height: 100%;
+    width: 100%;
+    color: white;
+
+
+    h1 {
+
+        font-size: 50px;
+        margin-top: 125px;
+        text-align: center;
+    }
+
+    h2 {
+        font-weight: normal;
+        color: white;
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .footer {
     background: #000000;
     padding: 30px 0px;

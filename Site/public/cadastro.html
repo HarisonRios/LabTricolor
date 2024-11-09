@@ -5,12 +5,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Cadastro - LabTricolor São Paulo FC </title>
-    <link rel="stylesheet" href="assets/css/cadastro.css">
-    <link rel="icon" href="assets/img/spfc.png">
+  <link rel="stylesheet" href="assets/css/cadastro.css">
+  <link rel="icon" href="assets/img/spfc.png">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- 
 </head>
 
 <body onload="listar()">
@@ -20,10 +18,6 @@
         <h2>Bem-vindo!</h2>
         <div class="formulario">
           <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
@@ -32,16 +26,20 @@
             <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
           </div>
           <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="text" placeholder="000-000-000-00" />
-          </div>
-          <div class="campo">
             <span>Senha:</span>
             <input id="senha_input" type="password" placeholder="******" />
           </div>
           <div class="campo">
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="campo">
+            <span>Código de ativação:</span>
+            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
+          </div>
+          <div class="campo">
+            <span>Foto:</span>
+            <input id="foto" type="file" name="imagem" accept="image/*"/>
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
@@ -59,7 +57,7 @@
     function sumirMensagem() {
       const mensagem = document.getElementById('div_aguardar');
       if (mensagem) {
-        mensagem.style.display = 'none'; 
+        mensagem.style.display = 'none';
       }
     }
 
@@ -67,34 +65,34 @@
       const codigoVar = codigo_input.value;
       const nomeVar = nome_input.value;
       const emailVar = email_input.value;
-      const cpfVar = cpf_input.value;
       const senhaVar = senha_input.value;
       const confirmacaoSenhaVar = confirmacao_senha_input.value;
+      const foto = document.getElementById("foto");
+
       let idEmpresaVincular;
 
-     
-      if (!nomeVar || !emailVar || !senhaVar || !confirmacaoSenhaVar || !codigoVar || !cpfVar) {
-        Swal.fire("Erro!", "Por favor, preencha todos os campos.", "error");
+      if (!nomeVar || !emailVar || !senhaVar || !confirmacaoSenhaVar || !codigoVar || !foto.files.length) {
+        Swal.fire("Erro!", "Por favor, preencha todos os campos e selecione uma foto.", "error");
         return false;
       }
+
       if (nomeVar.length <= 1) {
         Swal.fire("Erro!", "Seu nome precisa ter mais de 1 dígito.", "error");
         return false;
       }
+
       if (emailVar.indexOf('@') === -1) {
         Swal.fire("Erro!", "Seu email precisa conter @.", "error");
         return false;
       }
+
       if (senhaVar.length < 6) {
         Swal.fire("Erro!", "Sua senha deve ter mais que 6 caracteres.", "error");
         return false;
       }
+
       if (confirmacaoSenhaVar !== senhaVar) {
         Swal.fire("Erro!", "As senhas digitadas não coincidem.", "error");
-        return false;
-      }
-      if (cpfVar.length !== 11) {
-        Swal.fire("Erro!", "Seu CPF precisa ter 11 dígitos.", "error");
         return false;
       }
 
@@ -111,19 +109,16 @@
         return false;
       }
 
-  
+      const formData = new FormData();
+      formData.append('nome', nomeVar);
+      formData.append('email', emailVar);
+      formData.append('senha', senhaVar);
+      formData.append('foto', foto.files[0]);
+      formData.append('idEmpresaVincular', idEmpresaVincular);
+
       fetch("/usuarios/cadastrar", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nomeServer: nomeVar,
-          emailServer: emailVar,
-          senhaServer: senhaVar,
-          cpfServer: cpfVar,
-          idEmpresaVincularServer: idEmpresaVincular
-        }),
+        body: formData,
       })
         .then(function (resposta) {
           if (resposta.ok) {
@@ -160,8 +155,8 @@
     }
   </script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="./assets/js/sessao.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="./assets/js/sessao.js"></script>
 </body>
 
 </html>

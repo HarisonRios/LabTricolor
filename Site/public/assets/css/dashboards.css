@@ -8,6 +8,16 @@ body {
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+.foto-usuario {
+  width: 40px; /* Tamanho da imagem */
+  height: 40px; /* Tamanho da imagem */
+  border-radius: 50%; /* Para deixar a imagem redonda */
+  margin-left: 10px; /* Distância entre o nome e a imagem */
+  object-fit: cover; /* Para garantir que a imagem se ajuste bem */
+}
+
+
 .label-captura {
   display: flex;
   justify-content: center;
