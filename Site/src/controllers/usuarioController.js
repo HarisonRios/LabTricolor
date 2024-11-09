@@ -15,7 +15,7 @@ function autenticar(req, res) {
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); 
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
@@ -58,8 +58,8 @@ function cadastrar(req, res) {
     var email = req.body.email;
     var imagemPerfil = req.file.filename;
     var senha = req.body.senha;
-    var fkEmpresa = req.body.idEmpresaVincular;
-    console.log([nome, email, imagemPerfil, senha, fkEmpresa]);
+    var fkSocioTorcedor = req.body.idsociotorcedorVincular;
+    console.log([nome, email, imagemPerfil, senha, fkSocioTorcedor]);
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -68,11 +68,11 @@ function cadastrar(req, res) {
         res.status(400).send("A imagem do perfil está undefined!"); 
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!"); 
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
+    } else if (fkSocioTorcedor == undefined) {
+        res.status(400).send("Seu Socio Torcedor está undefined!");
     }  else {
         console.log("controller")
-        usuarioModel.cadastrar(nome, email, imagemPerfil, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, imagemPerfil, senha, fkSocioTorcedor)
         .then(function(resultado) {
             res.json(resultado);
         }).catch(function(erro) {

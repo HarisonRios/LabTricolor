@@ -34,7 +34,7 @@
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
           <div class="campo">
-            <span>Código de ativação:</span>
+            <span>Código do Sócio Torcedor:</span>
             <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
           </div>
           <div class="campo">
@@ -52,7 +52,8 @@
   </div>
 
   <script>
-    let listaEmpresasCadastradas = [];
+   let listasociotorcedor = [];
+   let idsociotorcedorVincular = null;
 
     function sumirMensagem() {
       const mensagem = document.getElementById('div_aguardar');
@@ -62,97 +63,87 @@
     }
 
     function cadastrar() {
-      const codigoVar = codigo_input.value;
-      const nomeVar = nome_input.value;
-      const emailVar = email_input.value;
-      const senhaVar = senha_input.value;
-      const confirmacaoSenhaVar = confirmacao_senha_input.value;
-      const foto = document.getElementById("foto");
+  const codigoVar = codigo_input.value;
+  const nomeVar = nome_input.value;
+  const emailVar = email_input.value;
+  const senhaVar = senha_input.value;
+  const confirmacaoSenhaVar = confirmacao_senha_input.value;
+  const foto = document.getElementById("foto");
 
-      let idEmpresaVincular;
+  if (!nomeVar || !emailVar || !senhaVar || !confirmacaoSenhaVar || !codigoVar || !foto.files.length) {
+    Swal.fire("Erro!", "Por favor, preencha todos os campos e selecione uma foto.", "error");
+    return false;
+  }
 
-      if (!nomeVar || !emailVar || !senhaVar || !confirmacaoSenhaVar || !codigoVar || !foto.files.length) {
-        Swal.fire("Erro!", "Por favor, preencha todos os campos e selecione uma foto.", "error");
-        return false;
-      }
 
-      if (nomeVar.length <= 1) {
-        Swal.fire("Erro!", "Seu nome precisa ter mais de 1 dígito.", "error");
-        return false;
-      }
 
-      if (emailVar.indexOf('@') === -1) {
-        Swal.fire("Erro!", "Seu email precisa conter @.", "error");
-        return false;
-      }
 
-      if (senhaVar.length < 6) {
-        Swal.fire("Erro!", "Sua senha deve ter mais que 6 caracteres.", "error");
-        return false;
-      }
-
-      if (confirmacaoSenhaVar !== senhaVar) {
-        Swal.fire("Erro!", "As senhas digitadas não coincidem.", "error");
-        return false;
-      }
-
-      for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-        if (listaEmpresasCadastradas[i].codigo_ativacao === codigoVar) {
-          idEmpresaVincular = listaEmpresasCadastradas[i].id;
-          console.log("Código de ativação válido.");
-          break;
-        }
-      }
-
-      if (!idEmpresaVincular) {
-        Swal.fire("Erro!", "Código de ativação inválido.", "error");
-        return false;
-      }
-
-      const formData = new FormData();
-      formData.append('nome', nomeVar);
-      formData.append('email', emailVar);
-      formData.append('senha', senhaVar);
-      formData.append('foto', foto.files[0]);
-      formData.append('idEmpresaVincular', idEmpresaVincular);
-
-      fetch("/usuarios/cadastrar", {
-        method: "POST",
-        body: formData,
-      })
-        .then(function (resposta) {
-          if (resposta.ok) {
-            Swal.fire("Sucesso!", "Cadastro realizado com sucesso! Redirecionando para tela de Login...", "success").then(() => {
-              window.location = "login.html";
-            });
-          } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
-          }
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
-        });
-
-      sumirMensagem();
-      return false;
+  for (let i = 0; i < listasociotorcedor.length; i++) {
+    if (listasociotorcedor[i].codigo_ativacao === codigoVar) {
+      idsociotorcedorVincular = listaSocioTorcedor[i].id;
+      console.log("Código de ativação válido.");
+      break;
     }
+  }
 
-    function listar() {
-      fetch("/empresas/listar", {
-        method: "GET",
-      })
-        .then(function (resposta) {
-          return resposta.json();
-        })
-        .then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-          });
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
+  console.log(idsociotorcedorVincular)
+
+  if (!idsociotorcedorVincular) {
+    Swal.fire("Erro!", "Código de ativação inválido.", "error");
+    return false;
+  }
+
+
+  const formData = new FormData();
+  formData.append("nome", nomeVar);
+  formData.append("email", emailVar);
+  formData.append("senha", senhaVar);
+  formData.append("foto", foto.files[0]);
+  formData.append("idsociotorcedorVincular", idsociotorcedorVincular);
+
+  fetch("/usuarios/cadastrar", {
+    method: "POST",
+    body: formData,
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        Swal.fire("Sucesso!", "Cadastro realizado com sucesso! Redirecionando para tela de Login...", "success").then(() => {
+          window.location = "login.html";
         });
-    }
+      } else {
+        throw "Houve um erro ao tentar realizar o cadastro!";
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+
+  sumirMensagem();
+  return false;
+}
+
+
+function listar() {
+  fetch("/sociotorcedor/listar", {
+    method: "GET",
+  })
+    .then(function (resposta) {
+      if (!resposta.ok) throw new Error("Erro ao buscar sócios torcedores.");
+      return resposta.json();
+    })
+    .then((sociotorcedores) => {
+      // Exemplo de exibição no console ou renderização
+      sociotorcedores.forEach((socio) => {
+        console.log(`Nome: ${socio.nome}, Código: ${socio.codigo_ativacao}`);
+        // Aqui você pode renderizar os dados na página
+      });
+    })
+    .catch(function (erro) {
+      console.log(`#ERRO: ${erro}`);
+    });
+}
+
+
   </script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
