@@ -1,4 +1,5 @@
-# Projeto Individual SPTECH - Harison Rios 🔴⚪⚫ 🇾🇪 
+#LabTricolor - 🔴⚪⚫ 🇾🇪 
+## Projeto individual - SPTech - Harison Rios 
 
 Este projeto é um site pessoal do projeto individual da Sprint 3, dedicado ao São Paulo Futebol Clube sobre a história, conquistas, jogadores icônicos, curiosidades do clube. Seguindo os Objetivos de Desenvolvimento Sustentável da ONU.
 
