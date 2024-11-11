@@ -35,7 +35,6 @@ body {
     justify-content: center;
 }
 
-
 .header {
     user-select: none;
     position: fixed;
@@ -63,37 +62,10 @@ body {
 .nav-menu {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: center;
+    width: 135%;
     font-weight: bold;
     letter-spacing: 0.1em;
-
-
-    button {
-        --hover-shadows: 16px 16px 33px #121212, -16px -16px 33px #303030;
-        --accent: red;
-        font-weight: bold;
-        border-radius: 1.1em;
-        border: 1px white solid;
-        background-color: #21212179;
-        cursor: pointer;
-        color: white;
-        padding: 1em 3.5em;
-        transition: box-shadow ease-in-out 0.3s, background-color ease-in-out 0.1s,
-            letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
-        box-shadow: 3px 3px 5px #1c1c1c, -3px -3px 5px #262626;
-    }
-
-    button:hover {
-        box-shadow: var(--hover-shadows);
-    }
-
-    button:active {
-        box-shadow: var(--hover-shadows), var(--accent) 0px 0px 15px 2.5px;
-        background-color: var(--accent);
-        transform: scale(0.95);
-}
-
 }
 
 .nav-menu a {
@@ -123,6 +95,60 @@ body {
     color: red;
 }
 
+.clickB {
+    margin-left: auto;
+}
+
+.botao {
+    position: relative;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1em 2.5em;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 1em;
+    transition: all 0.2s;
+    border: none;
+    font-family: inherit;
+    font-weight: 400;
+    color: black;
+    background-color: white;
+}
+
+.botao:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: red;
+    color: white;
+}
+
+.botao:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.botao::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+.botao::after {
+    background-color: #fff;
+}
+
+.botao:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
 
 
 .inicio {
@@ -391,44 +417,44 @@ body {
 }
 
 
-#box-skills1{
+#box-skills1 {
     background-color: #4ca1469c;
     transition: background-color 0.3s;
 }
 
-#box-skills1:hover{
+#box-skills1:hover {
     background-color: #12a308bb;
 }
 
 
-#box-skills2{
+#box-skills2 {
     background-color: #ef402d86;
     transition: background-color 0.3s;
 }
 
-#box-skills2:hover{
+#box-skills2:hover {
     background-color: #fd1900bd;
 }
 
 
 
-#box-skills3{
+#box-skills3 {
     background-color: #df2e7588;
     transition: background-color 0.3s;
 }
 
-#box-skills3:hover{
-    background-color:  #ff0066b7;
+#box-skills3:hover {
+    background-color: #ff0066b7;
 }
 
 
 
-#box-skills4{
+#box-skills4 {
     background-color: #bf8e2c7a;
     transition: background-color 0.3s;
 }
 
-#box-skills4:hover{
+#box-skills4:hover {
     background-color: #bf8e2cd2;
 }
 
@@ -633,8 +659,6 @@ body {
         4.2px 4.2px #000000;
 }
 
-
-
 #tabelaJogos {
     height: 100%;
     width: 100%;
@@ -768,19 +792,6 @@ hr {
         margin-top: 10px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 .footer {
     background: #000000;
     padding: 30px 0px;
@@ -810,7 +821,7 @@ hr {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: red; 
+    background-color: red;
     transition: width 0.3s ease;
 }
 
@@ -838,7 +849,7 @@ hr {
     margin: 0% 5%;
 }
 
-.footer .row span i:hover{
+.footer .row span i:hover {
     color: red;
 }
 

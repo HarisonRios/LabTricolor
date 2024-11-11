@@ -35,22 +35,19 @@ app.use("/sociotorcedor", sociotorcedorRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`
-    🎉 Servidor iniciado com sucesso!
-  
 
-        ######    ######    #######     ######  
-      ##        ##    ##   ##        ##      ##
-      ##        ##    ##   ##        ##
-       #####    ######     #######   ##
-           ##   ##         ##        ##
-           ##   ##         ##        ##      ##
-      ######    ##         ##          ###### 
-                                                    
+    ███████╗██████╗ ███████╗ ██████╗
+    ██╔════╝██╔══██╗██╔════╝██╔════╝
+    ███████╗██████╔╝█████╗  ██║     
+    ╚════██║██╔═══╝ ██╔══╝  ██║     
+    ███████║██║     ██║     ╚██████╗
+    ╚══════╝╚═╝     ╚═╝      ╚═════╝
 
+    🎉 Servidor iniciado com sucesso!                       
     🏟️ Atenção, torcedor! Seu servidor está a mil por hora! Acesse agora e fique por dentro da ação: http://${HOST_APP}:${PORTA_APP} ⚽️\n\n` +
-            `🚀 Você está jogando em um ambiente de: ${process.env.AMBIENTE_PROCESSO}.\n\n` +
-            `- 🟢 Se for desenvolvimento, você está fazendo uma partida no banco local.\n` +
-            `- 🔴 Se for produção, é hora de brilhar com o banco remoto!\n\n` +
-            `🔧 Para mudar seu ambiente, basta comentar ou descomentar as linhas 1 ou 2 no arquivo 'app.js'.\n\n` +
-            `Vamos juntos rumo à vitória! 💪🏽🏆`);
+      `🚀 Você está jogando em um ambiente de: ${process.env.AMBIENTE_PROCESSO}.\n\n` +
+      `- 🟢 Se for desenvolvimento, você está fazendo uma partida no banco local.\n` +
+      `- 🔴 Se for produção, é hora de brilhar com o banco remoto!\n\n` +
+      `🔧 Para mudar seu ambiente, basta comentar ou descomentar as linhas 1 ou 2 no arquivo 'app.js'.\n\n` +
+    `💪🏽🏆 Vamos juntos rumo à vitória! `);
 });
