@@ -13,54 +13,77 @@
 
 <body onload="listar()">
 
+  <div class="nav">
+    <ul>
+      <img src="assets/img/spfc.png" alt="Logo">
+      <li><a href="index.html">Voltar a Home</a></li>
+      <li><a href="login.html">Já possui uma Conta?  Entrar</a></li>
+    </ul>
+  </div>
+
 
   <div id="col-1">
-    <form id="formCadastro" onsubmit="return false;">
-      <!-- Etapa 1 -->
+    <form id="cadastroForm" onsubmit="return false;">
+      <h2>Cadastro</h2>
+      <p>Seja Bem-Vindo a Lab Tricolor</p>
+
+      <!-- 1 -->
       <div class="formulario etapa" id="etapa1">
-        <div class="campo">
-          <span>Nome:</span>
+        <label for="nome_input">Nome</label>
+        <div class="input-nome">
+          <i class="fas fa-user icon"></i>
           <input id="nome_input" type="text" placeholder="Seu nome" />
         </div>
-        <div class="campo">
-          <span>E-mail:</span>
-          <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+        <label for="email_input">E-mail</label>
+        <div class="input-email">
+          <i class="fas fa-envelope icon"></i>
+          <input id="email_input" type="text" placeholder="spfc@gmail.com" />
         </div>
-        <div class="campo">
-          <span>Código do Sócio Torcedor:</span>
+        <label for="codigo_input">Código do Sócio Torcedor</label>
+        <div class="input-codigo">
+          <i class="fas fa-id-badge icon"></i>
           <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
         </div>
-        <button type="button" onclick="proximaEtapa(2)">Próximo</button>
+        <button class="button" type="button" onclick="proximaEtapa(2)">Próximo</button>
       </div>
 
-      <!-- Etapa 2 -->
+      <!-- 2 -->
       <div class="formulario etapa" id="etapa2" style="display: none;">
-        <div class="campo">
-          <span>Senha:</span>
-          <input id="senha_input" type="password" placeholder="******" />
+        <label for="senha_input">Senha</label>
+        <div class="input-senha">
+          <i class="fas fa-lock icon"></i>
+          <input id="senha_input" type="password" placeholder="******" autocomplete="Senha">
         </div>
-        <div class="campo">
-          <span>Confirmação da Senha:</span>
-          <input id="confirmacao_senha_input" type="password" placeholder="******" />
+        <label for="confirmacao_senha_input">Confirmação da Senha</label>
+        <div class="input-confirmacao">
+          <i class="fas fa-lock icon"></i>
+          <input id="confirmacao_senha_input" type="password" placeholder="******" autocomplete="Senha">
         </div>
-        <button type="button" onclick="voltarEtapa(1)">Anterior</button>
-        <button type="button" onclick="proximaEtapa(3)">Próximo</button>
+        <button class="button2" type="button" onclick="voltarEtapa(1)">Anterior</button>
+        <button class="button2" type="button" onclick="proximaEtapa(3)">Próximo</button>
       </div>
 
-      <!-- Etapa 3 -->
+      <!-- 3 -->
       <div class="formulario etapa" id="etapa3" style="display: none;">
-
-        <div class="campo">
-          <span>Foto:</span>
-          <input id="foto" type="file" name="imagem" accept="image/*" />
+        <div class="input-foto">
+          <label for="foto" class="drop-container" id="dropcontainer">
+            <span class="drop-title">Foto de Perfil</span><br>
+            <span class="drop-description">Solte os arquivos aqui</span><br><br>
+             ou
+             <br><br>
+            <input id="foto" type="file" name="imagem" accept="image/*" />
+          </label>
         </div>
-        <button type="button" onclick="voltarEtapa(2)">Anterior</button>
-        <button type="button" onclick="cadastrar()">Cadastrar</button>
+        <button class="button" type="button" onclick="voltarEtapa(2)">Anterior</button>
+        <button class="button" type="button" onclick="cadastrar()">Cadastrar</button>
       </div>
-    </form>
-  </div>
+
+
   <div id="col-2">
-    <h1>This is another half of a page</h1>
+    <h1>
+      Salve o Tricolor Paulista Amado clube brasileiro Tu és forte, tu és grande Dentre os grandes, és o
+      primeiro
+  </h1>
   </div>
 
   <div id="div_aguardar" style="display: none;">
@@ -191,7 +214,7 @@
             return false;
           }
 
-          if (senhaVar < 6) {
+          if (senhaVar.length < 6) {
             Swal.fire({
               title: "Calma ai Tricolor!",
               text: "A senha deve ter pelo menos 6 caracteres.",
@@ -211,7 +234,7 @@
 
         case 3:
           const foto = document.getElementById("foto");
-          if (!foto.files.length) {
+          if (foto.files.length === 0) {
             Swal.fire({
               title: "Calma ai Tricolor!",
               text: "Por favor, selecione uma foto.",
@@ -227,26 +250,28 @@
             return false;
           }
 
-          const fileType = foto.files[0].type;
-          if (!fileType.startsWith('image/') || !/(png|jpg|jpeg)$/i.test(fileType)) {
-            Swal.fire({
-              title: "Calma ai Tricolor!",
-              text: "A foto deve ser um arquivo de imagem no formato PNG, JPG ou JPEG.",
-              icon: "error",
-              width: 350,
-              padding: "2em",
-              color: "black",
-              background: "#ffffff",
-              backdrop: `rgba(0, 0, 0, 0.8)`,
-              confirmButtonText: 'Ok',
-              confirmButtonColor: '#000000',
-            });
-            return false;
-          }
-
-          return true;
       }
+
+      const fileType = foto.files[0].type;
+      if (!fileType.startsWith('image/') || !/(png|jpg|jpeg)$/i.test(fileType)) {
+        Swal.fire({
+          title: "Calma ai Tricolor!",
+          text: "A foto deve ser um arquivo de imagem no formato PNG, JPG ou JPEG.",
+          icon: "error",
+          width: 350,
+          padding: "2em",
+          color: "black",
+          background: "#ffffff",
+          backdrop: `rgba(0, 0, 0, 0.8)`,
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#000000',
+        });
+        return false;
+      }
+
+      return true;
     }
+    
 
     function proximaEtapa(numEtapa) {
       if (validarEtapa(numEtapa - 1)) {
@@ -309,23 +334,23 @@
     }
 
     function listar() {
-      fetch("/sociotorcedor/listar", {
-        method: "GET",
-      })
-        .then(function (resposta) {
-          if (!resposta.ok) throw new Error("Erro ao buscar sócios torcedores.");
-          return resposta.json();
-        })
-        .then((sociotorcedores) => {
-          listasociotorcedor = sociotorcedores;
-          sociotorcedores.forEach((socio) => {
-            console.log(`Nome: ${socio.nome}, Código: ${socio.codigo_ativacao}`);
-          });
-        })
-        .catch(function (erro) {
-          console.log(`#ERRO: ${erro}`);
-        });
-    }
+   fetch("/sociotorcedor/listar", {
+     method: "GET",
+   })
+     .then(function (resposta) {
+       if (!resposta.ok) throw new Error("Erro ao buscar sócios torcedores.");
+       return resposta.json();
+     })
+     .then((sociotorcedores) => {
+       listasociotorcedor = sociotorcedores;
+       sociotorcedores.forEach((socio) => {
+       });
+     })
+     .catch(function (resposta) {
+       console.log(`#ERRO: ${resposta}`);
+     });
+ }
+
 
   </script>
 

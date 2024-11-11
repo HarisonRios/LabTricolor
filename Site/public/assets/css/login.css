@@ -6,6 +6,7 @@
   margin: 0;
   text-decoration: none;
   box-sizing: border-box;
+  user-select: none;
 }
 
 
@@ -29,7 +30,6 @@ a {
 .login-title {
   text-align: center;
   font-size: 30px;
-
 }
 
 .notice {
