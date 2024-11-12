@@ -2,8 +2,6 @@
 var ambiente_processo = "desenvolvimento";
 var caminho_env = ambiente_processo === "producao" ? ".env" : ".env.dev";
 
-
-
 require("dotenv").config({ path: caminho_env });
 
 var express = require("express");
@@ -19,6 +17,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var sociotorcedorRouter = require("./src/routes/socioTorcedor");
+var quizRouter = require("./src/routes/quiz");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,12 +25,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/sociotorcedor", sociotorcedorRouter);
+app.use("/quiz", quizRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`

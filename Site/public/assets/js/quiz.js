@@ -1,140 +1,154 @@
 document.addEventListener("DOMContentLoaded", function () {
-const botaoIniciar = document.querySelector(".iniciar-quiz");
-const containerPerguntas = document.querySelector(".container-perguntas");
-const containerRespostas = document.querySelector(".container-respostas");
-const textoPergunta = document.querySelector(".pergunta");
-const proximaPergunta = document.querySelector(".proxima-pergunta");
-
-botaoIniciar.addEventListener("click", iniciarQuiz);
-proximaPergunta.addEventListener("click", mostrarProximaQuestao);
-
-let perguntaAtual = 0;
-let pontos = 0;
-
-function iniciarQuiz() {
-  botaoIniciar.classList.add("hide");
-  containerPerguntas.classList.remove("hide");
-  mostrarProximaQuestao();
-}
-
-function mostrarProximaQuestao() {
-  resetarQuiz();
-
-  if (perguntas.length == perguntaAtual) {
-    return acabarJogo();
+  const botaoIniciar = document.querySelector(".iniciar-quiz");
+  const containerPerguntas = document.querySelector(".container-perguntas");
+  const containerRespostas = document.querySelector(".container-respostas");
+  const textoPergunta = document.querySelector(".pergunta");
+  const proximaPergunta = document.querySelector(".proxima-pergunta");
+  
+  botaoIniciar.addEventListener("click", iniciarQuiz);
+  proximaPergunta.addEventListener("click", mostrarProximaQuestao);
+  
+  let perguntaAtual = 0;
+  let pontos = 0;
+  
+  function iniciarQuiz() {
+    botaoIniciar.classList.add("hide");
+    containerPerguntas.classList.remove("hide");
+    mostrarProximaQuestao();
   }
-
-  textoPergunta.textContent = perguntas[perguntaAtual].pergunta;
-
-  perguntas[perguntaAtual].respostas.forEach((respostas) => {
-    const novaResposta = document.createElement("button");
-    novaResposta.classList.add("button", "resposta");
-    novaResposta.textContent = respostas.texto;
-
-    if (respostas.correct) {
-      novaResposta.dataset.correct = respostas.correct;
+  
+  function mostrarProximaQuestao() {
+    resetarQuiz();
+  
+    if (perguntas.length == perguntaAtual) {
+      return acabarJogo();
     }
-    containerRespostas.appendChild(novaResposta);
-
-    novaResposta.addEventListener("click", selecionarResposta);
-  });
-}
-
-function resetarQuiz() {
-  while (containerRespostas.firstChild) {
-    containerRespostas.removeChild(containerRespostas.firstChild);
+  
+    textoPergunta.textContent = perguntas[perguntaAtual].pergunta;
+  
+    perguntas[perguntaAtual].respostas.forEach((respostas) => {
+      const novaResposta = document.createElement("button");
+      novaResposta.classList.add("button", "resposta");
+      novaResposta.textContent = respostas.texto;
+  
+      if (respostas.correct) {
+        novaResposta.dataset.correct = respostas.correct;
+      }
+      containerRespostas.appendChild(novaResposta);
+  
+      novaResposta.addEventListener("click", selecionarResposta);
+    });
   }
-
-  document.getElementById("imagem").innerHTML = ``;
-  document.getElementById("info-usuario").innerHTML = "";
-  proximaPergunta.classList.add("hide");
-}
-
-function selecionarResposta(event) {
-  const respostaClickada = event.target;
-
-  if (respostaClickada.dataset.correct) {
-    pontos++;
-    document.getElementById(
-      "imagem"
-    ).innerHTML = `<img src="../assets/img/cassioFeliz.jpg" alt="" />`;
-    document.getElementById("info-usuario").innerHTML = "Você acertou! :)";
-  } else {
-    document.getElementById(
-      "imagem"
-    ).innerHTML = `<img src="../assets/img/RenatoTriste.jpg" alt="" />`;
-    document.getElementById("info-usuario").innerHTML = "Você errou :(";
+  
+  function resetarQuiz() {
+    while (containerRespostas.firstChild) {
+      containerRespostas.removeChild(containerRespostas.firstChild);
+    }
+  
+    document.getElementById("imagem").innerHTML = ``;
+    document.getElementById("info-usuario").innerHTML = "";
+    proximaPergunta.classList.add("hide");
   }
-
-  document.querySelectorAll(".resposta").forEach((button) => {
-    if (button.dataset.correct) {
-      button.classList.add("correct");
+  
+  function selecionarResposta(event) {
+    const respostaClickada = event.target;
+  
+    if (respostaClickada.dataset.correct) {
+      pontos++;
+      document.getElementById("info-usuario").innerHTML = "Você acertou! :)";
     } else {
-      button.classList.add("incorrect");
+      document.getElementById("info-usuario").innerHTML = "Você errou :(";
     }
-
-    button.disabled = true;
-  });
-
-  proximaPergunta.classList.remove("hide");
-  perguntaAtual++;
-}
-
-function acabarJogo() {
-  const totalPerguntas = perguntas.length;
-  const totalAcertos = (pontos / totalPerguntas) * 100;
-
-  let mensagem = "";
-
-  switch (true) {
-    case totalAcertos >= 90:
-      mensagem = "Parabéns você foi muito bem";
-      break;
-    case totalAcertos >= 70:
-      mensagem = "Muito bom!";
-      break;
-    case totalAcertos >= 50:
-      mensagem = "Você foi bem, nada mais que isso";
-      break;
-    default:
-      mensagem = "Pode melhorar...";
+  
+    document.querySelectorAll(".resposta").forEach((button) => {
+      if (button.dataset.correct) {
+        button.classList.add("correct");
+      } else {
+        button.classList.add("incorrect");
+      }
+  
+      button.disabled = true;
+    });
+  
+    proximaPergunta.classList.remove("hide");
+    perguntaAtual++;
   }
 
-  containerPerguntas.innerHTML = `
-    <p class= "mensagem-final">
-    Você acertou ${pontos} de ${totalPerguntas} perguntas!
-    <span>Resultado: ${mensagem}</span>
-    </p>
-    <button onclick=window.location.reload() class="button">
-    Refazer Quiz
-    </button>
-  `;
-
-  cadastrarPontos(pontos);
-}
-
-
-
-function cadastrarPontos(pontos) {
-  const idUsuario = sessionStorage.ID_USUARIO; // Assumindo que o ID do usuário está armazenado na sessão
-  sessionStorage.Pontos = pontos
-
-  fetch("/quiz/cadastrarPontos", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ pontos: pontos, idUsuario: idUsuario }),
-  })
-    .then((response) => response.json())
+  
+  function cadastrarPontos(pontos) {
+    const idUsuario = sessionStorage.getItem("ID_USUARIO"); // Usando o getItem corretamente
+    sessionStorage.setItem("Pontos", pontos); // Armazenando pontos no sessionStorage
+    
+    if (!idUsuario) {
+      console.error("ID do usuário não encontrado.");
+      return;
+    }
+    
+    fetch("/quiz/cadastrarPontos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ pontos: pontos, idUsuario: idUsuario }),
+    })
+    .then((response) => response.json()) 
     .then((data) => {
-      console.log("Pontos cadastrados com sucesso:", data);
+      console.log("Resposta do servidor:", data);
+      if (data.error) {
+        console.error("Erro ao cadastrar pontos:", data.error);
+      } else {
+        console.log("Pontos cadastrados com sucesso:", data);
+      }
     })
     .catch((error) => {
       console.error("Erro ao cadastrar pontos:", error);
     });
-}
-});
+  }   
+  
+
+  function acabarJogo() {
+    const totalPerguntas = perguntas.length;
+    const totalAcertos = (pontos / totalPerguntas) * 100;
+  
+    let mensagem = "";
+  
+    switch (true) {
+      case totalAcertos >= 90:
+        mensagem = "Parabéns você foi muito bem";
+        break;
+      case totalAcertos >= 70:
+        mensagem = "Muito bom!";
+        break;
+      case totalAcertos >= 50:
+        mensagem = "Você foi bem, nada mais que isso";
+        break;
+      default:
+        mensagem = "Pode melhorar...";
+    }
+  
+    containerPerguntas.innerHTML = `
+    <p class="mensagem-final">
+      Você acertou ${pontos} de ${totalPerguntas} perguntas!
+      <span>Resultado: ${mensagem}</span>
+    </p>
+    <button onclick="window.location.reload()" class="button">
+      Refazer Quiz
+    </button>
+    <button onclick="window.location.href='dashboard.html'" class="button">
+      Visão Geral
+    </button>
+  `;
+  
+  
+    cadastrarPontos(pontos);
+  }
+  
+}); 
+    
+    
+
+
+
 const perguntas = [
   {
     pergunta: "Em que ano o São Paulo Futebol Clube foi fundado?",
