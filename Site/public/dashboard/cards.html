@@ -12,31 +12,60 @@
   <link rel="stylesheet" href="../assets/css/quiz.css" />
 </head>
 
-<body onload="validarSessao()"">
-  <div class="janela">
-    <div class="header-left dash-header">
-      <a href="./dashboard.html">
-        <img src="../assets/img/spfc.png" class="logo" alt="Lab Tricolor - Logo" />
-      </a>
-      <a href="./dashboard.html">
-        <h3>Visão Geral</h3>
-      </a>
-      <a href="./cards.html">
-        <h3>Quiz</h3>
-      </a>
-      <a href="./mural.html">
-        <h3>Publicaçãoes</h3>
-      </a>
-      <div class="parte-usuario">
-        <img src="../assets/img/profile.jpg" class="foto-usuario" alt="">
-        <p>Olá, <span id="b_usuario">usuário</span>!</p>
-        <span>Socio Torcedor - Diamante</span>
-      </div>
-      <div class="botoes">
-        <h3><i class="bi bi-gear"> Configurações</i></h3>
-        <h3 onclick="limparSessao()"><i class="bi bi-box-arrow-right"> Sair</i></h3>
-      </div>
+<body onload="validarSessao()">
+  <section class="sidebar">
+
+    <div class="sidebar-item twitter-bird">
+        <img class="twitter-img" src="../assets/img/spfc.png" alt="Twitter logo">
     </div>
+
+    <div class="sidebar-item active">
+        <i data-feather="home"></i>
+        <p class="sidebar-item-text active">Página Inicial</p>
+    </div>
+    <div class="sidebar-item">
+        <i data-feather="search"></i>
+        <p onclick="dashboard()" class="sidebar-item-text">Dashboard</p>
+    </div>
+    <div class="sidebar-item">
+      <i data-feather="rss"></i>
+      <p onclick="mural()" class="sidebar-item-text">Publicações</p>
+  </div>
+  <div class="sidebar-item">
+      <i data-feather="help-circle"></i>
+      <p onclick="cards()" class="sidebar-item-text">Quiz</p>
+  </div>
+    <div class="sidebar-item">
+        <i data-feather="bell"></i>
+        <p class="sidebar-item-text">Notificações</p>
+    </div>
+    <div class="sidebar-item">
+        <i data-feather="mail"></i>
+        <p class="sidebar-item-text">Mensagens</p>
+    </div>
+    <div class="sidebar-item">
+        <i data-feather="user"></i>
+        <p class="sidebar-item-text">Perfil</p>
+    </div>
+    <div class="sidebar-item">
+        <i data-feather="more-horizontal"></i>
+        <p onclick="limparSessao()" class="sidebar-item-text">Sair</p>
+    </div>
+
+    <button class="tweet-btn">Tweet</button>
+
+    <div class="sidebar-item">
+        <img src="../assets/img/profile.jpg" class="profile-pic" alt="">
+        <div class="user-info">
+            <p>Olá, <span id="b_usuario">usuário</span>!</p>
+            <span>Sócio Torcedor - Diamante</span>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+
         <div class="quiz">
             <div class="container-quiz">
               <div class="container-perguntas hide">
@@ -63,8 +92,28 @@
 </body>
 
 </html>
- <script src="../assets/js/quiz.js"></script>
- <script src="../assets/js/sessao.js"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    feather.replace(); 
+</script>
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 </script>
+<script>
+  
+  function dashboard() {
+        window.location = "dashboard.html";
+    }
+
+    function cards() {
+        window.location = "cards.html";
+    }
+
+    function mural() {
+        window.location = "mural.html";
+    }
+
+</script>
+
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/sessao.js"></script>

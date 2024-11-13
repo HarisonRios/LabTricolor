@@ -21,7 +21,7 @@
         <div class="sidebar-item twitter-bird">
             <img class="twitter-img" src="../assets/img/spfc.png" alt="Twitter logo">
         </div>
-
+    
         <div class="sidebar-item active">
             <i data-feather="home"></i>
             <p class="sidebar-item-text active">Página Inicial</p>
@@ -31,20 +31,20 @@
             <p onclick="dashboard()" class="sidebar-item-text">Dashboard</p>
         </div>
         <div class="sidebar-item">
+          <i data-feather="rss"></i>
+          <p onclick="mural()" class="sidebar-item-text">Publicações</p>
+      </div>
+      <div class="sidebar-item">
+          <i data-feather="help-circle"></i>
+          <p onclick="cards()" class="sidebar-item-text">Quiz</p>
+      </div>
+        <div class="sidebar-item">
             <i data-feather="bell"></i>
             <p class="sidebar-item-text">Notificações</p>
         </div>
         <div class="sidebar-item">
             <i data-feather="mail"></i>
             <p class="sidebar-item-text">Mensagens</p>
-        </div>
-        <div class="sidebar-item">
-            <i data-feather="bookmark"></i>
-            <p class="sidebar-item-text">Salvos</p>
-        </div>
-        <div class="sidebar-item">
-            <i data-feather="list"></i>
-            <p class="sidebar-item-text">Sei lá</p>
         </div>
         <div class="sidebar-item">
             <i data-feather="user"></i>
@@ -54,9 +54,9 @@
             <i data-feather="more-horizontal"></i>
             <p onclick="limparSessao()" class="sidebar-item-text">Sair</p>
         </div>
-
+    
         <button class="tweet-btn">Tweet</button>
-
+    
         <div class="sidebar-item">
             <img src="../assets/img/profile.jpg" class="profile-pic" alt="">
             <div class="user-info">
@@ -123,27 +123,6 @@
 
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    function limparFormulario() {
-        document.getElementById("form_postagem").reset();
-    }
-
-    function dashboard() {
-        window.location = "/dashboard/dashboard.html";
-    }
-
-    function cards() {
-        window.location = "/dashboard/cards.html";
-    }
-
-    function mural() {
-        window.location = "/dashboard/mural.html";
-    }
-
-
-
-
-
 
     function publicar() {
         var idUsuario = sessionStorage.ID_USUARIO;
@@ -280,6 +259,23 @@
             finalizarAguardar();
         });
     }
+    
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
+
+    function dashboard() {
+        window.location = "dashboard.html";
+    }
+
+    function cards() {
+        window.location = "cards.html";
+    }
+
+    function mural() {
+        window.location = "mural.html";
+    }
+
 
 </script>
 
