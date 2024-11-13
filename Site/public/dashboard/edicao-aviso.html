@@ -2,14 +2,15 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/img/spfc.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Página Inicial</title>
-
+    <title>Editar Publicações - LabTricolor</title>
 
     <link rel="stylesheet" href="../assets/css/dashboards.css">
+    <link rel="stylesheet" href="../assets/css/card.css">
+    <link rel="stylesheet" href="../assets/css/publicacoes.css">
 
     <script src="../assets/js/sessao.js"></script>
     <script src="../assets/js/alerta.js"></script>
@@ -19,46 +20,37 @@
         rel="stylesheet">
 </head>
 
-<body onload="validarSessao(), listarInfosDeUm()" style="background-color: #161618;">
-    <!-- <body onload="validarSessao()"> -->
+<body onload="validarSessao(), listarInfosDeUm()">
+  
 
+        
     <div class="janela">
-
-
-        <div class="header-left">
-
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+        <div class="header-left dash-header">
+            <a href="./dashboard.html">
+                <img src="../assets/img/spfc.png" class="logo" alt="Lab Tricolor - Logo" />
+            </a>
+            <a href="./dashboard.html">
+                <h3>Visão Geral</h3>
+            </a>
+            <a href="./cards.html">
+                <h3>Quiz</h3>
+            </a>
+            <a href="./mural.html">
+                <h3>Publicaçãoes</h3>
+            </a>
+            <div class="parte-usuario">
+                <img src="../assets/img/profile.jpg" class="foto-usuario" alt="">
+                <p>Olá, <span id="b_usuario">usuário</span>!</p>
+                <span>Socio Torcedor - Diamante</span>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="cards.html">
-                    <h3>Aquários</h3>
-                </a>
+            <div class="botoes">
+                <h3><i class="bi bi-gear"> Configurações</i></h3>
+                <h3 onclick="limparSessao()"><i class="bi bi-box-arrow-right"> Sair</i></h3>
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
         </div>
 
-        <div class="dash-right">
 
+        <div class="dash-right">
             <div class="avisos">
                 <div class="container">
                     <h1>Editar um aviso</h1>
