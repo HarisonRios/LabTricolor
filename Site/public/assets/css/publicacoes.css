@@ -1,4 +1,177 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+/* Layout principal */
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr 300px;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  background: #000000;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hidebar */
+
+.hidebar {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px;
+}
+
+.logo{
+  align-items: flex-start;
+  height: 50px;
+  width: 50px;
+}
+
+.hidebar .menu {
+  margin-top: 20px;
+}
+
+.hidebar .menu p {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
+  padding: 11px;
+  padding-right: 24px;
+  border-radius: 24px;
+  margin-right: auto;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  color: white;
+  text-decoration: none;
+}
+
+
+.user-container{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  border-radius: 24px;
+  margin-left: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  margin-top: auto; 
+  text-align: center;
+  padding: 0 0;
+  text-align: justify;
+  white-space: nowrap;
+
+  p{
+    font-size: 10px;
+  }
+  span{
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+  }
+}
+
+.profile-pic{
+  width: 35px; 
+  height: 35px; 
+  border-radius: 50%; 
+}
+
+
+
+
+/* Feed */
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+
+.publicacao {
+  width: 100%;
+  max-width: 700px; 
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.publicacao-nome, .publicacao-descricao {
+  margin-bottom: 10px;
+}
+
+
+.post {
+  background: #ecf0f1;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.feed h1 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.text-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.text:hover {
+  color: red;
+}
+
+.text.active {
+  color: red; 
+}
+
+.text.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: red;
+}
 
 ::selection{
   color: #fff;
@@ -6,25 +179,34 @@
 }
 .wrapper{
   background: #fff;
-  max-width: 475px;
+  max-width: 500px;
   width: 100%;
+  height: 200px; 
   border-radius: 15px;
-  padding: 25px 25px 15px 25px;
+  padding: 15px 25px 15px 25px; 
   box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
 }
+
 .input-box{
   padding-top: 10px;
   border-bottom: 1px solid #e6e6e6;
+  flex: 1; 
+  overflow: hidden; 
 }
+
 .input-box .tweet-area{
   position: relative;
   min-height: 130px;
-  max-height: 170px;
-  overflow-y: auto;
+  max-height: 120px; 
+  overflow-y: auto; 
 }
+
 .tweet-area::-webkit-scrollbar{
   width: 0px;
 }
+
 .tweet-area .placeholder{
   position: absolute;
   margin-top: -3px;
@@ -32,6 +214,7 @@
   color: #98A5B1;
   pointer-events: none;
 }
+
 .tweet-area .input{
   outline: none;
   font-size: 17px;
@@ -39,10 +222,12 @@
   word-wrap: break-word;
   word-break: break-all;
 }
+
 .tweet-area .editable{
   position: relative;
   z-index: 5;
 }
+
 .tweet-area .readonly{
   position: absolute;
   top: 0;
@@ -51,9 +236,11 @@
   color: transparent;
   background: transparent;
 }
+
 .readonly .highlight{
   background: #fd9bb0;
 }
+
 .input-box .privacy{
   color: #1da1f2;
   margin: 15px 0;
@@ -64,26 +251,32 @@
   cursor: pointer;
   transition: background 0.2s ease;
 }
+
 .privacy:hover, .icons li:hover{
   background: #e7f5fe;
 }
+
 .privacy i{
   font-size: 18px;
 }
+
 .privacy span{
   font-size: 15px;
   font-weight: 600;
   margin-left: 7px;
 }
+
 .bottom{
   display: flex;
-  margin-top: 13px;
+  margin-top: 5px; /* Ajuste o espaço inferior */
   align-items: center;
   justify-content: space-between;
 }
+
 .bottom .icons{
   display: inline-flex;
 }
+
 .icons li{
   list-style: none;
   color: #1da1f2;
@@ -98,11 +291,13 @@
   border-radius: 50%;
   transition: background 0.2s ease;
 }
+
 .bottom .content{
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .bottom .counter{
   color: #333;
   display: none;
@@ -111,6 +306,7 @@
   padding-right: 15px;
   border-right: 1px solid #aab8c2;
 }
+
 .bottom button{
   padding: 9px 18px;
   border: none;
@@ -124,12 +320,51 @@
   opacity: 0.5;
   pointer-events: none;
   transition: background 0.2s ease;
+  height: 35px; /* Ajuste para que o botão tenha um tamanho adequado */
 }
+
 .bottom button.active{
   opacity: 1;
   pointer-events: auto;
 }
+
 .bottom button:hover{
   background: #0d8bd9;
 }
 
+
+
+
+/* Convites */
+.invites {
+  background: #f7f9fa;
+  padding: 20px;
+  border-left: 1px solid #ddd;
+}
+
+
+.invites h2 {
+  margin-bottom: 20px;
+}
+
+.invite {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.invite button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.invite button:last-child {
+  background: #e74c3c;
+}

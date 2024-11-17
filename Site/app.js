@@ -14,7 +14,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
+var publicacoesRouter = require("./src/routes/publicacoes");
 var medidasRouter = require("./src/routes/medidas");
 var sociotorcedorRouter = require("./src/routes/socioTorcedor");
 var quizRouter = require("./src/routes/quiz");
@@ -27,7 +27,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/avisos", avisosRouter);
+app.use("/publicacoes", publicacoesRouter);
 app.use("/medidas", medidasRouter);
 app.use("/sociotorcedor", sociotorcedorRouter);
 app.use("/quiz", quizRouter);

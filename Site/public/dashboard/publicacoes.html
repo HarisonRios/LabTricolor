@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/img/spfc.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicaçãoes - LabTricolor</title>
+
+</head>
+
+<body onload="validarSessao(), atualizarFeed()">
+    <div class="container">
+        <aside class="hidebar">
+            <img src="../assets/img/spfc.png" alt="Logo" class="logo">
+            <nav class="menu">
+                <p onclick="dashboard()">
+                    <i data-feather="home"></i>
+                    Página Inicial
+                </p>
+                <p onclick="publicacoes()">
+                    <i data-feather="edit"></i>
+                    Publicações
+                </p>
+                <p onclick="cards()">
+                    <i data-feather="help-circle"></i>
+                    Quiz
+                </p>
+                <p onclick="limparSessao()">
+                    <i data-feather="log-out"></i>
+                    Sair
+                </p>
+            </nav>
+
+            <div class="user-container">
+                <img src="../assets/img/profile.jpg" class="profile-pic" alt="">
+                <div class="user-info">
+                    <span id="b_usuario">usuário</span>
+                    <p>Sócio Torcedor - Diamante</p>
+                </div>
+                <i data-feather="more-horizontal"></i>
+            </div>
+        </aside>
+
+
+
+        <!-- Feed -->
+        <main class="feed">
+            <div class="text-container">
+                <p class="text active">Para Você</p>
+                <p class="text">Seguindo</p>
+            </div>
+            <div class="wrapper">
+                <div class="input-box">
+                  <div class="tweet-area">
+                    <span class="placeholder">O que está acontecendo?</span>
+                    <div class="input editable" contenteditable="true" spellcheck="false"></div>
+                    <div class="input readonly" contenteditable="true" spellcheck="false"></div>
+                  </div>
+                  <div class="privacy">
+                    <i class="fas fa-globe-asia"></i>
+                    <span>Qualquer pessoa pode responder</span>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <ul class="icons">
+                    <li><i class="far fa-file-image"></i></li>
+                  </ul>
+                  <div class="content">
+                    <span class="counter">100</span>
+                    <button>Tweet</button>
+                  </div>
+                </div>
+              </div>
+
+            <div class="post">
+                <div class="div-results">
+                    <div id="feed_container" class="feed-container">
+                    </div>
+                </div>
+
+
+        </main>
+
+        <!-- Convites -->
+        <aside class="invites">
+            <h2>Convites</h2>
+            <div class="invite">
+                <p><strong>João</strong> enviou uma solicitação</p>
+                <button>Aceitar</button>
+                <button>Recusar</button>
+            </div>
+            <div class="invite">
+                <p><strong>Maria</strong> enviou uma solicitação</p>
+                <button>Aceitar</button>
+                <button>Recusar</button>
+            </div>
+        </aside>
+    </div>
+
+
+
+
+</body>
+</html>
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function publicar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        var corpo = {
+            descricao: form_postagem.descricao.value
+        }
+
+        fetch(`/publicacoes/publicar/${idUsuario}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                window.location = "/dashboard/publicacoes.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+
+    }
+
+    function editar(idPublicacao) {
+        sessionStorage.ID_POSTAGEM_EDITANDO = idPublicacao;
+        console.log("cliquei em editar - " + idPublicacao);
+        window.alert("Você será redirecionado à página de edição da publicacoes de id número: " + idPublicacao);
+        window.location = "/dashboard/edicao-publicoes.html"
+
+    }
+
+    function deletar(idPublicacao) {
+        console.log("Criar função de apagar post escolhido - ID" + idPublicacao);
+        fetch(`/publicacoes/deletar/${idPublicacao}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "/dashboard/publicacoes.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function atualizarFeed() {
+        fetch("/publicacoes/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var divPublicacao = document.createElement("div");
+                        var spanID = document.createElement("span");
+                        var spanTitulo = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+                        var divButtons = document.createElement("div");
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+
+
+                        spanID.innerHTML = "ID: <b>" + publicacao.idPublicacao + "</b>";
+                        spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+                        btnEditar.innerHTML = "Editar";
+                        btnDeletar.innerHTML = "Deletar";
+
+                        divPublicacao.className = "publicacao";
+                        spanTitulo.id = "inputNumero" + publicacao.idPublicacao;
+                        spanNome.className = "publicacao-nome";
+                        divDescricao.className = "publicacao-descricao";
+
+                        divButtons.className = "div-buttons"
+
+                        btnEditar.className = "publicacao-btn-editar"
+                        btnEditar.id = "btnEditar" + publicacao.idPublicacao;
+                        btnEditar.setAttribute("onclick", `editar(${publicacao.idPublicacao})`);
+
+                        btnDeletar.className = "publicacao-btn-editar"
+                        btnDeletar.id = "btnDeletar" + publicacao.idPublicacao;
+                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idPublicacao})`);
+
+                        divPublicacao.appendChild(spanID);
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(divButtons);
+                        divButtons.appendChild(btnEditar);
+                        divButtons.appendChild(btnDeletar);
+                        feed.appendChild(divPublicacao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
+
+    function dashboard() {
+        window.location = "dashboard.html";
+    }
+
+    function cards() {
+        window.location = "cards.html";
+    }
+
+    function publicacoes() {
+        window.location = "publicacoes.html";
+    }
+
+
+    const wrapper = document.querySelector(".wrapper"),
+        editableInput = wrapper.querySelector(".editable"),
+        readonlyInput = wrapper.querySelector(".readonly"),
+        placeholder = wrapper.querySelector(".placeholder"),
+        counter = wrapper.querySelector(".counter"),
+        button = wrapper.querySelector("button");
+
+    editableInput.onfocus = () => {
+        placeholder.style.color = "#c5ccd3";
+    }
+    editableInput.onblur = () => {
+        placeholder.style.color = "#98a5b1";
+    }
+
+    editableInput.onkeyup = (e) => {
+        let element = e.target;
+        validated(element);
+    }
+    editableInput.onkeypress = (e) => {
+        let element = e.target;
+        validated(element);
+        placeholder.style.display = "none";
+    }
+
+    function validated(element) {
+        let text;
+        let maxLength = 100;
+        let currentlength = element.innerText.length;
+
+        if (currentlength <= 0) {
+            placeholder.style.display = "block";
+            counter.style.display = "none";
+            button.classList.remove("active");
+        } else {
+            placeholder.style.display = "none";
+            counter.style.display = "block";
+            button.classList.add("active");
+        }
+
+        counter.innerText = maxLength - currentlength;
+
+        if (currentlength > maxLength) {
+            let overText = element.innerText.substr(maxLength); //extracting over texts
+            overText = `<span class="highlight">${overText}</span>`; //creating new span and passing over texts
+            text = element.innerText.substr(0, maxLength) + overText; //passing overText value in textTag variable
+            readonlyInput.style.zIndex = "1";
+            counter.style.color = "#e0245e";
+            button.classList.remove("active");
+        } else {
+            readonlyInput.style.zIndex = "-1";
+            counter.style.color = "#333";
+        }
+        readonlyInput.innerHTML = text; //replacing innerHTML of readonly div with textTag value
+    }
+
+</script>
+
+<link rel="stylesheet" href="../assets/css/publicacoes.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<script src="../assets/js/sessao.js"></script>
+<script src="../assets/js/alerta.js"></script>
+<script src="../assets/js/publicacoes.js"></script>
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    feather.replace(); 
+</script>
+ 
