@@ -9,12 +9,79 @@ body {
 
 }
 
+
 .dash {
-  background-color: bisque;
   color: white;
-  margin-left: 10%; 
-  width: 80%; 
-  height: 100vh;
+  margin-left: 10%;
+  width: 80%;
   overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  flex-direction: column; 
 }
 
+.tela-grafico {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  justify-content: space-between; 
+}
+
+.kpi-grafico {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.kpi1, .kpi2 {
+  background-color: #ffffff35;
+  padding: 30px;
+  border-radius: 10px;
+  width: 48%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.kpi1 span:first-child, .kpi2 span:first-child {
+  font-weight: bold;
+}
+
+.card-grafico {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.titulo-grafico p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.dados-grafico {
+  display: flex; 
+  justify-content: space-between; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+}
+
+.grafico2 {
+  display: flex; 
+  justify-content: space-between;
+  width: 100%; 
+  gap: 50px;
+}
+
+.grafico2 > div {
+  width: 100%; 
+}
+
+canvas {
+  width: 100% !important; 
+  height: 300px !important;
+  background-color: #ffffff35;
+  border-radius: 5px;
+}

@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
   background: #000000;
+  user-select: none;
 
 }
 

@@ -18,6 +18,8 @@ var publicacoesRouter = require("./src/routes/publicacoes");
 var medidasRouter = require("./src/routes/medidas");
 var sociotorcedorRouter = require("./src/routes/socioTorcedor");
 var quizRouter = require("./src/routes/quiz");
+var graficoRouter = require("./src/routes/grafico");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +33,7 @@ app.use("/publicacoes", publicacoesRouter);
 app.use("/medidas", medidasRouter);
 app.use("/sociotorcedor", sociotorcedorRouter);
 app.use("/quiz", quizRouter);
+app.use("/grafico", graficoRouter);
 
 app.listen(PORTA_APP, function () {
   console.log(`
