@@ -11,10 +11,12 @@ body {
   align-items: center;
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
+  background: #000000;
+
 }
 
 
-/* Layout principal */
+
 .container {
   display: grid;
   grid-template-columns: 200px 1fr 300px;
@@ -25,9 +27,10 @@ body {
   background: #000000;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-/* Hidebar */
+
 
 .hidebar {
   color: white;
@@ -35,6 +38,12 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 35px;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  height: 100vh; 
+  width: 200px; 
+  z-index: 10;
 }
 
 .logo{
@@ -47,6 +56,8 @@ body {
   margin-top: 20px;
 }
 
+
+
 .hidebar .menu p {
   display: flex;
   justify-content: start;
@@ -54,13 +65,16 @@ body {
   gap: 16px;
   padding: 11px;
   padding-right: 24px;
-  border-radius: 24px;
   margin-right: auto;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
   color: white;
   text-decoration: none;
+}
+
+.hidebar .menu p:hover {
+  color: red;
 }
 
 
@@ -70,7 +84,7 @@ body {
   align-items: center;
   gap: 10px;
   border-radius: 24px;
-  margin-left: 40px;
+
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -82,12 +96,14 @@ body {
 
   p{
     font-size: 10px;
+ 
   }
   span{
     font-size: 15px;
     color: rgb(255, 255, 255);
   }
 }
+
 
 .profile-pic{
   width: 35px; 
@@ -98,40 +114,26 @@ body {
 
 
 
-/* Feed */
-
 .feed {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+  height: 100vh;
+  width: 100vh;
+  overflow-y: auto; 
+  margin-left: 350px; 
+  padding: 50px;
+  z-index: 1; 
+  position: relative;
 }
-
-
-.publicacao {
-  width: 100%;
-  max-width: 700px; 
-  margin-bottom: 15px;
-  padding: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.publicacao-nome, .publicacao-descricao {
-  margin-bottom: 10px;
-}
-
 
 .post {
-  background: #ecf0f1;
+  background: #000000;
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 
 
 .feed h1 {
@@ -173,41 +175,47 @@ body {
   background-color: red;
 }
 
-::selection{
+
+::selection {
   color: #fff;
   background: #1da1f2;
 }
-.wrapper{
+
+.wrapper {
   background: #fff;
   max-width: 500px;
   width: 100%;
-  height: 200px; 
+  height: auto; 
   border-radius: 15px;
-  padding: 15px 25px 15px 25px; 
-  box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+  padding: 15px 25px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  box-sizing: border-box; 
 }
 
-.input-box{
+
+.input-box {
   padding-top: 10px;
   border-bottom: 1px solid #e6e6e6;
-  flex: 1; 
-  overflow: hidden; 
+  flex: 1;
+  overflow: hidden;
 }
 
-.input-box .tweet-area{
+
+.input-box .tweet-area {
   position: relative;
   min-height: 130px;
-  max-height: 120px; 
-  overflow-y: auto; 
+  max-height: 120px;
+  overflow-y: auto;
 }
 
-.tweet-area::-webkit-scrollbar{
+.tweet-area::-webkit-scrollbar {
   width: 0px;
 }
 
-.tweet-area .placeholder{
+
+.tweet-area .placeholder {
   position: absolute;
   margin-top: -3px;
   font-size: 22px;
@@ -215,7 +223,8 @@ body {
   pointer-events: none;
 }
 
-.tweet-area .input{
+
+.tweet-area .input {
   outline: none;
   font-size: 17px;
   min-height: inherit;
@@ -223,12 +232,12 @@ body {
   word-break: break-all;
 }
 
-.tweet-area .editable{
+.tweet-area .editable {
   position: relative;
   z-index: 5;
 }
 
-.tweet-area .readonly{
+.tweet-area .readonly {
   position: absolute;
   top: 0;
   left: 0;
@@ -237,11 +246,12 @@ body {
   background: transparent;
 }
 
-.readonly .highlight{
+.readonly .highlight {
   background: #fd9bb0;
 }
 
-.input-box .privacy{
+
+.input-box .privacy {
   color: #1da1f2;
   margin: 15px 0;
   display: inline-flex;
@@ -252,32 +262,35 @@ body {
   transition: background 0.2s ease;
 }
 
-.privacy:hover, .icons li:hover{
+.privacy:hover,
+.icons li:hover {
   background: #e7f5fe;
 }
 
-.privacy i{
+.privacy i {
   font-size: 18px;
 }
 
-.privacy span{
+.privacy span {
   font-size: 15px;
   font-weight: 600;
   margin-left: 7px;
 }
 
-.bottom{
+
+.bottom {
   display: flex;
-  margin-top: 5px; /* Ajuste o espaço inferior */
+  margin-top: 5px;
   align-items: center;
   justify-content: space-between;
 }
 
-.bottom .icons{
+
+.bottom .icons {
   display: inline-flex;
 }
 
-.icons li{
+.icons li {
   list-style: none;
   color: #1da1f2;
   font-size: 20px;
@@ -292,13 +305,14 @@ body {
   transition: background 0.2s ease;
 }
 
-.bottom .content{
+.bottom .content {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.bottom .counter{
+
+.bottom .counter {
   color: #333;
   display: none;
   font-weight: 500;
@@ -307,7 +321,7 @@ body {
   border-right: 1px solid #aab8c2;
 }
 
-.bottom button{
+.bottom button {
   padding: 9px 18px;
   border: none;
   outline: none;
@@ -320,51 +334,233 @@ body {
   opacity: 0.5;
   pointer-events: none;
   transition: background 0.2s ease;
-  height: 35px; /* Ajuste para que o botão tenha um tamanho adequado */
+  height: 35px;
+  width: auto; 
 }
 
-.bottom button.active{
+.bottom button.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-.bottom button:hover{
+.bottom button:hover {
   background: #0d8bd9;
 }
 
 
+.feed-form {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-
-/* Convites */
-.invites {
-  background: #f7f9fa;
-  padding: 20px;
-  border-left: 1px solid #ddd;
+.feed-form input, .feed-form textarea, .feed-form button {
+  width: 100%;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
 }
 
 
-.invites h2 {
+
+.tweet-area {
+  position: relative;
+  min-height: 130px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.tweet-area .input {
+  outline: none;
+  font-size: 17px;
+  min-height: inherit;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+
+
+
+.invites {
+  background: #000000;
+  padding: 50px;
+  position: fixed; 
+  top: 0;
+  right: 0;
+  width: 450px; 
+  height: 100vh; 
+  z-index: 10;
+}
+
+.who-to-follow {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.invite {
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+.who-to-follow h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
-.invite button {
-  background: #3498db;
-  color: white;
+.who-to-follow ul {
+  list-style: none;
+  padding: 0;
+}
+
+.who-to-follow li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.who-to-follow img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.who-to-follow .verified {
+  color: blue;
+  font-size: 12px;
+}
+
+.who-to-follow button {
+  background-color: #1da1f2;
+  color: #fff;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 5px;
+  justify-content: space-between;   
+  margin-top: 5px;
 }
 
-.invite button:last-child {
-  background: #e74c3c;
+.who-to-follow button:hover {
+  background-color: #0d8bd9;
 }
+
+
+.trending-topics {
+  margin-top: 20px;
+  border: solid white 2px;
+  padding: 20px;
+  width: 350px;
+  height: 390px;
+  border-radius: 10px;
+  text-align: justify;
+  color: white;
+  
+}
+
+.trending-topics div{
+  margin-bottom: 20px; 
+}
+
+.trending-topics h2 {
+  font-size: 5px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+
+.trending-topics h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.trending-topics p,
+.trending-topics h3,
+.trending-topics h5 {
+  margin: 0;
+}
+
+.trending-topics h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.trending-topics h5 {
+  color: #888;
+  font-size: 14px;
+}
+
+
+img {
+  max-width:100%;
+}
+.avator {
+  border-radius:100px;
+  width:48px;
+  margin-right: 15px;
+}
+
+.tweet-wrap {
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 10px;
+  padding: 30px;
+  border-bottom: 1px solid #e6ecf0;
+  border-top: 1px solid #e6ecf0;
+}
+
+.tweet-header {
+  display: flex;
+  align-items:flex-start;
+  font-size:14px;
+}
+.tweet-header-info {
+  font-weight:bold;
+}
+.tweet-header-info span {
+  color:#657786;
+  font-weight:normal;
+  margin-left: 5px;
+}
+.tweet-header-info p {
+  font-weight:normal;
+  margin-top: 5px;
+  
+}
+.tweet-img-wrap {
+  padding-left: 60px;
+}
+
+.tweet-info-counts {
+  display: flex;
+  margin-left: 60px;
+  margin-top: 10px;
+}
+.tweet-info-counts div {
+  display: flex;
+  margin-right: 20px;
+}
+.tweet-info-counts div svg {
+  color:#657786;
+  margin-right: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 12px; 
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-button {
+  background: transparent; 
+}
+

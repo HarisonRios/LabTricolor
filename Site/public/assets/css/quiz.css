@@ -1,11 +1,4 @@
-body{
-  background-color: #2f2f2f;
-}
 
-img {
-    -webkit-user-drag: none;
-  }
-  
   button {
     cursor: pointer;
   }
@@ -18,7 +11,7 @@ img {
     align-items: center;
     position: relative;
     top: 0;
-    left: 15%;
+    left: 10%;
     overflow: auto;
     flex-direction: column;
   }

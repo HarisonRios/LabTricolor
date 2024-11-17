@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Publicações - LabTricolor</title>
 
-    <link rel="stylesheet" href="../assets/css/dashboards.css">
-    <link rel="stylesheet" href="../assets/css/card.css">
+
     <link rel="stylesheet" href="../assets/css/publicacoes.css">
+    <link rel="stylesheet" href="../assets/css/editarPublicacoes.css">
 
     <script src="../assets/js/sessao.js"></script>
     <script src="../assets/js/alerta.js"></script>
@@ -21,39 +21,42 @@
 </head>
 
 <body onload="validarSessao(), listarInfosDeUm()">
-  
+    <aside class="hidebar">
+        <img src="../assets/img/spfc.png" alt="Logo" class="logo">
+        <nav class="menu">
+            <p id="home" onclick="dashboard()">
+                <i data-feather="home"></i>
+                Página Inicial
+            </p>
+            <p id="publicacoes" onclick="publicacoes()">
+                <i data-feather="edit"></i>
+                Publicações
+            </p>
+            <p id="cards" onclick="cards()">
+                <i data-feather="help-circle"></i>
+                Quiz
+            </p>
+            <p id="logout" onclick="limparSessao()">
+                <i data-feather="log-out"></i>
+                Sair
+            </p>
+        </nav>
 
-        
-    <div class="janela">
-        <div class="header-left dash-header">
-            <a href="./dashboard.html">
-                <img src="../assets/img/spfc.png" class="logo" alt="Lab Tricolor - Logo" />
-            </a>
-            <a href="./dashboard.html">
-                <h3>Visão Geral</h3>
-            </a>
-            <a href="./cards.html">
-                <h3>Quiz</h3>
-            </a>
-            <a href="./mural.html">
-                <h3>Publicaçãoes</h3>
-            </a>
-            <div class="parte-usuario">
-                <img src="../assets/img/profile.jpg" class="foto-usuario" alt="">
-                <p>Olá, <span id="b_usuario">usuário</span>!</p>
-                <span>Socio Torcedor - Diamante</span>
-            </div>
-            <div class="botoes">
-                <h3><i class="bi bi-gear"> Configurações</i></h3>
-                <h3 onclick="limparSessao()"><i class="bi bi-box-arrow-right"> Sair</i></h3>
+        <div class="user-container">
+            <img id="user-profile-pic" src="../assets/img/profile.jpg" class="profile-pic" alt="">
+            <div class="user-info">
+                <span id="b_usuario">usuário</span>
+                <p>Sócio Torcedor - Diamante </p>
+                <i data-feather="more-horizontal"></i>
             </div>
         </div>
+    </aside>
 
-
+    
         <div class="dash-right">
             <div class="avisos">
                 <div class="container">
-                    <h1>Editar um aviso</h1>
+                    <h1>Editar uma Publicação</h1>
                     <div class="div-form">
                         <label>
                             ID:

@@ -8,61 +8,42 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> LabTricolor - São Paulo FC</title>
-  <link rel="stylesheet" href="../assets/css/card.css">
   <link rel="stylesheet" href="../assets/css/quiz.css" />
+  <link rel="stylesheet" href="../assets/css/publicacoes.css">
 </head>
 
 <body onload="validarSessao()">
-  <section class="sidebar">
+    <aside class="hidebar">
+        <img src="../assets/img/spfc.png" alt="Logo" class="logo">
+        <nav class="menu">
+            <p id="home" onclick="dashboard()">
+                <i data-feather="home"></i>
+                Página Inicial
+            </p>
+            <p id="publicacoes" onclick="publicacoes()">
+                <i data-feather="edit"></i>
+                Publicações
+            </p>
+            <p id="cards" onclick="cards()">
+                <i data-feather="help-circle"></i>
+                Quiz
+            </p>
+            <p id="logout" onclick="limparSessao()">
+                <i data-feather="log-out"></i>
+                Sair
+            </p>
+        </nav>
 
-    <div class="sidebar-item twitter-bird">
-        <img class="twitter-img" src="../assets/img/spfc.png" alt="Twitter logo">
-    </div>
-
-    <div class="sidebar-item active">
-        <i data-feather="home"></i>
-        <p class="sidebar-item-text active">Página Inicial</p>
-    </div>
-    <div class="sidebar-item">
-        <i data-feather="search"></i>
-        <p onclick="dashboard()" class="sidebar-item-text">Dashboard</p>
-    </div>
-    <div class="sidebar-item">
-      <i data-feather="rss"></i>
-      <p onclick="publicacoes()" class="sidebar-item-text">Publicações</p>
-  </div>
-  <div class="sidebar-item">
-      <i data-feather="help-circle"></i>
-      <p onclick="cards()" class="sidebar-item-text">Quiz</p>
-  </div>
-    <div class="sidebar-item">
-        <i data-feather="bell"></i>
-        <p class="sidebar-item-text">Notificações</p>
-    </div>
-    <div class="sidebar-item">
-        <i data-feather="mail"></i>
-        <p class="sidebar-item-text">Mensagens</p>
-    </div>
-    <div class="sidebar-item">
-        <i data-feather="user"></i>
-        <p class="sidebar-item-text">Perfil</p>
-    </div>
-    <div class="sidebar-item">
-        <i data-feather="more-horizontal"></i>
-        <p onclick="limparSessao()" class="sidebar-item-text">Sair</p>
-    </div>
-
-    <button class="tweet-btn">Tweet</button>
-
-    <div class="sidebar-item">
-        <img src="../assets/img/profile.jpg" class="profile-pic" alt="">
-        <div class="user-info">
-            <p>Olá, <span id="b_usuario">usuário</span>!</p>
-            <span>Sócio Torcedor - Diamante</span>
+        <div class="user-container">
+            <img id="user-profile-pic" src="../assets/img/profile.jpg" class="profile-pic" alt="">
+            <div class="user-info">
+                <span id="b_usuario">usuário</span>
+                <p>Sócio Torcedor - Diamante </p>
+                <i data-feather="more-horizontal"></i>
+            </div>
         </div>
-    </div>
-    </div>
-</section>
+    </aside>
+
 
 
 

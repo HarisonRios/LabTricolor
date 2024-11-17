@@ -1,0 +1,78 @@
+.dash-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+.container {
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    height: 550px; 
+    padding: 50px;
+    border: 2px solid white; 
+    border-radius: 10px;
+    background-color: #000000; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.div-form {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+}
+
+.div-form label {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.div-form input,
+.div-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333333;
+    outline: none;
+}
+
+.div-form input:disabled,
+.div-form textarea:disabled {
+    background-color: #eaeaea;
+    color: rgb(196, 196, 196);
+    cursor: not-allowed;
+}
+
+.div-form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.div-form button:hover {
+    background-color: #890303;
+}

@@ -10,7 +10,9 @@ body {
 }
 
 .dash {
-  margin-left: 15%; 
+  background-color: bisque;
+  color: white;
+  margin-left: 10%; 
   width: 80%; 
   height: 100vh;
   overflow: auto;
