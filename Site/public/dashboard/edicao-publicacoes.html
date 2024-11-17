@@ -52,41 +52,39 @@
         </div>
     </aside>
 
-    
-        <div class="dash-right">
-            <div class="avisos">
-                <div class="container">
-                    <h1>Editar uma Publicação</h1>
-                    <div class="div-form">
-                        <label>
-                            ID:
-                            <br>
-                            <input id="input_id" maxlength="100" type="text" style="color: rgb(196, 196, 196)" disabled>
-                        </label>
-                        <label>
-                            Autor:
-                            <br>
-                            <input id="input_nome" maxlength="100" type="text" style="color: rgb(196, 196, 196)"
-                                disabled>
-                        </label>
-                        <br>
-                        <label>
-                            Descrição (máximo de 250 caracteres):
-                            <br>
-                            <textarea id="textarea_descricao" maxlength="250" rows="5"></textarea>
-                        </label>
-                        <br>
-                        <button onclick="editar()">Editar</button>
-                    </div>
 
+    <div class="dash-right">
+        <div class="avisos">
+            <div class="container">
+                <h1>Editar uma Publicação</h1>
+                <div class="div-form">
+                    <label>
+                        ID:
+                        <br>
+                        <input id="input_id" maxlength="100" type="text" style="color: rgb(196, 196, 196)" disabled>
+                    </label>
+                    <label>
+                        Autor:
+                        <br>
+                        <input id="input_nome" maxlength="100" type="text" style="color: rgb(196, 196, 196)" disabled>
+                    </label>
+                    <br>
+                    <label>
+                        Descrição (máximo de 250 caracteres):
+                        <br>
+                        <textarea id="textarea_descricao" maxlength="250" rows="5"></textarea>
+                    </label>
+                    <br>
+                    <button onclick="editar()">Editar</button>
                 </div>
+
             </div>
         </div>
+    </div>
     </div>
 </body>
 
 </html>
-
 <script>
     function listarInfosDeUm() {
         console.log("Criar função de trazer informações de post escolhido");
@@ -102,18 +100,58 @@
                 descricao: textarea_descricao.value
             })
         }).then(function (resposta) {
-
             if (resposta.ok) {
-                window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                window.location = "/dashboard/publicacoes.html"
+                Swal.fire({
+                    title: "Post atualizado com sucesso pelo usuário de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!",
+                    text: "Redirecionando para o feed...",
+                    icon: "success",
+                    width: 350,
+                    padding: "2em",
+                    color: "black",
+                    background: "#fff",
+                    backdrop: `rgba(0, 0, 0, 0.8)`,
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#000000',
+                }).then(() => {
+                    window.location = "/dashboard/publicacoes.html"; // Redireciona após fechar o modal
+                });
             } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
+                Swal.fire({
+                    title: "Erro 404!",
+                    text: "Publicação não encontrada.",
+                    icon: "error",
+                    width: 350,
+                    padding: "2em",
+                    color: "black",
+                    background: "#fff",
+                    backdrop: `rgba(0, 0, 0, 0.8)`,
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#000000',
+                });
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }
         }).catch(function (resposta) {
+            Swal.fire({
+                title: "Erro!",
+                text: "Houve um erro ao tentar realizar a postagem.",
+                icon: "error",
+                width: 350,
+                padding: "2em",
+                color: "black",
+                background: "#fff",
+                backdrop: `rgba(0, 0, 0, 0.8)`,
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#000000',
+            });
             console.log(`#ERRO: ${resposta}`);
         });
     }
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    feather.replace(); 
 </script>

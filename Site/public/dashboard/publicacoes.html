@@ -1,456 +1,530 @@
-    <!DOCTYPE html>
-    <html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 
-    <head>
-        <link rel="shortcut icon" href="../assets/img/spfc.png" type="image/x-icon">
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Publicaçãoes - LabTricolor</title>
+<head>
+    <link rel="shortcut icon" href="../assets/img/spfc.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicaçãoes - LabTricolor</title>
 
-    </head>
+</head>
 
-    <body onload="validarSessao(), atualizarFeed()">
-        
-        <div class="container">
-            <aside class="hidebar">
-                <img src="../assets/img/spfc.png" alt="Logo" class="logo">
-                <nav class="menu">
-                    <p id="home" onclick="dashboard()">
-                        <i data-feather="home"></i>
-                        Página Inicial
-                    </p>
-                    <p id="publicacoes" onclick="publicacoes()">
-                        <i data-feather="edit"></i>
-                        Publicações
-                    </p>
-                    <p id="cards" onclick="cards()">
-                        <i data-feather="help-circle"></i>
-                        Quiz
-                    </p>
-                    <p id="logout" onclick="limparSessao()">
-                        <i data-feather="log-out"></i>
-                        Sair
-                    </p>
-                </nav>
+<body onload="validarSessao(), atualizarFeed()">
 
-                <div class="user-container">
-                    <img id="user-profile-pic" src="../assets/img/profile.jpg" class="profile-pic" alt="">
-                    <div class="user-info">
-                        <span id="b_usuario">usuário</span>
-                        <p>Sócio Torcedor - Diamante </p>
-                        <i data-feather="more-horizontal"></i>
-                    </div>
+    <div class="container">
+        <aside class="hidebar">
+            <img src="../assets/img/spfc.png" alt="Logo" class="logo">
+            <nav class="menu">
+                <p id="home" onclick="dashboard()">
+                    <i data-feather="home"></i>
+                    Página Inicial
+                </p>
+                <p id="publicacoes" onclick="publicacoes()">
+                    <i data-feather="edit"></i>
+                    Publicações
+                </p>
+                <p id="cards" onclick="cards()">
+                    <i data-feather="help-circle"></i>
+                    Quiz
+                </p>
+                <p id="logout" onclick="limparSessao()">
+                    <i data-feather="log-out"></i>
+                    Sair
+                </p>
+            </nav>
+
+            <div class="user-container">
+                <img id="user-profile-pic" class="profile-pic" alt="Perfil do Usuário">
+                <div class="user-info">
+                    <span id="b_usuario">usuário</span>
+                    <p>Sócio Torcedor - Diamante</p>
+                    <i data-feather="more-horizontal"></i>
                 </div>
-            </aside>
+            </div>
+        </aside>
 
 
 
-            <!-- Feed -->
-            <main class="feed">
-                <div class="text-container">
-                    <p class="text active">Para Você</p>
-                    <p class="text">Seguindo</p>
+        <!-- Feed -->
+        <main class="feed">
+            <div class="text-container">
+                <p class="text active">Para Você</p>
+                <p class="text">Seguindo</p>
+            </div>
+            <div class="wrapper">
+                <form id="form_postagem" method="post" class="feed-form" onsubmit="return publicar()">
+                    <div class="input-box">
+                        <div class="tweet-area">
+                            <span class="placeholder">O que está acontecendo?</span>
+                            <div class="input editable" contenteditable="true" spellcheck="false" id="tweet_input">
+                            </div>
+                            <div class="input readonly" contenteditable="true" spellcheck="false"></div>
+                        </div>
+                        <div class="privacy">
+                            <i class="fas fa-globe-asia"></i>
+                            <span>Qualquer pessoa pode responder</span>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <ul class="icons">
+                            <li><i class="far fa-file-image"></i></li>
+                        </ul>
+                        <div class="content">
+                            <span class="counter" id="counter">100</span>
+                            <button type="submit">Tweet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <textarea name="descricao" id="textarea_descricao" maxlength="250" style="display:none;"></textarea>
+
+            <div class="post">
+                <div class="div-results">
+                    <div id="feed_container" class="feed-container">
+                    </div>
+        </main>
+
+
+        <aside class="invites">
+            <section class="who-to-follow">
+                <h2>Quem seguir</h2>
+                <ul>
+                    <li>
+                        <img src="https://www.gaveanews.com/wp-content/uploads/Lucas-Moura-vibra-apos-marcar-um-gol-pelo-Sao-Paulo-no-estadio-do-Morumbi-640x799.jpg"
+                            alt="Foto de perfil de Lucas Manetta">
+                        <div>
+                            <h3>Lucas Moura <span class="verified">&#10004;</span></h3>
+                            <p>@lucasMoura</p>
+                            <button>Seguir</button>
+                        </div>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <img src="https://p2.trrsf.com/image/fget/cf/1200/1600/middle/images.terra.com/2023/09/17/1024460606-calleriflamengosaopaulofinalcopadobrasil2023-scaled-aspect-ratio-512-320-1.jpg"
+                            alt="Foto de perfil de Lucas Manetta">
+                        <div>
+                            <h3>Jonathan Calleri <span class="verified">&#10004;</span></h3>
+                            <p>@jocalleri</p>
+                            <button>Seguir</button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+
+            <section class="trending-topics">
+                <h2>O que está acontecendo</h2>
+                <div>
+                    <p>Assunto do Momento em Brasil</p>
+                    <h3>São Paulo FC</h3>
+                    <h5>34,7 mil posts</h5>
                 </div>
-                <div class="wrapper">
-                    <form id="form_postagem" method="post" class="feed-form" onsubmit="return publicar()">
-                        <div class="input-box">
-                            <div class="tweet-area">
-                                <span class="placeholder">O que está acontecendo?</span>
-                                <div class="input editable" contenteditable="true" spellcheck="false" id="tweet_input">
-                                </div>
-                                <div class="input readonly" contenteditable="true" spellcheck="false"></div>
-                            </div>
-                            <div class="privacy">
-                                <i class="fas fa-globe-asia"></i>
-                                <span>Qualquer pessoa pode responder</span>
-                            </div>
-                        </div>
-                        <div class="bottom">
-                            <ul class="icons">
-                                <li><i class="far fa-file-image"></i></li>
-                            </ul>
-                            <div class="content">
-                                <span class="counter" id="counter">100</span>
-                                <button type="submit">Tweet</button>
-                            </div>
-                        </div>
-                    </form>
+                <div>
+                    <p>Assunto do Momento em Brasil</p>
+                    <h3>São Paulo FC</h3>
+                    <h5>34,7 mil posts</h5>
                 </div>
-
-                <textarea name="descricao" id="textarea_descricao" maxlength="250" style="display:none;"></textarea>
-
-                <div class="post">
-                    <div class="div-results">
-                        <div id="feed_container" class="feed-container">
-                        </div>
-            </main>
-
-
-            <aside class="invites">
-                <section class="who-to-follow">
-                    <h2>Quem seguir</h2>
-                    <ul>
-                        <li>
-                            <img src="https://www.gaveanews.com/wp-content/uploads/Lucas-Moura-vibra-apos-marcar-um-gol-pelo-Sao-Paulo-no-estadio-do-Morumbi-640x799.jpg"
-                                alt="Foto de perfil de Lucas Manetta">
-                            <div>
-                                <h3>Lucas Moura <span class="verified">&#10004;</span></h3>
-                                <p>@lucasMoura</p>
-                                <button>Seguir</button>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="https://p2.trrsf.com/image/fget/cf/1200/1600/middle/images.terra.com/2023/09/17/1024460606-calleriflamengosaopaulofinalcopadobrasil2023-scaled-aspect-ratio-512-320-1.jpg"
-                                alt="Foto de perfil de Lucas Manetta">
-                            <div>
-                                <h3>Jonathan Calleri <span class="verified">&#10004;</span></h3>
-                                <p>@jocalleri</p>
-                                <button>Seguir</button>
-                            </div>
-                        </li>
-                    </ul>
-                </section>
-
-
-                <section class="trending-topics">
-                    <h2>O que está acontecendo</h2>
-                    <div>
-                        <p>Assunto do Momento em Brasil</p>
-                        <h3>São Paulo FC</h3>
-                        <h5>34,7 mil posts</h5>
-                    </div>
-                    <div>
-                        <p>Assunto do Momento em Brasil</p>
-                        <h3>São Paulo FC</h3>
-                        <h5>34,7 mil posts</h5>
-                    </div>
-                    <div>
-                        <p>Assunto do Momento em Brasil</p>
-                        <h3>São Paulo FC</h3>
-                        <h5>34,7 mil posts</h5>
-                    </div>
-                    <div>
-                        <p>Assunto do Momento em Brasil</p>
-                        <h3>São Paulo FC</h3>
-                        <h5>34,7 mil posts</h5>
-                    </div>
-                </section>
-            </aside>
-        </div>
+                <div>
+                    <p>Assunto do Momento em Brasil</p>
+                    <h3>São Paulo FC</h3>
+                    <h5>34,7 mil posts</h5>
+                </div>
+                <div>
+                    <p>Assunto do Momento em Brasil</p>
+                    <h3>São Paulo FC</h3>
+                    <h5>34,7 mil posts</h5>
+                </div>
+            </section>
+        </aside>
+    </div>
 
 
 
 
-    </body>
+</body>
 
-    </html>
-    <script>
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+</html>
+<script>
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO; 
 
+    function publicar() {
+        var tweetInput = document.getElementById("tweet_input").innerText;
+        var descricaoInput = document.getElementById("textarea_descricao");
+        descricaoInput.value = tweetInput;
 
+        var idUsuario = sessionStorage.ID_USUARIO;
 
-        function publicar() {
-            var tweetInput = document.getElementById("tweet_input").innerText;
-            var descricaoInput = document.getElementById("textarea_descricao");
-            descricaoInput.value = tweetInput;
+        var corpo = {
+            descricao: descricaoInput.value
+        };
 
-            var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/publicacoes/publicar/${idUsuario}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+            console.log("Resposta:", resposta);
 
-            var corpo = {
-                descricao: descricaoInput.value
-            };
-
-            fetch(`/publicacoes/publicar/${idUsuario}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(corpo)
-            }).then(function (resposta) {
-                console.log("Resposta:", resposta);
-
-                if (resposta.ok) {
-                    window.alert("Post realizado com sucesso pelo usuário de ID: " + idUsuario + "!");
+            if (resposta.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Postagem realizada com sucesso!',
+                    text: `ID do usuário: ${idUsuario}`,
+                    width: 350,
+                    padding: "2em",
+                    color: "black",
+                    background: "#fff",
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#000000'
+                }).then(() => {
                     window.location = "/dashboard/publicacoes.html";
                     limparFormulario();
                     finalizarAguardar();
-                } else if (resposta.status == 404) {
-                    window.alert("Deu 404! Página não encontrada.");
-                } else {
-                    throw new Error("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-                }
-            }).catch(function (erro) {
-                console.error("#ERRO: ", erro);
-                finalizarAguardar();
-            });
-
-            return false;
-        }
-
-        function editar(idPublicacao) {
-            sessionStorage.ID_POSTAGEM_EDITANDO = idPublicacao;
-            console.log("cliquei em editar - " + idPublicacao);
-            window.alert("Você será redirecionado à página de edição da publicacoes de id número: " + idPublicacao);
-            window.location = "/dashboard/edicao-publicacoes.html"
-
-        }
-
-        function deletar(idPublicacao) {
-            console.log("Criar função de apagar post escolhido - ID" + idPublicacao);
-            fetch(`/publicacoes/deletar/${idPublicacao}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(function (resposta) {
-
-                if (resposta.ok) {
-                    window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                    window.location = "/dashboard/publicacoes.html"
-                } else if (resposta.status == 404) {
-                    window.alert("Deu 404!");
-                } else {
-                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-        }
-
-        function atualizarFeed() {
-    fetch("/publicacoes/listar").then(function (resposta) {
-        if (resposta.ok) {
-            if (resposta.status == 204) {
-                var feed = document.getElementById("feed_container");
-                var mensagem = document.createElement("span");
-                mensagem.innerHTML = "Nenhum resultado encontrado.";
-                feed.appendChild(mensagem);
-                throw "Nenhum resultado encontrado!!";
+                });
+            } else if (resposta.status == 404) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro 404',
+                    width: 350,
+                    padding: "2em",
+                    color: "black",
+                    background: "#fff",
+                    text: 'Página não encontrada. Não foi possível realizar a postagem.',
+                    confirmButtonText: 'Fechar',
+                    confirmButtonColor: '#000000'
+                });
+            } else {
+                throw new Error(`Erro ao realizar a postagem. Código de resposta: ${resposta.status}`);
             }
+        }).catch(function (erro) {
+            console.error("#ERRO: ", erro);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao realizar a postagem',
+                width: 350,
+                padding: "2em",
+                color: "black",
+                background: "#fff",
+                text: 'Ocorreu um erro ao tentar realizar a postagem. Tente novamente mais tarde.',
+                confirmButtonText: 'Fechar',
+                confirmButtonColor: '#000000'
+            });
+            finalizarAguardar();
+        });
 
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
+        return false;
+    }
 
-                var feed = document.getElementById("feed_container");
-                feed.innerHTML = "";
-                for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[i];
+    function editar(idPublicacao) {
+        sessionStorage.ID_POSTAGEM_EDITANDO = idPublicacao;
+        console.log("Clicado para editar - ID: " + idPublicacao);
+        Swal.fire({
+            icon: 'info',
+            title: 'Edição de Publicação',
+            width: 350,
+            padding: "2em",
+            color: "black",
+            background: "#fff",
+            text: `Você será redirecionado para a edição da publicação com ID: ${idPublicacao}`,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#000000'
+        }).then(() => {
+            window.location = "/dashboard/edicao-publicacoes.html";
+        });
+    }
 
-        
-                    var tweetWrap = document.createElement("div");
-                    var tweetHeader = document.createElement("div");
-                    var avatar = document.createElement("img");
-                    var tweetHeaderInfo = document.createElement("div");
-                    var spanNome = document.createElement("span");
-                    var spanID = document.createElement("span");
-                    var tweetDescricao = document.createElement("p");
+    function deletar(idPublicacao) {
+        console.log("Criar função de apagar post escolhido - ID: " + idPublicacao);
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: `Deseja excluir a publicação com ID ${idPublicacao}?`,
+            icon: 'warning',
+            width: 350,
+            padding: "2em",
+            color: "black",
+            background: "#fff",
+            showCancelButton: true,
+            confirmButtonText: 'Sim, excluir',
+            confirmButtonColor: '#000000',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/publicacoes/deletar/${idPublicacao}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (resposta) {
+                    if (resposta.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Postagem deletada!',
+                            text: `Postagem com ID ${idPublicacao} foi excluída com sucesso.`,
+                            width: 350,
+                            padding: "2em",
+                            color: "black",
+                            background: "#fff",
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#000000'
+                        }).then(() => {
+                            window.location = "/dashboard/publicacoes.html";
+                        });
+                    } else if (resposta.status == 404) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro 404',
+                            text: 'Postagem não encontrada. Não foi possível deletar.',
+                            width: 350,
+                            padding: "2em",
+                            color: "black",
+                            background: "#fff",
+                            confirmButtonText: 'Fechar',
+                            confirmButtonColor: '#000000'
+                        });
+                    } else {
+                        throw new Error(`Erro ao tentar deletar a postagem. Código de resposta: ${resposta.status}`);
+                    }
+                }).catch(function (erro) {
+                    console.error(`#ERRO: ${erro}`);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro ao excluir a postagem',
+                        text: 'Ocorreu um erro ao tentar excluir a postagem. Tente novamente mais tarde.',
+                        width: 350,
+                        padding: "2em",
+                        color: "black",
+                        background: "#fff",
+                        confirmButtonText: 'Fechar',
+                        confirmButtonColor: '#000000'
+                    });
+                });
+            }
+        });
+    }
 
-                    var tweetInfoCounts = document.createElement("div");
-                    var tweetActions = document.createElement("div"); 
-
-                    var comments = document.createElement("div");
-                    var retweets = document.createElement("div");
-                    var likes = document.createElement("div");
-                    var message = document.createElement("div");
-
-                   
-                    var iconComment = document.createElement("i");
-                    var iconRetweet = document.createElement("i");
-                    var iconLike = document.createElement("i");
-                    var iconMessage = document.createElement("i");
-
-                    var commentCount = document.createElement("div");
-                    var retweetCount = document.createElement("div");
-                    var likesCount = document.createElement("div");
-
-                    
-                    var btnEditar = document.createElement("button");
-                    var btnDeletar = document.createElement("button");
-
-                    
-                    tweetWrap.className = "tweet-wrap";
-                    tweetHeader.className = "tweet-header";
-                    tweetHeaderInfo.className = "tweet-header-info";
-                    tweetDescricao.className = "tweet-description";
-                    tweetInfoCounts.className = "tweet-info-counts";
-                    tweetActions.className = "tweet-actions";
-
-                    avatar.className = "avatar";
-                    avatar.alt = "Avatar";
-                    avatar.src = `../assets/upload`; 
-
-                    spanNome.innerHTML = publicacao.nome || "Autor";
-                    spanID.innerHTML = "<b>" + publicacao.idPublicacao + "</b>";
-                    tweetDescricao.innerHTML = publicacao.descricao || "Descrição da publicação.";
-
-                    
-                    comments.className = "comments";
-                    retweets.className = "retweets";
-                    likes.className = "likes";
-                    message.className = "message";
-
-                    iconComment.setAttribute("data-feather", "message-circle");
-                    iconRetweet.setAttribute("data-feather", "repeat");
-                    iconLike.setAttribute("data-feather", "heart");
-                    iconMessage.setAttribute("data-feather", "send");
-
-                    commentCount.className = "comment-count";
-                    retweetCount.className = "retweet-count";
-                    likesCount.className = "likes-count";
-
-                    commentCount.innerHTML = publicacao.comentarios || "0";
-                    retweetCount.innerHTML = publicacao.retweets || "0";
-                    likesCount.innerHTML = publicacao.likes || "0";
-
-                
-                    btnEditar.className = "publicacao-btn-editar";
-                    btnEditar.id = "btnEditar" + publicacao.idPublicacao;
-                    btnEditar.innerText = "Editar";
-                    btnEditar.setAttribute("onclick", `editar(${publicacao.idPublicacao})`);
-
-                    btnDeletar.className = "publicacao-btn-deletar";
-                    btnDeletar.id = "btnDeletar" + publicacao.idPublicacao;
-                    btnDeletar.innerText = "Excluir";
-                    btnDeletar.setAttribute("onclick", `deletar(${publicacao.idPublicacao})`);
-
-                    
-                    tweetHeader.appendChild(avatar);
-                    tweetHeader.appendChild(tweetHeaderInfo);
-                    tweetHeaderInfo.appendChild(spanNome);
-                    tweetHeaderInfo.appendChild(spanID);
-
-                    tweetActions.appendChild(btnEditar);
-                    tweetActions.appendChild(btnDeletar);
-
-                    tweetInfoCounts.appendChild(comments);
-                    tweetInfoCounts.appendChild(retweets);
-                    tweetInfoCounts.appendChild(likes);
-                    tweetInfoCounts.appendChild(message);
-
-                    comments.appendChild(iconComment);
-                    comments.appendChild(commentCount);
-
-                    retweets.appendChild(iconRetweet);
-                    retweets.appendChild(retweetCount);
-
-                    likes.appendChild(iconLike);
-                    likes.appendChild(likesCount);
-
-                    message.appendChild(iconMessage);
-
-                    tweetWrap.appendChild(tweetHeader);
-                    tweetWrap.appendChild(tweetDescricao);
-                    tweetWrap.appendChild(tweetInfoCounts);
-                    tweetWrap.appendChild(tweetActions); 
-
-                    feed.insertBefore(tweetWrap, feed.firstChild);
-
-                    feather.replace();
+    function atualizarFeed() {
+        fetch("/publicacoes/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhuma publicação encontrada.";
+                    feed.appendChild(mensagem);
+                    throw "Nenhuma publicação encontrada!";
                 }
 
-                finalizarAguardar();
-            });
+                resposta.json().then(function (dados) {
+                    console.log("Dados recebidos: ", JSON.stringify(dados));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < dados.length; i++) {
+                        var publicacao = dados[i];
+
+                        var tweetWrap = document.createElement("div");
+                        var tweetHeader = document.createElement("div");
+                        var avatar = document.createElement("img");
+                        var tweetHeaderInfo = document.createElement("div");
+                        var spanNome = document.createElement("span");
+                        var spanID = document.createElement("span");
+                        var tweetDescricao = document.createElement("p");
+
+                        var tweetInfoCounts = document.createElement("div");
+                        var tweetActions = document.createElement("div");
+
+                        var comments = document.createElement("div");
+                        var retweets = document.createElement("div");
+                        var likes = document.createElement("div");
+                        var message = document.createElement("div");
+
+                        var iconComment = document.createElement("i");
+                        var iconRetweet = document.createElement("i");
+                        var iconLike = document.createElement("i");
+                        var iconMessage = document.createElement("i");
+
+                        var commentCount = document.createElement("div");
+                        var retweetCount = document.createElement("div");
+                        var likesCount = document.createElement("div");
+
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+
+                        tweetWrap.className = "tweet-wrap";
+                        tweetHeader.className = "tweet-header";
+                        tweetHeaderInfo.className = "tweet-header-info";
+                        tweetDescricao.className = "tweet-description";
+                        tweetInfoCounts.className = "tweet-info-counts";
+                        tweetActions.className = "tweet-actions";
+
+                        avatar.className = "avatar";
+                        avatar.alt = "Avatar";
+                        avatar.src = `../assets/upload`;
+
+                        spanNome.innerHTML = publicacao.nome || "Autor";
+                        spanID.innerHTML = "<b>" + publicacao.idPublicacao + "</b>";
+                        tweetDescricao.innerHTML = publicacao.descricao || "Descrição da publicação.";
+
+                        comments.className = "comments";
+                        retweets.className = "retweets";
+                        likes.className = "likes";
+                        message.className = "message";
+
+                        iconComment.setAttribute("data-feather", "message-circle");
+                        iconRetweet.setAttribute("data-feather", "repeat");
+                        iconLike.setAttribute("data-feather", "heart");
+                        iconMessage.setAttribute("data-feather", "send");
+
+                        commentCount.className = "comment-count";
+                        retweetCount.className = "retweet-count";
+                        likesCount.className = "likes-count";
+
+                        commentCount.innerHTML = publicacao.comentarios || "0";
+                        retweetCount.innerHTML = publicacao.retweets || "0";
+                        likesCount.innerHTML = publicacao.likes || "0";
+
+                        btnEditar.className = "publicacao-btn-editar";
+                        btnEditar.id = "btnEditar" + publicacao.idPublicacao;
+                        btnEditar.innerText = "Editar";
+                        btnEditar.setAttribute("onclick", `editar(${publicacao.idPublicacao})`);
+
+                        btnDeletar.className = "publicacao-btn-deletar";
+                        btnDeletar.id = "btnDeletar" + publicacao.idPublicacao;
+                        btnDeletar.innerText = "Excluir";
+                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idPublicacao})`);
+
+                        tweetHeader.appendChild(avatar);
+                        tweetHeader.appendChild(tweetHeaderInfo);
+                        tweetHeaderInfo.appendChild(spanNome);
+                        tweetHeaderInfo.appendChild(spanID);
+
+                        tweetActions.appendChild(btnEditar);
+                        tweetActions.appendChild(btnDeletar);
+
+                        tweetInfoCounts.appendChild(comments);
+                        tweetInfoCounts.appendChild(retweets);
+                        tweetInfoCounts.appendChild(likes);
+                        tweetInfoCounts.appendChild(message);
+
+                        comments.appendChild(iconComment);
+                        comments.appendChild(commentCount);
+
+                        retweets.appendChild(iconRetweet);
+                        retweets.appendChild(retweetCount);
+
+                        likes.appendChild(iconLike);
+                        likes.appendChild(likesCount);
+
+                        message.appendChild(iconMessage);
+
+                        tweetWrap.appendChild(tweetHeader);
+                        tweetWrap.appendChild(tweetDescricao);
+                        tweetWrap.appendChild(tweetInfoCounts);
+
+                        tweetWrap.appendChild(tweetActions);
+
+                        feed.appendChild(tweetWrap);
+                    }
+                });
+            }
+        }).catch(function (erro) {
+            console.error("#ERRO: ", erro);
+        });
+    }
+
+
+    window.onload = atualizarFeed;
+
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
+
+    function dashboard() {
+        window.location = "dashboard.html";
+    }
+
+    function cards() {
+        window.location = "cards.html";
+    }
+
+    function publicacoes() {
+        window.location = "publicacoes.html";
+    }
+
+
+    const wrapper = document.querySelector(".wrapper"),
+        editableInput = wrapper.querySelector(".editable"),
+        readonlyInput = wrapper.querySelector(".readonly"),
+        placeholder = wrapper.querySelector(".placeholder"),
+        counter = wrapper.querySelector(".counter"),
+        button = wrapper.querySelector("button");
+
+    editableInput.onfocus = () => {
+        placeholder.style.color = "#c5ccd3";
+    }
+    editableInput.onblur = () => {
+        placeholder.style.color = "#98a5b1";
+    }
+
+    editableInput.onkeyup = (e) => {
+        let element = e.target;
+        validated(element);
+    }
+    editableInput.onkeypress = (e) => {
+        let element = e.target;
+        validated(element);
+        placeholder.style.display = "none";
+    }
+
+    function validated(element) {
+        let text;
+        let maxLength = 100;
+        let currentlength = element.innerText.length;
+
+        if (currentlength <= 0) {
+            placeholder.style.display = "block";
+            counter.style.display = "none";
+            button.classList.remove("active");
         } else {
-            throw "Houve um erro na API!";
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-        finalizarAguardar();
-    });
-}
-
-
-    
-
-
-
-
-        function limparFormulario() {
-            document.getElementById("form_postagem").reset();
-        }
-
-        function dashboard() {
-            window.location = "dashboard.html";
-        }
-
-        function cards() {
-            window.location = "cards.html";
-        }
-
-        function publicacoes() {
-            window.location = "publicacoes.html";
-        }
-
-
-        const wrapper = document.querySelector(".wrapper"),
-            editableInput = wrapper.querySelector(".editable"),
-            readonlyInput = wrapper.querySelector(".readonly"),
-            placeholder = wrapper.querySelector(".placeholder"),
-            counter = wrapper.querySelector(".counter"),
-            button = wrapper.querySelector("button");
-
-        editableInput.onfocus = () => {
-            placeholder.style.color = "#c5ccd3";
-        }
-        editableInput.onblur = () => {
-            placeholder.style.color = "#98a5b1";
-        }
-
-        editableInput.onkeyup = (e) => {
-            let element = e.target;
-            validated(element);
-        }
-        editableInput.onkeypress = (e) => {
-            let element = e.target;
-            validated(element);
             placeholder.style.display = "none";
+            counter.style.display = "block";
+            button.classList.add("active");
         }
 
-        function validated(element) {
-            let text;
-            let maxLength = 100;
-            let currentlength = element.innerText.length;
+        counter.innerText = maxLength - currentlength;
 
-            if (currentlength <= 0) {
-                placeholder.style.display = "block";
-                counter.style.display = "none";
-                button.classList.remove("active");
-            } else {
-                placeholder.style.display = "none";
-                counter.style.display = "block";
-                button.classList.add("active");
-            }
-
-            counter.innerText = maxLength - currentlength;
-
-            if (currentlength > maxLength) {
-                let overText = element.innerText.substr(maxLength);
-                overText = `<span class="highlight">${overText}</span>`;
-                text = element.innerText.substr(0, maxLength) + overText;
-                readonlyInput.style.zIndex = "1";
-                counter.style.color = "#e0245e";
-                button.classList.remove("active");
-            } else {
-                readonlyInput.style.zIndex = "-1";
-                counter.style.color = "#333";
-            }
-            readonlyInput.innerHTML = text;
+        if (currentlength > maxLength) {
+            let overText = element.innerText.substr(maxLength);
+            overText = `<span class="highlight">${overText}</span>`;
+            text = element.innerText.substr(0, maxLength) + overText;
+            readonlyInput.style.zIndex = "1";
+            counter.style.color = "#e0245e";
+            button.classList.remove("active");
+        } else {
+            readonlyInput.style.zIndex = "-1";
+            counter.style.color = "#333";
         }
+        readonlyInput.innerHTML = text;
+    }
 
-    </script>
+</script>
 
-    <link rel="stylesheet" href="../assets/css/publicacoes.css">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<link rel="stylesheet" href="../assets/css/publicacoes.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-    <script src="../assets/js/sessao.js"></script>
-    <script src="../assets/js/alerta.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="../assets/js/sessao.js"></script>
+<script src="../assets/js/alerta.js"></script>
 
 
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-        feather.replace(); 
-    </script>
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    feather.replace(); 
+</script>
