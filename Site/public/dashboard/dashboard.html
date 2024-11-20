@@ -11,68 +11,82 @@
   <link rel="stylesheet" href="../assets/css/publicacoes.css">
 </head>
 
-<body onload="validarSessao(), buscarPontuacao(), buscarPontuacaoJogadores()">
+<body onload="validarSessao(), buscarPontuacao(), buscarPontuacaoJogadores(), buscarMelhoresPontuadores()">
   <aside class="hidebar">
     <img src="../assets/img/spfc.png" alt="Logo" class="logo">
     <nav class="menu">
-        <p id="home" onclick="dashboard()">
-            <i data-feather="home"></i>
-            Página Inicial
-        </p>
-        <p id="publicacoes" onclick="publicacoes()">
-            <i data-feather="edit"></i>
-            Publicações
-        </p>
-        <p id="cards" onclick="cards()">
-            <i data-feather="help-circle"></i>
-            Quiz
-        </p>
-        <p id="logout" onclick="limparSessao()">
-            <i data-feather="log-out"></i>
-            Sair
-        </p>
+      <p id="home" onclick="dashboard()">
+        <i data-feather="home"></i>
+        Página Inicial
+      </p>
+      <p id="publicacoes" onclick="publicacoes()">
+        <i data-feather="edit"></i>
+        Publicações
+      </p>
+      <p id="cards" onclick="cards()">
+        <i data-feather="help-circle"></i>
+        Quiz
+      </p>
+      <p id="logout" onclick="limparSessao()">
+        <i data-feather="log-out"></i>
+        Sair
+      </p>
     </nav>
 
     <div class="user-container">
-        <img id="user-profile-pic" class="profile-pic" alt="Perfil do Usuário">
-        <div class="user-info">
-            <span id="b_usuario">usuário</span>
-            <p>Sócio Torcedor - Diamante</p>
-            <i data-feather="more-horizontal"></i>
-        </div>
+      <img id="user_profile_pic" class="profile-pic" alt="Perfil do Usuário">
+      <div class="user-info">
+        <span id="b_usuario">usuário</span>
+        <p>Sócio Torcedor - Diamante</p>
+        <i data-feather="more-horizontal"></i>
+      </div>
     </div>
-</aside>
+  </aside>
 
-<div class="dash">
-  <div class="tela-grafico">
-    <div class="kpi-grafico">
-      <div class="kpi1">
-        <span>Sua Ultima Pontuação:</span>
-        <span><span id="ultimaPontuacao">0</span> de 10 pontos</span>
-      </div>
-      <div class="kpi2">
-        <span>Pontuação Média dos Jogadores:</span>
-        <span><span id="mediaPontuacaoJogador">0</span> de  pontos possíveis</span>
-      </div>
-    </div>
-    <div class="card-grafico">
+  <div class="dash">
+    <div class="tela-grafico">
       <div class="titulo-grafico">
-        <p>Pontuação dos Jogadores no Quiz</p>
+        <p>Informações Gerais</p>
       </div>
-    </div>
-    <div class="dados-grafico">
-      <div class="grafico2">
-        <div>
-          <canvas id="myChart2"></canvas>
+      <div class="kpi-grafico">
+        <div class="kpi1">
+          <span>Sua Ultima Pontuação:</span>
+          <span><span id="ultimaPontuacao">0</span> de 10 pontos</span>
         </div>
-        <div>
-          <canvas id="graficoJogadores"></canvas>
+        <div class="kpi2">
+          <span>Pontuação Média dos Jogadores:</span>
+          <span><span id="mediaPontuacaoJogador">0</span> de pontos possíveis</span>
+        </div>
+        <div class="kpi3">
+          <span>Top 3 Pontuadores:</span>
+          <ul id="top3Pontuadores">
+          </ul>
+        </div>
+        <div class="kpi4">
+          <span>Colocar algo aqui</span>
+          <span><span id="nãosei">0</span> jogos</span>
+        </div>
+
+
+      </div>
+      <div class="card-grafico">
+        <div class="titulo-grafico">
+          <p>Pontuação dos Jogadores </p>
+        </div>
+      </div>
+      <div class="dados-grafico">
+        <div class="grafico2">
+          <div>
+            <canvas id="myChart2"></canvas>
+          </div>
+          <div>
+            <canvas id="graficoJogadores"></canvas>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
+  </div>
 
 </body>
 
@@ -122,177 +136,223 @@
       });
   }
 
-  function plotarGrafico(resposta) {
-  let labels = ['Quiz'];
-
-  let dados = {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Menos que 5',
-        data: [resposta[0].ate_5],
-        backgroundColor: 'rgb(0, 0, 0)',
-        borderColor: 'rgb(255, 255, 255)',
-        borderWidth: 2,
-      },
-      {
-        label: 'De 5 a 9',
-        data: [resposta[0].ate_9],
-        backgroundColor: 'rgb(255, 255, 255)',
-        borderColor: 'rgb(0, 0, 0)',
-        borderWidth: 2,
-      },
-      {
-        label: 'Gabaritou o Quiz',
-        data: [resposta[0].ate_10],
-        backgroundColor: 'rgb(204, 0, 0)',
-        borderColor: 'rgb(255, 255, 255)',
-        borderWidth: 2,
-      }
-    ]
-  };
-
-  const config = {
-    type: 'bar',
-    data: dados,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            color: 'white', 
-            font: {
-              size: 14,
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.2)'
-          },
-          ticks: {
-            color: 'white', 
-
-          }
-        },
-        y: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.2)' 
-          },
-          ticks: {
-            color: 'white', 
-          }
-        }
-      },
-      layout: {
-        backgroundColor: 'rgba(255, 255, 255, 0.1)' 
-      },
-      elements: {
-        bar: {
-          borderWidth: 2,
-          color: 'white'
-        }
-      }
-    }
-  };
-
-  let myChart = new Chart(document.getElementById('myChart2'), config);
-}
-
-
-function buscarPontuacaoJogadores() {
-  fetch('/grafico/buscarJogadoresPontuacoes', { cache: 'no-store' })
+  function buscarMelhoresPontuadores() {
+  fetch('/grafico/buscarMelhoresPontuadores', { cache: 'no-store' })
     .then(response => {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error('Erro ao obter dados dos jogadores');
+        throw new Error('Erro ao obter melhores pontuadores');
       }
     })
     .then(resposta => {
-      console.log('Dados recebidos dos jogadores:', resposta);
-      plotarGraficoJogadores(resposta);
+      console.log('Melhores Pontuadores:', resposta);
+      mostrarTop3Pontuadores(resposta);
     })
     .catch(error => {
-      console.error('Erro ao buscar pontuação dos jogadores:', error);
+      console.error('Erro ao buscar os melhores pontuadores:', error);
     });
 }
 
+function mostrarTop3Pontuadores(pontuadores) {
+  const top3List = document.getElementById('top3Pontuadores');
+  top3List.innerHTML = ''; 
 
-function plotarGraficoJogadores(resposta) {
-  const jogadores = resposta.map(item => item.nome_jogador); 
-  const pontuacoes = resposta.map(item => item.qtdPontos);  
+  pontuadores.slice(0, 3).forEach((jogador, index) => {
+    const listItem = document.createElement('li');
+    let medalha = '';
 
-  const dados = {
-    labels: jogadores,  
-    datasets: [{
-      label: 'Pontuação dos ultimos jogadores',  
-      data: pontuacoes,  
-      backgroundColor: 'rgb(54, 162, 235)',  
-      borderColor: 'rgb(0, 123, 255)',  
-      borderWidth: 1,
-    }]
-  };
+    switch (index) {
+      case 0: // Ouro
+        medalha = '<i data-feather="award" style="color: gold;"></i>';
+        break;
+      case 1: // Prata
+        medalha = '<i data-feather="award" style="color: silver;"></i>';
+        break;
+      case 2: // Bronze
+        medalha = '<i data-feather="award" style="color: #cd7f32;"></i>'; // Cor bronze
+        break;
+      default:
+        break;
+    }
+    listItem.innerHTML = `${medalha} ${jogador.nome_jogador}: ${jogador.qtdPontos} pontos`;
+    top3List.appendChild(listItem);
+  });
+  feather.replace();
+  }
 
-  const config = {
-    type: 'bar',  
-    data: dados,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            color: 'white',  
-            font: { size: 14 }
+
+  function plotarGrafico(resposta) {
+    let labels = ['Quiz'];
+
+    let dados = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Menos que 5',
+          data: [resposta[0].ate_5],
+          backgroundColor: 'rgb(0, 0, 0)',
+          borderColor: 'rgb(255, 255, 255)',
+          borderWidth: 2,
+        },
+        {
+          label: 'De 5 a 9',
+          data: [resposta[0].ate_9],
+          backgroundColor: 'rgb(255, 255, 255)',
+          borderColor: 'rgb(0, 0, 0)',
+          borderWidth: 2,
+        },
+        {
+          label: 'Gabaritou o Quiz',
+          data: [resposta[0].ate_10],
+          backgroundColor: 'rgb(204, 0, 0)',
+          borderColor: 'rgb(255, 255, 255)',
+          borderWidth: 2,
+        }
+      ]
+    };
+
+    const config = {
+      type: 'bar',
+      data: dados,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white',
+              font: {
+                size: 14,
+              }
+            }
           }
         },
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.2)'
+        scales: {
+          x: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
+            },
+            ticks: {
+              color: 'white',
+
+            }
           },
-          ticks: {
-            color: 'white',  
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
+            },
+            ticks: {
+              color: 'white',
+            }
           }
         },
-        y: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.2)'
-          },
-          ticks: {
-            color: 'white',  
+        layout: {
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        },
+        elements: {
+          bar: {
+            borderWidth: 2,
+            color: 'white'
           }
         }
-      },
-    }
-  };
+      }
+    };
 
-  const ctx = document.getElementById('graficoJogadores').getContext('2d');
-  new Chart(ctx, config);  
-}
+    let myChart = new Chart(document.getElementById('myChart2'), config);
+  }
+
+
+  function buscarPontuacaoJogadores() {
+    fetch('/grafico/buscarJogadoresPontuacoes', { cache: 'no-store' })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Erro ao obter dados dos jogadores');
+        }
+      })
+      .then(resposta => {
+        console.log('Dados recebidos dos jogadores:', resposta);
+        plotarGraficoJogadores(resposta);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar pontuação dos jogadores:', error);
+      });
+  }
+
+
+  function plotarGraficoJogadores(resposta) {
+    const jogadores = resposta.map(item => item.nome_jogador);
+    const pontuacoes = resposta.map(item => item.qtdPontos);
+
+    const dados = {
+      labels: jogadores,
+      datasets: [{
+        label: 'Pontuação dos ultimos jogadores',
+        data: pontuacoes,
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderColor: 'rgb(0, 0, 0)',
+        borderWidth: 1,
+      }]
+    };
+
+    const config = {
+      type: 'bar',
+      data: dados,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white',
+              font: { size: 14 }
+            }
+          },
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
+            },
+            ticks: {
+              color: 'white',
+            }
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
+            },
+            ticks: {
+              color: 'white',
+            }
+          }
+        },
+      }
+    };
+
+    const ctx = document.getElementById('graficoJogadores').getContext('2d');
+    new Chart(ctx, config);
+  }
 
 
 
 
 
   function dashboard() {
-        window.location = "dashboard.html";
-    }
+    window.location = "dashboard.html";
+  }
 
-    function cards() {
-        window.location = "cards.html";
-    }
+  function cards() {
+    window.location = "cards.html";
+  }
 
-    function publicacoes() {
-        window.location = "publicacoes.html";
-    }
+  function publicacoes() {
+    window.location = "publicacoes.html";
+  }
 </script>
 
 
@@ -303,4 +363,3 @@ function plotarGraficoJogadores(resposta) {
 <script>
   feather.replace(); 
 </script>
-

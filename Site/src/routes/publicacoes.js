@@ -5,6 +5,7 @@ var publicacoesController = require("../controllers/publicacoesController");
 
 router.get("/listar", function (req, res) {
     publicacoesController.listar(req, res);
+    console.log(req.body)
 });
 
 router.get("/listar/:idUsuario", function (req, res) {

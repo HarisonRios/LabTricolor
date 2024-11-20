@@ -11,6 +11,11 @@ router.get("/buscarJogadoresPontuacoes", function (req, res) {
     graficoController.buscarJogadoresPontuacoes(req, res);
 });
 
+router.get("/buscarMelhoresPontuadores", function (req, res) {
+    graficoController.buscarJogadoresPontuacoes(req, res);
+});
+
+
 
 
 

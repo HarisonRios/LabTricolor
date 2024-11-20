@@ -27,7 +27,24 @@ function buscarJogadoresPontuacoes(req, res) {
 }
 
 
+function buscarMelhoresPontuadores(req, res) {
+    graficoModel.buscarMelhoresPontuadores()
+        .then(resultados => {
+            if (resultados.length > 0) {
+                res.status(200).json(resultados);
+            } else {
+                res.status(204).send("Nenhum jogador encontrado!");
+            }
+        })
+        .catch(erro => {
+            console.error('Erro ao buscar os melhores pontuadores: ', erro);
+            res.status(500).json({ erro: 'Erro ao buscar os melhores pontuadores.' });
+        });
+}
+
+
 module.exports = {
     buscarPontuacao,
-    buscarJogadoresPontuacoes
+    buscarJogadoresPontuacoes,
+    buscarMelhoresPontuadores
 }

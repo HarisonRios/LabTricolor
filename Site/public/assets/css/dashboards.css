@@ -6,20 +6,16 @@ body {
   padding: 0;
   display: flex; 
   font-family: 'Montserrat', sans-serif;
-
 }
-
 
 .dash {
   color: white;
   margin-left: 10%;
   width: 80%;
   overflow: auto;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-  flex-direction: column; 
+  display: flex; 
+  font-family: 'Montserrat', sans-serif;
+  flex-direction: column;
 }
 
 .tela-grafico {
@@ -28,36 +24,56 @@ body {
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .kpi-grafico {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  flex-wrap: wrap; 
 }
 
-.kpi1, .kpi2 {
+.kpi1, .kpi2, .kpi3, .kpi4 {
   background-color: #ffffff35;
   padding: 30px;
-  border-radius: 10px;
-  width: 48%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  width: 22%; 
+  margin-bottom: 30px;
   text-align: center;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  height: 150px; 
 }
 
-.kpi1 span:first-child, .kpi2 span:first-child {
+.kpi1:hover, .kpi2:hover, .kpi3:hover, .kpi4:hover {
+  border: 2px solid white;
+}
+
+.kpi1 span:first-child, .kpi2 span:first-child, .kpi3 span:first-child, .kpi4 span:first-child {
   font-weight: bold;
+}
+
+#top3Pontuadores {
+  list-style-type: none; 
+  padding: 0;
+  margin: 0;
+}
+
+#top3Pontuadores li {
+  margin-bottom: 5px; 
 }
 
 .card-grafico {
   margin-bottom: 30px;
-  text-align: center;
 }
 
 .titulo-grafico p {
   font-size: 20px;
-  font-weight: bold;
   margin-bottom: 20px;
 }
 
@@ -80,8 +96,17 @@ body {
 }
 
 canvas {
-  width: 100% !important; 
-  height: 300px !important;
-  background-color: #ffffff35;
+  width: 100% !important;
+  height: 310px !important;
+  background-color: #ffffff30;
   border-radius: 5px;
+  padding: 22px;
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+canvas:hover {
+  border: 2px solid white;
+  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.6), 0 6px 18px rgba(255, 255, 255, 0.4);
+  transform: translateY(-5px);
 }

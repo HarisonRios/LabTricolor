@@ -10,7 +10,8 @@ function listar() {
             u.id AS idUsuario,
             u.nome,
             u.email,
-            u.senha
+            u.senha,
+            u.imagem_perfil
         FROM publicacoes a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id;

@@ -363,14 +363,16 @@ b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
                         avatar.className = "avatar";
                         avatar.alt = "Avatar";
-                        avatar.src = `../assets/upload`;
+                        avatar.src = `/public/assets/upload/${sessionStorage.imagem_perfil}`;
+                        console.log(sessionStorage);
+
 
                         spanNome.innerHTML = publicacao.nome || "Autor";
                         spanID.innerHTML = "<b>" + publicacao.idPublicacao + "</b>";
                         tweetDescricao.innerHTML = publicacao.descricao || "Descrição da publicação.";
 
                         comments.className = "comments";
-                        retweets.className = "retweets";
+                        retweets.className = "retweets";    
                         likes.className = "likes";
                         message.className = "message";
 

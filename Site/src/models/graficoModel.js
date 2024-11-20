@@ -30,9 +30,26 @@ function buscarJogadoresPontuacoes() {
     return database.executar(instrucaoSql);
 }
 
+function buscarMelhoresPontuadores() {
+    var instrucaoSql = `
+    SELECT 
+        usuario.nome AS nome_jogador, 
+        quiz.qtdPontos 
+    FROM quiz 
+    JOIN usuario ON quiz.fkUsuario = usuario.id
+    ORDER BY quiz.qtdPontos DESC
+    LIMIT 3;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 
 module.exports = {
     buscarPontuacao,
-    buscarJogadoresPontuacoes
+    buscarJogadoresPontuacoes,
+    buscarMelhoresPontuadores
 }
 

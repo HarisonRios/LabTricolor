@@ -11,4 +11,6 @@ router.post("/cadastrarPontos", function (req, res) {
   quizController.cadastrarPontos(req, res);
 });
 
+
+
 module.exports = router;
