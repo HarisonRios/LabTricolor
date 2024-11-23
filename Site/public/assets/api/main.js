@@ -1,6 +1,6 @@
 const URL_TABELA = 'https://api.api-futebol.com.br/v1/campeonatos/10/tabela';
 const URL_JOGOS_SPFC = 'https://api.api-futebol.com.br/v1/times/57/partidas/proximas';
-const API_KEY = 'live_2a4fd509528c216a52936a760c3451    ';
+const API_KEY = 'live_f8452473c652d99eebadb5c5f8935b    ';
 
 // Função para obter a tabela do Brasileirão
 async function obterTabela() {
