@@ -1,10 +1,7 @@
 DROP DATABASE IF EXISTS LabTricolor;
 CREATE DATABASE LabTricolor;
 
-USE LabTricolor;
-
-select * from usuario;
-
+USE LabTricolor;	
 
 CREATE TABLE sociotorcedor (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,16 +20,16 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE quiz (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    idQuiz INT PRIMARY KEY AUTO_INCREMENT,
     qtdPontos INT,
     fkUsuario INT,
     FOREIGN KEY (fkUsuario) REFERENCES usuario(id)
 );
 
-CREATE TABLE aviso (
+
+CREATE TABLE publicacoes (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
+	descricao VARCHAR(250),
 	fk_usuario INT,
 	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
@@ -46,7 +43,11 @@ insert into socioTorcedor (nome, codigo_ativacao) values
 
 
 SELECT * FROM sociotorcedor;
-SELECT * FROM usuario;
-SELECT * FROM aviso;
+SELECT * FROM usuario; 
+SELECT * FROM publicacoes;
+SELECT * FROM Quiz;
+
+
+
 
 
