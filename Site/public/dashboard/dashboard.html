@@ -34,7 +34,7 @@
     </nav>
 
     <div class="user-container">
-      <img id="user_profile_pic" class="profile-pic" alt="Perfil do Usuário">
+      <img id="user-photo" class="profile-pic" alt="Perfil do Usuário" src="../assets/img/profile.jpg">
       <div class="user-info">
         <span id="b_usuario">usuário</span>
         <p>Sócio Torcedor - Diamante</p>
@@ -85,6 +85,8 @@
         </div>
       </div>
     </div>
+
+
   </div>
   </div>
 
@@ -137,49 +139,61 @@
   }
 
   function buscarMelhoresPontuadores() {
-  fetch('/grafico/buscarMelhoresPontuadores', { cache: 'no-store' })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Erro ao obter melhores pontuadores');
-      }
-    })
-    .then(resposta => {
-      console.log('Melhores Pontuadores:', resposta);
-      mostrarTop3Pontuadores(resposta);
-    })
-    .catch(error => {
-      console.error('Erro ao buscar os melhores pontuadores:', error);
-    });
-}
+    fetch('/grafico/buscarMelhoresPontuadores', { cache: 'no-store' })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Erro ao obter melhores pontuadores');
+        }
+      })
+      .then(resposta => {
+        console.log('Melhores Pontuadores:', resposta);
+        mostrarTop3Pontuadores(resposta);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar os melhores pontuadores:', error);
+      });
+  }
 
-function mostrarTop3Pontuadores(pontuadores) {
+  function mostrarTop3Pontuadores(pontuadores) {
   const top3List = document.getElementById('top3Pontuadores');
-  top3List.innerHTML = ''; 
+  top3List.innerHTML = '';
 
-  pontuadores.slice(0, 3).forEach((jogador, index) => {
+  const medalhas = ['gold', 'silver', '#cd7f32']; 
+
+  for (let index = 0; index < 3 && index < pontuadores.length; index++) {
+    const jogador = pontuadores[index];
     const listItem = document.createElement('li');
-    let medalha = '';
+    const medalha =
+      index < medalhas.length
+        ? `<i data-feather="award" style="color: ${medalhas[index]};"></i>`
+        : '';
 
-    switch (index) {
-      case 0: // Ouro
-        medalha = '<i data-feather="award" style="color: gold;"></i>';
-        break;
-      case 1: // Prata
-        medalha = '<i data-feather="award" style="color: silver;"></i>';
-        break;
-      case 2: // Bronze
-        medalha = '<i data-feather="award" style="color: #cd7f32;"></i>'; // Cor bronze
-        break;
-      default:
-        break;
-    }
     listItem.innerHTML = `${medalha} ${jogador.nome_jogador}: ${jogador.qtdPontos} pontos`;
     top3List.appendChild(listItem);
-  });
-  feather.replace();
   }
+
+  feather.replace();
+}
+
+
+
+
+
+  const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
+
+  const caminhoBase = '../assets/upload/';
+
+  if (imagemPerfil) {
+    document.getElementById('user-photo').src = caminhoBase + imagemPerfil;
+  } else {
+    console.log('Imagem de perfil não encontrada no sessionStorage.');
+    document.getElementById('user-photo').src = '../assets/img/profile.jpg';
+  }
+
+  console.log(sessionStorage.getItem('IMAGEM_PERFIL'));
+
 
 
   function plotarGrafico(resposta) {
