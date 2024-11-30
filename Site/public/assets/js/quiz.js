@@ -125,7 +125,6 @@ function optionSelected(answer) {
   const allOptions = option_list.children.length; //getting all option items
 
   if (userAns == correcAns) {
-    //if user selected option is equal to array's correct answer
     userScore += 1; //upgrading score value with 1
     answer.classList.add("correct"); //adding green color to correct selected option
     answer.insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to correct selected option
@@ -229,9 +228,9 @@ function startTimer(time) {
         }
       }
       for (i = 0; i < allOptions; i++) {
-        option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+        option_list.children[i].classList.add("disabled"); 
       }
-      next_btn.classList.add("show"); //show the next button if user selected any option
+      next_btn.classList.add("show"); 
     }
   }
 }
@@ -239,22 +238,20 @@ function startTimer(time) {
 function startTimerLine(time) {
   counterLine = setInterval(timer, 29);
   function timer() {
-    time += 1; //upgrading time value with 1
-    time_line.style.width = time + "px"; //increasing width of time_line with px by time value
+    time += 1; 
+    time_line.style.width = time + "px"; 
     if (time > 549) {
-      //if time value is greater than 549
-      clearInterval(counterLine); //clear counterLine
+      clearInterval(counterLine); 
     }
   }
 }
 
 function queCounter(index) {
-  //creating a new span tag and passing the question number and total question
   let totalQueCounTag =
     "<span><p>" +
     index +
-    "</p> of <p>" +
+    "</p> de <p>" +
     questions.length +
     "</p> Questões</span>";
-  bottom_ques_counter.innerHTML = totalQueCounTag; //adding new span tag inside bottom_ques_counter
+  bottom_ques_counter.innerHTML = totalQueCounTag; 
 }
