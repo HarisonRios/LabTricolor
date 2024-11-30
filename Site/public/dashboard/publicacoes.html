@@ -34,8 +34,9 @@
                 </p>
             </nav>
 
+
             <div class="user-container">
-                <img id="user-profile-pic" class="profile-pic" alt="Perfil do Usuário">
+                <img id="user-photo" class="profile-pic" alt="Perfil do Usuário" src="../assets/img/profile.jpg">
                 <div class="user-info">
                     <span id="b_usuario">usuário</span>
                     <p>Sócio Torcedor - Diamante</p>
@@ -148,7 +149,18 @@
 
 </html>
 <script>
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO; 
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;2
+    const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
+
+    const caminhoBase = '../assets/upload/';
+
+    if (imagemPerfil) {
+        document.getElementById('user-photo').src = caminhoBase + imagemPerfil;
+    } else {
+        console.log('Imagem de perfil não encontrada no sessionStorage.');
+        document.getElementById('user-photo').src = '../assets/img/profile.jpg';
+    }
+
 
     function publicar() {
         var tweetInput = document.getElementById("tweet_input").innerText;
@@ -372,7 +384,7 @@ b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
                         tweetDescricao.innerHTML = publicacao.descricao || "Descrição da publicação.";
 
                         comments.className = "comments";
-                        retweets.className = "retweets";    
+                        retweets.className = "retweets";
                         likes.className = "likes";
                         message.className = "message";
 

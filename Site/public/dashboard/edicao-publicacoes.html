@@ -42,8 +42,9 @@
             </p>
         </nav>
 
-        <div class="user-container">
-            <img id="user-profile-pic" src="../assets/img/profile.jpg" class="profile-pic" alt="">
+
+    <div class="user-container">
+      <img id="user-photo" class="profile-pic" alt="Perfil do Usuário" src="../assets/img/profile.jpg">
             <div class="user-info">
                 <span id="b_usuario">usuário</span>
                 <p>Sócio Torcedor - Diamante </p>
@@ -86,6 +87,17 @@
 
 </html>
 <script>
+
+    const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
+
+    const caminhoBase = '../assets/upload/';
+
+    if (imagemPerfil) {
+        document.getElementById('user-photo').src = caminhoBase + imagemPerfil;
+    } else {
+        console.log('Imagem de perfil não encontrada no sessionStorage.');
+        document.getElementById('user-photo').src = '../assets/img/profile.jpg';
+    }
     function listarInfosDeUm() {
         console.log("Criar função de trazer informações de post escolhido");
     }
