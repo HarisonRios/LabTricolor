@@ -11,27 +11,7 @@
     <link rel="stylesheet" href="../assets/css/publicacoes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
-
-
 <body onload="validarSessao()">
-
-    <div class="start_btn"><button>Start Quiz</button></div>
-
-    <div class="info_box">
-        <div class="info-title"><span>Some Rules of this Quiz</span></div>
-        <div class="info-list">
-            <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
-            <div class="info">2. Once you select your answer, it can't be undone.</div>
-            <div class="info">3. You can't select any option once time goes off.</div>
-            <div class="info">4. You can't exit from the Quiz while you're playing.</div>
-            <div class="info">5. You'll get points on the basis of your correct answers.</div>
-        </div>
-        <div class="buttons">
-            <button class="quit">Exit Quiz</button>
-            <button class="restart">Continue</button>
-        </div>
-    </div>
-
     <aside class="hidebar">
         <img src="../assets/img/spfc.png" alt="Logo" class="logo">
         <nav class="menu">
@@ -63,11 +43,31 @@
         </div>
     </aside>
 
+    
+    <div class="start_btn"><button>Iniciar Quiz</button></div>
+
+    <div class="info_box">
+        <div class="info-title"><img src="../assets/img/spfc.png" alt="Logo" class="logo"><span>Instruções - LabTricolor</span></div>
+        <div class="info-list">
+            <div class="info">1. Você terá apenas <span>15 segundos</span> por cada pergunta.</div>
+            <div class="info">2. Depois de selecionar sua resposta, não será possível desfazê-la.</div>
+            <div class="info">3. Você não poderá selecionar nenhuma opção depois que o tempo acabar.</div>
+            <div class="info">4. Você não poderá sair do Quiz enquanto estiver jogando.</div>
+            <div class="info">5. Após o quiz, você poderá ver sua pontuação e acompanhar a dashboard.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Voltar</button>
+            <button class="restart">Continuar</button>
+        </div>
+    </div>
+    
+
+
     <div class="quiz_box">
         <header>
-            <div class="title">Awesome Quiz Application</div>
+            <div class="title"><img src="../assets/img/spfc.png" alt="Logo" class="logo"></div>
             <div class="timer">
-                <div class="time_left_txt">Time Left</div>
+                <div class="time_left_txt">Tempo Restante</div>
                 <div class="timer_sec">15</div>
             </div>
             <div class="time_line"></div>
@@ -82,61 +82,61 @@
         <footer>
             <div class="total_que">
             </div>
-            <button class="next_btn">Next Que</button>
+            <button class="next_btn">Próximo</button>
         </footer>
     </div>
 
 
     <div class="result_box">
         <div class="icon">
-            <i class="fas fa-crown"></i>
+            <img src="../assets/img/finalquiz.png" alt="Logo" >
         </div>
-        <div class="complete_text">You've completed the Quiz!</div>
+        <div class="complete_text">Voce completou o Quiz!</div>
         <div class="score_text">
         </div>
         <div class="buttons">
-            <button class="restart">Replay Quiz</button>
-            <button class="quit">Quit Quiz</button>
+            <button class="restart">Fazer Novamente</button>
+            <button class="dashboard">Ir para Dashboard</button>
         </div>
     </div>
 </body>
 </html>
 
 
-    <script>
-        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-        const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
+    const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
 
-        const caminhoBase = '../assets/upload/';
+    const caminhoBase = '../assets/upload/';
 
-        if (imagemPerfil) {
-            document.getElementById('user-photo').src = caminhoBase + imagemPerfil;
-        } else {
-            console.log('Imagem de perfil não encontrada no sessionStorage.');
-            document.getElementById('user-photo').src = '../assets/img/profile.jpg';
-        }
+    if (imagemPerfil) {
+        document.getElementById('user-photo').src = caminhoBase + imagemPerfil;
+    } else {
+        console.log('Imagem de perfil não encontrada no sessionStorage.');
+        document.getElementById('user-photo').src = '../assets/img/profile.jpg';
+    }
 
-        function dashboard() {
-            window.location = "dashboard.html";
-        }
+    function dashboard() {
+        window.location = "dashboard.html";
+    }
 
-        function cards() {
-            window.location = "cards.html";
-        }
+    function cards() {
+        window.location = "cards.html";
+    }
 
-        function publicacoes() {
-            window.location = "publicacoes.html";
-        }
-    </script>
+    function publicacoes() {
+        window.location = "publicacoes.html";
+    }
+</script>
 
-    <script src="../assets/js/sessao.js"></script>
+<script src="../assets/js/sessao.js"></script>
 
-    <script src="../assets/js/perguntas.js"></script>
+<script src="../assets/js/perguntas.js"></script>
 
-    <script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/quiz.js"></script>
 
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-        feather.replace(); 
-    </script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    feather.replace(); 
+</script>
