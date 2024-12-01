@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+var upload = require('../config/configUploadP'); // Configuração de upload
 var publicacoesController = require("../controllers/publicacoesController");
 
 router.get("/listar", function (req, res) {
@@ -16,9 +16,10 @@ router.get("/pesquisar/:descricao", function (req, res) {
     publicacoesController.pesquisarDescricao(req, res);
 });
 
-router.post("/publicar/:idUsuario", function (req, res) {
+router.post("/publicar/:idUsuario", upload.single('foto'), function (req, res) {
     publicacoesController.publicar(req, res);
 });
+
 
 router.put("/editar/:idPublicacao", function (req, res) {
     publicacoesController.editar(req, res);

@@ -85,13 +85,12 @@ body {
   align-items: center;
   gap: 10px;
   border-radius: 24px;
-  margin-right: 25px;
   cursor: pointer;
   transition: all 0.2s ease;
 
+  
   margin-top: auto; 
   text-align: center;
-  padding: 0 0;
   text-align: justify;
   white-space: nowrap;
 
@@ -107,10 +106,12 @@ body {
 
 
 .profile-pic {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+  border: 2px solid #ffffff; 
+  flex-shrink: 0;
 }
 
 
@@ -286,7 +287,6 @@ body {
   justify-content: space-between;
 }
 
-
 .bottom .icons {
   display: inline-flex;
 }
@@ -295,7 +295,7 @@ body {
   list-style: none;
   color: #1da1f2;
   font-size: 20px;
-  margin: 0 2px;
+  margin-left: 75px;
   height: 38px;
   width: 38px;
   cursor: pointer;
@@ -305,6 +305,33 @@ body {
   border-radius: 50%;
   transition: background 0.2s ease;
 }
+
+.upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #1da1f2;
+  border-radius: 20px;
+  color: white;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-label i {
+  margin-right: 8px;
+}
+
+.upload-label:hover {
+  background-color: #0d95e8;
+}
+
+input[type="file"] {
+  display: none;
+}
+
 
 .bottom .content {
   display: flex;
@@ -512,24 +539,45 @@ img {
   border-top: 1px solid #e6ecf0;
 }
 
+
 .tweet-header {
   display: flex;
   align-items:flex-start;
-  font-size:14px;
+  font-size: 17px;
 }
+
 .tweet-header-info {
   font-weight:bold;
+  margin-top: 10px;
+  margin-left: 5px
 }
+
+
 .tweet-header-info span {
-  color:#657786;
-  font-weight:normal;
-  margin-left: 5px;
+  color: #000000;
+  font-weight: normal;
+  margin-left: 470px;
+  position: relative;
+  bottom: 20px;
 }
+
+.avatar-img {
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+  border: 2px solid #ddd; 
+}
+
+
 .tweet-header-info p {
   font-weight:normal;
   margin-top: 5px;
   
 }
+
+
+
 .tweet-img-wrap {
   padding-left: 60px;
 }
@@ -547,6 +595,17 @@ img {
   color:#657786;
   margin-right: 10px;
 }
+
+
+.imagem-publicacao {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 8px; 
+}
+
+
+
 
 ::-webkit-scrollbar {
   width: 12px; 

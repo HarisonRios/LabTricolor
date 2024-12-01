@@ -14,30 +14,29 @@ function listar(req, res) {
     });
 }
 
-function listarPorUsuario(req, res) {
+function publicar(req, res) {
+    var descricao = req.body.descricao;
     var idUsuario = req.params.idUsuario;
+    var imagem_publicacao = req.file ? req.file.filename : null;
 
-    publicacoesModel.listarPorUsuario(idUsuario)
-        .then(
-            function (resultado) {
-                if (resultado.length > 0) {
-                    res.status(200).json(resultado);
-                } else {
-                    res.status(204).send("Nenhum resultado encontrado!");
-                }
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "Houve um erro ao buscar as publicações: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    if (!descricao) {
+        return res.status(400).send("A descrição está indefinida!");
+    } else if (!idUsuario) {
+        return res.status(403).send("O ID do usuário está indefinido!");
+    } else if (!imagem_publicacao) {
+        return res.status(400).send("Nenhuma imagem foi enviada!");
+    }
+
+    publicacoesModel.publicar(descricao, imagem_publicacao, idUsuario)
+        .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.error("Erro ao realizar o post:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
 
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
@@ -63,13 +62,14 @@ function pesquisarDescricao(req, res) {
 function publicar(req, res) {
     var descricao = req.body.descricao;
     var idUsuario = req.params.idUsuario;
+    var imagem_publicacao = req.file.filename;
 
      if (descricao == undefined) {
         res.status(400).send("A descrição está indefinido!");
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        publicacoesModel.publicar(descricao, idUsuario)
+        publicacoesModel.publicar(descricao, imagem_publicacao, idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -125,7 +125,6 @@ function deletar(req, res) {
 
 module.exports = {
     listar,
-    listarPorUsuario,
     pesquisarDescricao,
     publicar,
     editar,

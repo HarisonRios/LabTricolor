@@ -69,11 +69,17 @@
                     </div>
                     <div class="bottom">
                         <ul class="icons">
-                            <li><i class="far fa-file-image"></i></li>
+                            <li>
+                                <label for="foto" class="upload-label">
+                                  <i class="far fa-file-image"></i> 
+                                  Escolher imagem
+                                </label>
+                                <input id="foto" type="file" name="imagem" accept="image/*" />
+                              </li>
                         </ul>
                         <div class="content">
                             <span class="counter" id="counter">100</span>
-                            <button type="submit">Tweet</button>
+                            <button type="submit">Publicar</button>
                         </div>
                     </div>
                 </form>
@@ -149,7 +155,7 @@
 
 </html>
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;2
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO; 2
     const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
 
     const caminhoBase = '../assets/upload/';
@@ -168,20 +174,16 @@
         descricaoInput.value = tweetInput;
 
         var idUsuario = sessionStorage.ID_USUARIO;
+        var fotoInput = document.getElementById("foto").files[0]; // Arquivo da imagem
 
-        var corpo = {
-            descricao: descricaoInput.value
-        };
+        var formData = new FormData();
+        formData.append("descricao", descricaoInput.value);
+        formData.append("foto", fotoInput);
 
         fetch(`/publicacoes/publicar/${idUsuario}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(corpo)
-        }).then(function (resposta) {
-            console.log("Resposta:", resposta);
-
+            body: formData
+        }).then(resposta => {
             if (resposta.ok) {
                 Swal.fire({
                     icon: 'success',
@@ -202,10 +204,6 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Erro 404',
-                    width: 350,
-                    padding: "2em",
-                    color: "black",
-                    background: "#fff",
                     text: 'Página não encontrada. Não foi possível realizar a postagem.',
                     confirmButtonText: 'Fechar',
                     confirmButtonColor: '#000000'
@@ -213,15 +211,11 @@
             } else {
                 throw new Error(`Erro ao realizar a postagem. Código de resposta: ${resposta.status}`);
             }
-        }).catch(function (erro) {
-            console.error("#ERRO: ", erro);
+        }).catch(erro => {
+            console.error("#ERRO:", erro);
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao realizar a postagem',
-                width: 350,
-                padding: "2em",
-                color: "black",
-                background: "#fff",
                 text: 'Ocorreu um erro ao tentar realizar a postagem. Tente novamente mais tarde.',
                 confirmButtonText: 'Fechar',
                 confirmButtonColor: '#000000'
@@ -231,6 +225,7 @@
 
         return false;
     }
+
 
     function editar(idPublicacao) {
         sessionStorage.ID_POSTAGEM_EDITANDO = idPublicacao;
@@ -342,26 +337,15 @@
                         var tweetHeader = document.createElement("div");
                         var avatar = document.createElement("img");
                         var tweetHeaderInfo = document.createElement("div");
-                        var spanNome = document.createElement("span");
+                        var spanP = document.createElement("p");
                         var spanID = document.createElement("span");
                         var tweetDescricao = document.createElement("p");
 
+                        var publicacaoImagem = document.createElement("img"); // Para a imagem da publicação
+                        publicacaoImagem.className = "imagem-publicacao";
+
                         var tweetInfoCounts = document.createElement("div");
                         var tweetActions = document.createElement("div");
-
-                        var comments = document.createElement("div");
-                        var retweets = document.createElement("div");
-                        var likes = document.createElement("div");
-                        var message = document.createElement("div");
-
-                        var iconComment = document.createElement("i");
-                        var iconRetweet = document.createElement("i");
-                        var iconLike = document.createElement("i");
-                        var iconMessage = document.createElement("i");
-
-                        var commentCount = document.createElement("div");
-                        var retweetCount = document.createElement("div");
-                        var likesCount = document.createElement("div");
 
                         var btnEditar = document.createElement("button");
                         var btnDeletar = document.createElement("button");
@@ -373,33 +357,33 @@
                         tweetInfoCounts.className = "tweet-info-counts";
                         tweetActions.className = "tweet-actions";
 
-                        avatar.className = "avatar";
-                        avatar.alt = "Avatar";
-                        avatar.src = `/public/assets/upload/${sessionStorage.imagem_perfil}`;
-                        console.log(sessionStorage);
+                        // Carregar imagem_publicacao
+                        var imagemPublicacao = publicacao.imagem_publicacao;
+
+                        if (imagemPublicacao) {
+                            publicacaoImagem.src = `../assets/uploadP/${imagemPublicacao}`;
+                            publicacaoImagem.alt = "Imagem da publicação";
+                        } else {
+                            publicacaoImagem.alt = "Imagem não disponível";
+                        }
+
+                        // Carregar imagem_perfil
+                        var imagemPerfil = publicacao.imagem_perfil;
+                        if (imagemPerfil) {
+                            avatar.src = `../assets/upload/${imagemPerfil}`;
+                            avatar.alt = "Foto de perfil";
+                        } else {
+                            avatar.src = "../assets/img/profile.png"; // Imagem padrão caso não exista a foto de perfil
+                            avatar.alt = "Foto de perfil não disponível";
+                        }
+
+    
+                        avatar.classList.add("avatar-img");
 
 
-                        spanNome.innerHTML = publicacao.nome || "Autor";
+                        spanP.innerHTML = publicacao.nome || "Autor";
                         spanID.innerHTML = "<b>" + publicacao.idPublicacao + "</b>";
                         tweetDescricao.innerHTML = publicacao.descricao || "Descrição da publicação.";
-
-                        comments.className = "comments";
-                        retweets.className = "retweets";
-                        likes.className = "likes";
-                        message.className = "message";
-
-                        iconComment.setAttribute("data-feather", "message-circle");
-                        iconRetweet.setAttribute("data-feather", "repeat");
-                        iconLike.setAttribute("data-feather", "heart");
-                        iconMessage.setAttribute("data-feather", "send");
-
-                        commentCount.className = "comment-count";
-                        retweetCount.className = "retweet-count";
-                        likesCount.className = "likes-count";
-
-                        commentCount.innerHTML = publicacao.comentarios || "0";
-                        retweetCount.innerHTML = publicacao.retweets || "0";
-                        likesCount.innerHTML = publicacao.likes || "0";
 
                         btnEditar.className = "publicacao-btn-editar";
                         btnEditar.id = "btnEditar" + publicacao.idPublicacao;
@@ -411,34 +395,18 @@
                         btnDeletar.innerText = "Excluir";
                         btnDeletar.setAttribute("onclick", `deletar(${publicacao.idPublicacao})`);
 
-                        tweetHeader.appendChild(avatar);
+                        tweetHeader.appendChild(avatar); 
                         tweetHeader.appendChild(tweetHeaderInfo);
-                        tweetHeaderInfo.appendChild(spanNome);
+                        tweetHeaderInfo.appendChild(spanP);
                         tweetHeaderInfo.appendChild(spanID);
 
                         tweetActions.appendChild(btnEditar);
                         tweetActions.appendChild(btnDeletar);
 
-                        tweetInfoCounts.appendChild(comments);
-                        tweetInfoCounts.appendChild(retweets);
-                        tweetInfoCounts.appendChild(likes);
-                        tweetInfoCounts.appendChild(message);
-
-                        comments.appendChild(iconComment);
-                        comments.appendChild(commentCount);
-
-                        retweets.appendChild(iconRetweet);
-                        retweets.appendChild(retweetCount);
-
-                        likes.appendChild(iconLike);
-                        likes.appendChild(likesCount);
-
-                        message.appendChild(iconMessage);
-
                         tweetWrap.appendChild(tweetHeader);
                         tweetWrap.appendChild(tweetDescricao);
+                        tweetWrap.appendChild(publicacaoImagem); 
                         tweetWrap.appendChild(tweetInfoCounts);
-
                         tweetWrap.appendChild(tweetActions);
 
                         feed.appendChild(tweetWrap);
@@ -449,6 +417,8 @@
             console.error("#ERRO: ", erro);
         });
     }
+
+
 
 
     window.onload = atualizarFeed;

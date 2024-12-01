@@ -2,13 +2,12 @@ var database = require("../database/config");
 
 function buscarPontuacao() {
   var instrucaoSql = `
-  SELECT
+SELECT
    COUNT(CASE WHEN qtdPontos < 5 THEN 1 END) AS menor_que_5,
    COUNT(CASE WHEN qtdPontos BETWEEN 5 AND 7 THEN 1 END) AS de_5_a_7,
-   COUNT(CASE WHEN qtdPontos >= 8 AND qtdPontos < 10 THEN 1 END) AS de_8_a_9,
+   COUNT(CASE WHEN qtdPontos = 8 OR qtdPontos = 9 THEN 1 END) AS de_8_a_9,
    COUNT(CASE WHEN qtdPontos = 10 THEN 1 END) AS ate_10
 FROM quiz;
-
 `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
