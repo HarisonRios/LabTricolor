@@ -3,10 +3,11 @@ var database = require("../database/config");
 function listar() {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
-        SELECT 
+        SELECT
             a.id AS idPublicacao,
             a.descricao,
             a.imagem_publicacao,
+            a.data_publicacao,
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
@@ -15,7 +16,8 @@ function listar() {
             u.imagem_perfil
         FROM publicacoes a
             INNER JOIN usuario u
-                ON a.fk_usuario = u.id;
+                ON a.fk_usuario = u.id
+        ORDER BY a.data_publicacao DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -64,13 +66,16 @@ function listarPorUsuario(idUsuario) {
 
 function publicar(descricao, imagem_publicacao, idUsuario) {
     console.log("Publicar chamado com os dados:", descricao, imagem_publicacao, idUsuario);
+    var dataPublicacao = new Date().toISOString().slice(0, 19).replace("T", " ");
+    
     var instrucaoSql = `
-        INSERT INTO publicacoes (descricao, imagem_publicacao, fk_usuario) 
-        VALUES ('${descricao}', '${imagem_publicacao}', ${idUsuario});
+        INSERT INTO publicacoes (descricao, imagem_publicacao, data_publicacao, fk_usuario) 
+        VALUES ('${descricao}', '${imagem_publicacao}', '${dataPublicacao}', ${idUsuario});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 
 function editar(novaDescricao, idPublicacao) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idPublicacao);

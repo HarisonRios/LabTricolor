@@ -1,16 +1,21 @@
 DROP DATABASE IF EXISTS LabTricolor;
 CREATE DATABASE LabTricolor;
 
-USE LabTricolor;
-
-select * from usuario;
-
+USE LabTricolor;	
 
 CREATE TABLE sociotorcedor (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(40),
 	codigo_ativacao VARCHAR(50)
 );
+
+INSERT INTO socioTorcedor (nome, codigo_ativacao) VALUES
+('Vermelho', 'VMST01'),
+('Branco', 'BRST01'),
+('Preto', 'PRST01'),
+('Tricolor', 'TRSTO1'),
+('Diamante', 'DMST01');
+
 
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,29 +28,36 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE quiz (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    idQuiz INT PRIMARY KEY AUTO_INCREMENT,
     qtdPontos INT,
     fkUsuario INT,
     FOREIGN KEY (fkUsuario) REFERENCES usuario(id)
 );
 
-CREATE TABLE aviso (
+
+CREATE TABLE publicacoes (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(150),
+	descricao VARCHAR(250),
+    imagem_publicacao VARCHAR(300),
+    data_publicacao DATETIME,
 	fk_usuario INT,
 	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
 
-insert into socioTorcedor (nome, codigo_ativacao) values 
-('Vermelho', 'VMST01'),
-('Branco', 'BRST01'),
-('Preto', 'PRST01'),
-('Tricolor', 'TRSTO1'),
-('Diamante', 'DMST01');
-
-
 SELECT * FROM sociotorcedor;
-SELECT * FROM usuario;
-SELECT * FROM aviso;
+SELECT * FROM usuario; 
+SELECT * FROM publicacoes;
+SELECT * FROM Quiz;
+
+
+
+TRUNCATE TABLE publicacoes;
+
+
+
+
+
+
+
 
 
