@@ -52,7 +52,7 @@ restart_quiz.onclick = () => {
   clearInterval(counterLine); 
   startTimer(timeValue); 
   startTimerLine(widthValue); 
-  timeText.textContent = "Time Left"; 
+  timeText.textContent = "Tempo Restante"; 
   next_btn.classList.remove("show");
 };
 
@@ -74,7 +74,7 @@ next_btn.onclick = () => {
     clearInterval(counterLine); 
     startTimer(timeValue);
     startTimerLine(widthValue); 
-    timeText.textContent = "Time Left";
+    timeText.textContent = "Tempo Restante";
     next_btn.classList.remove("show"); 
   } else {
     clearInterval(counter); 

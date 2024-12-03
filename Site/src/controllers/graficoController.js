@@ -3,9 +3,9 @@ var graficoModel = require("../models/graficoModel");
 function buscarPontuacao(req, res) {
     graficoModel.buscarPontuacao().then(function (resultado) {
         if (resultado.length > 0) {
-            res.status(200).json(resultado[0]); 
+            res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhuma pontuação encontrada!");
+            res.status(204).send("Nenhuma pontuação encontrada!")
         }
     }).catch(function (erro) {
         console.log(erro);
@@ -15,16 +15,12 @@ function buscarPontuacao(req, res) {
 }
 
 
-
-
 function buscarJogadoresPontuacoes(req, res) {
     graficoModel.buscarJogadoresPontuacoes()
         .then(resultados => {
             const pontuacoesAgrupadas = [];
-
             resultados.forEach(item => {
                 const jogadorExistente = pontuacoesAgrupadas.find(jogador => jogador.nome_jogador === item.nome_jogador);
-                
                 if (jogadorExistente) {
                     if (item.qtdPontos > jogadorExistente.qtdPontos) {
                         jogadorExistente.qtdPontos = item.qtdPontos;
@@ -36,9 +32,7 @@ function buscarJogadoresPontuacoes(req, res) {
                     });
                 }
             });
-
             pontuacoesAgrupadas.sort((a, b) => b.qtdPontos - a.qtdPontos);
-
             res.json(pontuacoesAgrupadas);
         })
         .catch(erro => {

@@ -86,8 +86,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
   </div>
 
@@ -182,67 +180,52 @@ function buscarMelhoresPontuadores() {
   }
 
 
-
-
   function buscarPontuacao() {
-  fetch(`/grafico/buscarPontuacao`, { cache: 'no-store' })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Nenhum dado encontrado ou erro na API');
-      }
-    })
-    .then(resposta => {
-      console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-      if (resposta) {
+    fetch(`/grafico/buscarPontuacao`, { cache: 'no-store' })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .then(resposta => {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
         plotarGrafico(resposta);
-      } else {
-        console.error("Dados vazios ou formato incorreto.");
-      }
-    })
-    .catch(error => {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
+      })
+      .catch(error => {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
 
-function plotarGrafico(resposta) {
+  function plotarGrafico(resposta) {
   let labels = ['Quiz'];
-
   let dados = {
     labels: labels,
     datasets: [
       {
         label: 'Menor que 5',
-        data: [resposta.menor_que_5],
+        data: [resposta[0].ate_5],
         backgroundColor: 'rgb(0, 0, 0)',
-        borderColor: 'rgb(0, 0, 0)',  
+        borderColor: 'rgb(255, 255, 255)',
         borderWidth: 2,
       },
       {
-        label: 'De 5 a 7',
-        data: [resposta.de_5_a_7],
+        label: 'De 5 a 9',
+        data: [resposta[0].ate_9],
         backgroundColor: 'rgb(255, 255, 255)',
         borderColor: 'rgb(0, 0, 0)',
         borderWidth: 2,
       },
       {
-        label: 'De 8 a 9',
-        data: [resposta.de_8_a_9],
+        label: 'Gabaritou o Quiz',
+        data: [resposta[0].ate_10],
         backgroundColor: 'rgb(204, 0, 0)',
-        borderColor: 'rgb(0, 0, 0)',
-        borderWidth: 2,
-      },
-      {
-        label: '10',
-        data: [resposta.ate_10],
-        backgroundColor: 'gold',
-        borderColor: 'rgb(0, 0, 0)',
+        borderColor: 'rgb(255, 255, 255)',
         borderWidth: 2,
       }
     ]
   };
-
   const config = {
     type: 'bar',
     data: dados,
@@ -251,28 +234,48 @@ function plotarGrafico(resposta) {
       plugins: {
         legend: {
           labels: {
-            color: 'white',
-            font: { size: 14 },
+            color: 'white', 
+            font: {
+              size: 14,
+            }
           }
         }
       },
       scales: {
         x: {
           beginAtZero: true,
-          grid: { color: 'rgba(255, 255, 255, 0.2)' },
-          ticks: { color: 'white' },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.2)'
+          },
+          ticks: {
+            color: 'white', 
+          }
         },
         y: {
           beginAtZero: true,
-          grid: { color: 'rgba(255, 255, 255, 0.2)' },
-          ticks: { color: 'white' },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.2)' 
+          },
+          ticks: {
+            color: 'white', 
+          }
+        }
+      },
+      layout: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)' 
+      },
+      elements: {
+        bar: {
+          borderWidth: 2,
+          color: 'white'
         }
       }
     }
   };
-
   let myChart = new Chart(document.getElementById('myChart2'), config);
 }
+
+
 
 
 
