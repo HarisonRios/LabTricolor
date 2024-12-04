@@ -36,6 +36,7 @@ body {
 
 .kpi1, .kpi2, .kpi3, .kpi4 {
   background-color: #ffffff35;
+  white-space: nowrap;
   padding: 30px;
   border-radius: 5px;
   width: 22%; 
