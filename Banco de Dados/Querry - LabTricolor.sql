@@ -9,7 +9,7 @@ CREATE TABLE sociotorcedor (
 	codigo_ativacao VARCHAR(50)
 );
 
-INSERT INTO socioTorcedor (nome, codigo_ativacao) VALUES
+INSERT INTO sociotorcedor (nome, codigo_ativacao) VALUES
 ('Vermelho', 'VMST01'),
 ('Branco', 'BRST01'),
 ('Preto', 'PRST01'),
@@ -24,7 +24,7 @@ CREATE TABLE usuario (
     imagem_perfil VARCHAR(300),
 	senha VARCHAR(50),
 	fkSocioTorcedor INT,
-	FOREIGN KEY (fkSocioTorcedor) REFERENCES socioTorcedor(id)
+	FOREIGN KEY (fkSocioTorcedor) REFERENCES sociotorcedor(id)
 );
 
 CREATE TABLE quiz (
