@@ -508,6 +508,13 @@ body {
     justify-content: center;
 }
 
+.imagens-case img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 .slide {
     position: relative;
     width: 100%;
