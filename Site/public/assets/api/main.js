@@ -1,5 +1,5 @@
 const URL_TABELA = 'https://api.api-futebol.com.br/v1/campeonatos/10/tabela';
-const API_KEY = 'live_f8452473c652d99eebadb5c5f8935b';
+const API_KEY = 'live_dc3742e856b8ed622b27a409bcc046';
 
 // Função para obter a tabela do Brasileirão
 async function obterTabela() {
