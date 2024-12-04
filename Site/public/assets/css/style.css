@@ -271,13 +271,6 @@ body {
     color: white;
 }
 
-.conteudo-sobre {
-    position: relative;
-    top: 30%;
-    width: 100%;
-    height: 70%;
-    display: flex;
-}
 
 .left-sobre {
     color: white;
@@ -286,13 +279,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: left;
+    align-items: center;
     gap: 3rem;
 }
 
 .textos-sobre h1 {
     font-size: 3rem;
-   
 }
 
 .textos-sobre p {
@@ -303,6 +295,15 @@ body {
     letter-spacing: 1.5px;
 }
 
+
+.conteudo-sobre {
+    position: relative;
+    top: 30%;
+    width: 100%;
+    height: 70%;
+    display: flex;
+    margin-left: 700px;
+}
 
 .conteudo-sobre {
     display: flex;
@@ -770,28 +771,6 @@ hr {
     border: none;
     border-top: 1px solid #ccc;
     margin: 10px 0;
-}
-
-
-#cronometro {
-    height: 100%;
-    width: 100%;
-    color: white;
-
-
-    h1 {
-
-        font-size: 50px;
-        margin-top: 125px;
-        text-align: center;
-    }
-
-    h2 {
-        font-weight: normal;
-        color: white;
-        text-align: center;
-        margin-top: 10px;
-    }
 }
 
 
