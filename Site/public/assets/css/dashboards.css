@@ -34,30 +34,47 @@ body {
   flex-wrap: wrap; 
 }
 
+
 .kpi1, .kpi2, .kpi3, .kpi4 {
-  background-color: #ffffff35;
-  white-space: nowrap;
+  background-color: rgba(255, 255, 255, 0.15);
   padding: 30px;
-  border-radius: 5px;
-  width: 22%; 
+  border-radius: 10px;
+  width: 22%;
   margin-bottom: 30px;
   text-align: center;
   display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-  height: 150px; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease-in-out;
+  height: 150px;
+  font-family: 'Arial', sans-serif;
 }
 
 .kpi1:hover, .kpi2:hover, .kpi3:hover, .kpi4:hover {
-  border: 2px solid white;
+  border: 2px solid red;
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .kpi1 span:first-child, .kpi2 span:first-child, .kpi3 span:first-child, .kpi4 span:first-child {
   font-weight: bold;
+  font-size: 1.2em;
+  color: white;
 }
+
+.kpi1 span:last-child, .kpi2 span:last-child, .kpi3 span:last-child, .kpi4 span:last-child {
+  font-size: 1.1em;
+  color: #ffffff;
+  margin-top: 5px;
+}
+
+.kpi1, .kpi2, .kpi3, .kpi4 {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+
 
 #top3Pontuadores {
   list-style-type: none; 
@@ -99,15 +116,16 @@ body {
 canvas {
   width: 100% !important;
   height: 310px !important;
-  background-color: #ffffff30;
-  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   padding: 22px;
-  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease-in-out;
 }
 
 canvas:hover {
-  border: 2px solid white;
+  border: 2px solid #FF0000;
   box-shadow: 0 12px 24px rgba(255, 255, 255, 0.6), 0 6px 18px rgba(255, 255, 255, 0.4);
   transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.25);
 }
