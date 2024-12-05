@@ -46,25 +46,25 @@ function buscarMelhoresPontuadores() {
   return database.executar(instrucaoSql);
 }
 
-function contarTentativasPorUsuario() {
+
+function calcularPorcentagemGabaritaram() {
   const instrucaoSql = `
       SELECT 
-          usuario.id AS jogador_id,
-          usuario.nome AS nome_jogador,
-          COUNT(quiz.idQuiz) AS tentativas
-      FROM quiz
-      JOIN usuario ON quiz.fkUsuario = usuario.id
-      GROUP BY usuario.id, usuario.nome
-      ORDER BY tentativas DESC;
+          (COUNT(DISTINCT CASE WHEN quiz.qtdPontos = 10 THEN fkUsuario END) * 100.0 /
+           COUNT(DISTINCT fkUsuario)) AS porcentagem
+      FROM quiz;
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
+  return database.executar(instrucaoSql).then(resultados => resultados[0]);
 }
+module.exports = {
+  calcularPorcentagemGabaritaram,
+};
 
 
 module.exports = {
   buscarPontuacao,
   buscarJogadoresPontuacoes,
   buscarMelhoresPontuadores,
-  contarTentativasPorUsuario
+  calcularPorcentagemGabaritaram
 };

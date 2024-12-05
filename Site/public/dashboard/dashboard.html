@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="../assets/css/publicacoes.css">
 </head>
 
-<body onload="validarSessao(), buscarPontuacao(), buscarPontuacaoJogadores(), buscarMelhoresPontuadores(), buscarQuantidadeTentativas()">
+<body
+  onload="validarSessao(), buscarPontuacao(), buscarPontuacaoJogadores(), buscarMelhoresPontuadores(), buscarPorcentagemGabaritaram()">
   <aside class="hidebar">
     <img src="../assets/img/spfc.png" alt="Logo" class="logo">
     <nav class="menu">
@@ -33,7 +34,7 @@
       </p>
     </nav>
 
-    
+
     <div class="user-container">
       <img id="user-photo" class="profile-pic" alt="Perfil do Usuário" src="../assets/img/profile.jpg">
       <div class="user-info">
@@ -57,11 +58,11 @@
         <div class="kpi2">
           <span>Pontuação Média <br>dos Jogadores: <br></span>
           <span><span id="mediaPontuacaoJogador">0</span> Pontos</span>
-          
+
         </div>
         <div class="kpi3">
-          <span>Quantidade de Tentativas</span>
-          <span><span id="qtdTentativas">0</span> Vezes</span>
+          <span>Porcentagem de<br> Gabaritaram:</span>
+          <div id="kpi3Result"></div>
       </div>      
         <div class="kpi4">
           <span>Top 3 Pontuadores:</span>
@@ -96,7 +97,7 @@
 
 
 <script>
-  
+
   document.getElementById("b_usuario").innerHTML = sessionStorage.NOME_USUARIO;
 
   const imagemPerfil = sessionStorage.getItem('IMAGEM_PERFIL');
@@ -109,7 +110,7 @@
     document.getElementById('user-photo').src = '../assets/img/profile.jpg';
   }
 
-  
+
 
   const pontuacao = sessionStorage.getItem('Pontos');
   if (pontuacao == null) {
@@ -136,50 +137,56 @@
   }
 
 
-  function buscarQuantidadeTentativas() {
-  fetch('/grafico/buscarQuantidadeTentativas', { cache: 'no-store' })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Erro ao obter quantidade de tentativas');
-      }
-    })
-    .then(resposta => {
-      console.log('Quantidade de Tentativas:', resposta);
-      document.getElementById('qtdTentativas').textContent = resposta.qtdTentativas || '0'; 
-    })
-    .catch(error => {
-      console.error('Erro ao buscar quantidade de tentativas:', error);
-    });
-}
 
 
   function mostrarTop3Pontuadores(pontuadores) {
-  const top3List = document.getElementById('top3Pontuadores');
-  top3List.innerHTML = '';
+    const top3List = document.getElementById('top3Pontuadores');
+    top3List.innerHTML = '';
 
-  const medalhas = ['gold', 'silver', '#cd7f32']; 
+    const medalhas = ['gold', 'silver', '#cd7f32'];
 
-  for (let index = 0; index < 3 && index < pontuadores.length; index++) {
-    const jogador = pontuadores[index];
-    const listItem = document.createElement('li');
-    const medalha =
-      index < medalhas.length
-        ? `<i data-feather="award" style="color: ${medalhas[index]};"></i>`
-        : '';
+    for (let index = 0; index < 3 && index < pontuadores.length; index++) {
+      const jogador = pontuadores[index];
+      const listItem = document.createElement('li');
+      const medalha =
+        index < medalhas.length
+          ? `<i data-feather="award" style="color: ${medalhas[index]};"></i>`
+          : '';
 
-    listItem.innerHTML = `${medalha} ${jogador.nome_jogador}: ${jogador.qtdPontos} pontos`;
-    top3List.appendChild(listItem);
+      listItem.innerHTML = `${medalha} ${jogador.nome_jogador}: ${jogador.qtdPontos} pontos`;
+      top3List.appendChild(listItem);
+    }
+
+    feather.replace();
   }
 
-  feather.replace();
+  function buscarPorcentagemGabaritaram() {
+    fetch('/grafico/calcularPorcentagemGabaritaram')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao buscar a porcentagem');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const porcentagem = parseFloat(data.porcentagem);
+            if (!isNaN(porcentagem)) {
+                document.getElementById('kpi3Result').innerHTML = `${porcentagem.toFixed(0)}%`;
+            } else {
+                document.getElementById('kpi3Result').innerHTML = 'Nenhum jogador participou<br>ou nenhum gabaritou!';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar porcentagem:', error);
+            document.getElementById('kpi3Result').innerHTML = 'Erro ao carregar a porcentagem.';
+        });
 }
 
 
 
 
-function buscarMelhoresPontuadores() {
+
+  function buscarMelhoresPontuadores() {
     fetch('/grafico/buscarMelhoresPontuadores', { cache: 'no-store' })
       .then(response => {
         if (response.ok) {
@@ -217,82 +224,81 @@ function buscarMelhoresPontuadores() {
   }
 
   function plotarGrafico(resposta) {
-  let labels = ['Quiz'];
-  let dados = {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Menor que 5',
-        data: [resposta[0].ate_5],
-        backgroundColor: 'rgb(0, 0, 0)',
-        borderColor: 'rgb(255, 255, 255)',
-        borderWidth: 2,
-      },
-      {
-        label: 'De 5 a 9',
-        data: [resposta[0].ate_9],
-        backgroundColor: 'rgb(255, 255, 255)',
-        borderColor: 'rgb(0, 0, 0)',
-        borderWidth: 2,
-      },
-      {
-        label: 'Gabaritou o Quiz',
-        data: [resposta[0].ate_10],
-        backgroundColor: 'rgb(204, 0, 0)',
-        borderColor: 'rgb(255, 255, 255)',
-        borderWidth: 2,
-      }
-    ]
-  };
-  const config = {
-    type: 'bar',
-    data: dados,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            color: 'white', 
-            font: {
-              size: 14,
+    let labels = ['Quiz'];
+    let dados = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Menor que 5',
+          data: [resposta[0].ate_5],
+          backgroundColor: 'rgb(0, 0, 0)',
+          borderColor: 'rgb(255, 255, 255)',
+          borderWidth: 2,
+        },
+        {
+          label: 'De 5 a 9',
+          data: [resposta[0].ate_9],
+          backgroundColor: 'rgb(255, 255, 255)',
+          borderColor: 'rgb(0, 0, 0)',
+          borderWidth: 2,
+        },
+        {
+          label: 'Gabaritou o Quiz',
+          data: [resposta[0].ate_10],
+          backgroundColor: 'rgb(204, 0, 0)',
+          borderColor: 'rgb(255, 255, 255)',
+          borderWidth: 2,
+        }
+      ]
+    };
+    const config = {
+      type: 'bar',
+      data: dados,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white',
+              font: {
+                size: 14,
+              }
             }
           }
-        }
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.2)'
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
+            },
+            ticks: {
+              color: 'white',
+            }
           },
-          ticks: {
-            color: 'white', 
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
+            },
+            ticks: {
+              color: 'white',
+            }
           }
         },
-        y: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.2)' 
-          },
-          ticks: {
-            color: 'white', 
+        layout: {
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        },
+        elements: {
+          bar: {
+            borderWidth: 2,
+            color: 'white'
           }
         }
-      },
-      layout: {
-        backgroundColor: 'rgba(255, 255, 255, 0.1)' 
-      },
-      elements: {
-        bar: {
-          borderWidth: 2,
-          color: 'white'
-        }
       }
-    }
-  };
-  let myChart = new Chart(document.getElementById('myChart2'), config);
-}
-
+    };
+    let myChart = new Chart(document.getElementById('myChart2'), config);
+  }
 
 
 
@@ -320,59 +326,55 @@ function buscarMelhoresPontuadores() {
     const pontuacoes = resposta.map(item => item.qtdPontos);
 
     const dados = {
-        labels: jogadores,
-        datasets: [{
-            label: 'Pontuações dos jogadores (Maior Pontuação)',  
-            data: pontuacoes,
-            backgroundColor: 'rgb(255, 255, 255)',
-            borderColor: 'rgb(0, 0, 0)',
-            borderWidth: 2,
-        }]
+      labels: jogadores,
+      datasets: [{
+        label: 'Pontuações dos jogadores (Maior Pontuação)',
+        data: pontuacoes,
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderColor: 'rgb(0, 0, 0)',
+        borderWidth: 2,
+      }]
     };
 
     const config = {
-        type: 'bar',
-        data: dados,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'white',
-                        font: { size: 14 }
-                    }
-                },
+      type: 'bar',
+      data: dados,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white',
+              font: { size: 14 }
+            }
+          },
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
             },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    },
-                    ticks: {
-                        color: 'white',
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    },
-                    ticks: {
-                        color: 'white',
-                    }
-                }
+            ticks: {
+              color: 'white',
+            }
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.2)'
             },
-        }
+            ticks: {
+              color: 'white',
+            }
+          }
+        },
+      }
     };
 
     const ctx = document.getElementById('graficoJogadores').getContext('2d');
     new Chart(ctx, config);
-}
-
-
-
-
+  }
 
 
   function dashboard() {

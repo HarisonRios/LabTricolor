@@ -58,25 +58,25 @@ function buscarMelhoresPontuadores(req, res) {
         });
 }
 
-    function buscarTentativasPorUsuario(req, res) {
-        graficoModel.contarTentativasPorUsuario()
-            .then(resultados => {
-                if (resultados.length > 0) {
-                    res.status(200).json(resultados);
-                } else {
-                    res.status(204).send("Nenhuma tentativa encontrada!");
-                }
-            })
-            .catch(erro => {
-                console.error('Erro ao buscar as tentativas por usuário: ', erro);
-                res.status(500).json({ erro: 'Erro ao buscar as tentativas por usuário.' });
-            });
-    }
+function calcularPorcentagemGabaritaram(req, res) {
+    graficoModel.calcularPorcentagemGabaritaram()
+        .then(resultado => {
+            if (resultado.porcentagem !== null) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum jogador participou ou nenhum gabaritou!");
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao calcular a porcentagem de jogadores que gabaritaram: ", erro);
+            res.status(500).json({ erro: "Erro ao calcular a porcentagem de jogadores que gabaritaram." });
+        });
+}
 
 
 module.exports = {
     buscarPontuacao,
     buscarJogadoresPontuacoes,
     buscarMelhoresPontuadores,
-    buscarTentativasPorUsuario
+    calcularPorcentagemGabaritaram
 }

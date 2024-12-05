@@ -19,8 +19,8 @@ router.get("/buscarMelhoresPontuadores", function (req, res) {
 });
 
 // Rota para buscar o número de tentativas de cada jogador
-router.get("/buscarTentativasPorUsuario", function (req, res) {
-    graficoController.buscarTentativasPorUsuario(req, res);
+router.get("/calcularPorcentagemGabaritaram", function (req, res) {
+    graficoController.calcularPorcentagemGabaritaram(req, res);
 });
 
 
