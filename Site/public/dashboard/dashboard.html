@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../assets/css/publicacoes.css">
 </head>
 
-<body onload="validarSessao(), buscarPontuacao(), buscarPontuacaoJogadores(), buscarMelhoresPontuadores()">
+<body onload="validarSessao(), buscarPontuacao(), buscarPontuacaoJogadores(), buscarMelhoresPontuadores(), buscarQuantidadeTentativas()">
   <aside class="hidebar">
     <img src="../assets/img/spfc.png" alt="Logo" class="logo">
     <nav class="menu">
@@ -55,19 +55,18 @@
           <span><span id="ultimaPontuacao">0</span> de 10 pontos</span>
         </div>
         <div class="kpi2">
-          <span>Pontuação Média dos Jogadores:</span>
-          <span><span id="mediaPontuacaoJogador">0</span> de pontos possíveis</span>
+          <span>Pontuação Média <br>dos Jogadores: <br></span>
+          <span><span id="mediaPontuacaoJogador">0</span> Pontos</span>
+          
         </div>
         <div class="kpi3">
+          <span>Quantidade de Tentativas</span>
+          <span><span id="qtdTentativas">0</span> Vezes</span>
+      </div>      
+        <div class="kpi4">
           <span>Top 3 Pontuadores:</span>
           <ul id="top3Pontuadores">
           </ul>
-        </div>
-        <div class="kpi4">
-          <span>
-            EM MANUTENÇÃO!! (Quantidade de Tentativas)
-          </span>
-          <span><span id="nãosei">0</span> jogos</span>
         </div>
 
 
@@ -137,6 +136,23 @@
   }
 
 
+  function buscarQuantidadeTentativas() {
+  fetch('/grafico/buscarQuantidadeTentativas', { cache: 'no-store' })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Erro ao obter quantidade de tentativas');
+      }
+    })
+    .then(resposta => {
+      console.log('Quantidade de Tentativas:', resposta);
+      document.getElementById('qtdTentativas').textContent = resposta.qtdTentativas || '0'; 
+    })
+    .catch(error => {
+      console.error('Erro ao buscar quantidade de tentativas:', error);
+    });
+}
 
 
   function mostrarTop3Pontuadores(pontuadores) {

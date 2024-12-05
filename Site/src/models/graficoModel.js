@@ -46,8 +46,25 @@ function buscarMelhoresPontuadores() {
   return database.executar(instrucaoSql);
 }
 
+function contarTentativasPorUsuario() {
+  const instrucaoSql = `
+      SELECT 
+          usuario.id AS jogador_id,
+          usuario.nome AS nome_jogador,
+          COUNT(quiz.idQuiz) AS tentativas
+      FROM quiz
+      JOIN usuario ON quiz.fkUsuario = usuario.id
+      GROUP BY usuario.id, usuario.nome
+      ORDER BY tentativas DESC;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
   buscarPontuacao,
   buscarJogadoresPontuacoes,
   buscarMelhoresPontuadores,
+  contarTentativasPorUsuario
 };

@@ -69,13 +69,13 @@
                     </div>
                     <div class="bottom">
                         <ul class="icons">
-                            <li>
-                                <label for="foto" class="upload-label">
-                                  <i class="far fa-file-image"></i> 
-                                  Escolher imagem
+                            <li style="display: flex; align-items: center;">
+                                <label for="foto" class="upload-label" style="cursor: pointer; margin-right: 10px;">
+                                    <i class="far fa-file-image"></i> Escolher imagem
                                 </label>
-                                <input id="foto" type="file" name="imagem" accept="image/*" />
-                              </li>
+                                <input id="foto" type="file" name="imagem" accept="image/*" style="display: none;" />
+                                <span id="imagem-selecionada-msg" style="font-size: 12px; color: green; visibility: hidden;">Imagem selecionada</span>
+                            </li>
                         </ul>
                         <div class="content">
                             <span class="counter" id="counter">100</span>
@@ -166,6 +166,18 @@
         console.log('Imagem de perfil não encontrada no sessionStorage.');
         document.getElementById('user-photo').src = '../assets/img/profile.jpg';
     }
+
+
+    document.getElementById("foto").addEventListener("change", function () {
+    var mensagem = document.getElementById("imagem-selecionada-msg");
+    if (this.files && this.files.length > 0) {
+        mensagem.style.visibility = "visible"; // Mostra a mensagem sem alterar o layout
+    } else {
+        mensagem.style.visibility = "hidden"; // Oculta a mensagem
+    }
+});
+
+
 
 
     function publicar() {
@@ -377,7 +389,7 @@
                             avatar.alt = "Foto de perfil não disponível";
                         }
 
-    
+
                         avatar.classList.add("avatar-img");
 
 
@@ -395,7 +407,7 @@
                         btnDeletar.innerText = "Excluir";
                         btnDeletar.setAttribute("onclick", `deletar(${publicacao.idPublicacao})`);
 
-                        tweetHeader.appendChild(avatar); 
+                        tweetHeader.appendChild(avatar);
                         tweetHeader.appendChild(tweetHeaderInfo);
                         tweetHeaderInfo.appendChild(spanP);
                         tweetHeaderInfo.appendChild(spanID);
@@ -405,7 +417,7 @@
 
                         tweetWrap.appendChild(tweetHeader);
                         tweetWrap.appendChild(tweetDescricao);
-                        tweetWrap.appendChild(publicacaoImagem); 
+                        tweetWrap.appendChild(publicacaoImagem);
                         tweetWrap.appendChild(tweetInfoCounts);
                         tweetWrap.appendChild(tweetActions);
 

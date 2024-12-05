@@ -317,7 +317,10 @@ body {
   white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-left: 90px;
 }
+
+
 
 .upload-label i {
   margin-right: 8px;
@@ -602,6 +605,46 @@ img {
   margin-top: 10px;
   border-radius: 8px; 
 }
+
+
+.tweet-actions {
+  display: flex; 
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 10px; 
+}
+
+
+.publicacao-btn-editar,
+.publicacao-btn-deletar {
+  background-color: #171717; 
+  color: white;
+  border: none; 
+  border-radius: 5px; 
+  padding: 8px 16px; 
+  cursor: pointer; 
+  font-size: 14px; 
+  transition: background-color 0.3s; 
+}
+
+
+.publicacao-btn-editar:hover {
+  background-color: #0056b3; 
+}
+
+.publicacao-btn-deletar:hover {
+  background-color: #dc3545; 
+}
+
+
+
+#imagem-selecionada-msg {
+  font-size: 12px;
+  color: green;
+  margin-left: 10px; /* Espaço fixo entre o botão e a mensagem */
+  visibility: hidden; /* Oculta a mensagem inicialmente sem impactar o layout */
+}
+
 
 
 

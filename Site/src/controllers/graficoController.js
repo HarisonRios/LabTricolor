@@ -58,9 +58,25 @@ function buscarMelhoresPontuadores(req, res) {
         });
 }
 
+    function buscarTentativasPorUsuario(req, res) {
+        graficoModel.contarTentativasPorUsuario()
+            .then(resultados => {
+                if (resultados.length > 0) {
+                    res.status(200).json(resultados);
+                } else {
+                    res.status(204).send("Nenhuma tentativa encontrada!");
+                }
+            })
+            .catch(erro => {
+                console.error('Erro ao buscar as tentativas por usuário: ', erro);
+                res.status(500).json({ erro: 'Erro ao buscar as tentativas por usuário.' });
+            });
+    }
+
 
 module.exports = {
     buscarPontuacao,
     buscarJogadoresPontuacoes,
-    buscarMelhoresPontuadores
+    buscarMelhoresPontuadores,
+    buscarTentativasPorUsuario
 }
