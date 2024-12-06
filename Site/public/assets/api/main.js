@@ -18,7 +18,7 @@ async function obterTabela() {
     }
 }
 // Função para mostrar a tabela e os próximos jogos no HTML
-async function mostrarTabelaEJogos() {
+async function mostrarTabela() {
     const tabela = await obterTabela();
     const tabelaElement = document.getElementById('tabela');
 
@@ -36,8 +36,4 @@ async function mostrarTabelaEJogos() {
 }
 
 
-
-
-
-
-mostrarTabelaEJogos();
+mostrarTabela();
