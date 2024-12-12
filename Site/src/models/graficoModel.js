@@ -31,6 +31,8 @@ function buscarJogadoresPontuacoes() {
   return database.executar(instrucaoSql);
 }
 
+
+
 function buscarMelhoresPontuadores() {
   var instrucaoSql = `
     SELECT 
@@ -45,6 +47,7 @@ function buscarMelhoresPontuadores() {
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+
 
 
 function calcularPorcentagemGabaritaram() {
